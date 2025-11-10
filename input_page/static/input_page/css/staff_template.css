@@ -1,0 +1,45 @@
+body {
+  background-color: dimgray;
+  color: whitesmoke;
+}
+
+/* =========================================
+   共通設定: はみ出し防止のための基盤
+   ========================================= */
+
+/* すべての要素に box-sizing を適用するのが現代の標準です */
+* {
+  box-sizing: border-box;
+}
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+li,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif; /* プロジェクトに応じたフォント */
+  line-height: 1.5; /* 標準的な行の高さ */
+  /* Chrome, Safari, Firefox向け */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* フォーム要素の最小サイズ制約を解除 (前回設定済み) */
+form,
+input,
+button {
+  min-width: 0;
+  min-height: 0;
+}
+

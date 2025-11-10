@@ -1,0 +1,496 @@
+img {
+  max-width: 100%; /* 親要素の幅を超えない */
+  height: auto; /* 縦横比を維持 */
+  display: block; /* インライン要素特有の余白問題を解消 */
+}
+/* ========== 1. トークン（共通変数） ========== */
+:root {
+  /* 色 */
+  --color-main: #0000ff;
+  --color-bg: #f8f9fa;
+  --color-text: #333;
+  --color-heading: #2c3e50;
+  --color-footer-bg: #2c3e50;
+  --color-nav-hover: #dbeafe;
+  --color-card-bg: #ffffff;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+
+  /* レイアウト・サイズ */
+  --header-height: 60px;
+  --layout-max-width: 1100px;
+  --section-padding-y: 60px;
+  /* プロフィール画像用（PCベース） */
+  --profile-img-min-width: 150px;
+  --profile-img-max-width: 150px;
+  --profile-img-min-height: 200px;
+  --profile-img-max-height: 200px;
+  --hero-height-pc: 400px;
+  --hero-height-sp: 250px;
+
+  /* その他 */
+  --radius-card: 8px;
+  --transition-fast: 0.3s;
+
+  /* ブレイクポイント */
+  --bp-sp: 768px;
+}
+
+/* ========== 2. ベース ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+    sans-serif;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+main {
+  margin-top: var(--header-height); /* 固定ヘッダー分の余白 */
+  position: relative;
+}
+
+footer {
+  background: var(--color-footer-bg);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ========== 3. ヘッダー / ナビゲーション ========== */
+.navbar-area {
+  position: fixed;
+  inset: 0 0 auto 0; /* top:0; left:0; right:0 相当 */
+  height: var(--header-height);
+  background: var(--color-main);
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 27px;
+}
+
+.logo-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+
+  white-space: nowrap;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  border: solid cyan 2px;
+  margin-top: 0px;
+}
+
+.nav-links a:hover {
+  color: var(--color-nav-hover);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.menu-toggle:active {
+  transform: scale(0.9);
+  color: var(--color-nav-hover);
+}
+
+/* ========== 4. ヒーロー（スライドショー） ========== */
+.hero-area {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: var(--hero-height-pc);
+  z-index: 1;
+}
+
+.slider {
+  display: flex;
+  width: 100%; /* ← ここで一度100%に固定 */
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide {
+  flex-shrink: 0;
+  flex: 0 0 100%; /* ← ここがポイント：明示的に100%固定 */
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: 3px solid gray;
+}
+
+.hero-content {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 800px;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  font-size: 2rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 0px;
+  transform: translateY(-50%) translateX(-20%); /* ← 内側に少し寄せる */
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* ========== 5. セクション（共通） ========== */
+#schedule1,
+#schedule2,
+#schedule3 {
+  /* デバッグ用なら、落ち着いたら外してOK */
+  border-radius: 1px;
+  padding: 5px 2px 5px 2px;
+  margin-top: 5px;
+  background: var(--color-bg);
+  padding: 30px 2px;
+}
+
+#schedule2 {
+  border: solid cyan 3px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--color-heading);
+  /* border: 0.3px solid blue; */
+  background: lightskyblue;
+  border-radius: 10%;
+}
+
+/* ========== 6. 出演スケジュール ========== */
+
+/* ▼ 月送りナビ（PC/スマホ共通） */
+.month-nav {
+  max-width: var(--layout-max-width);
+  margin: 10px auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.month-label {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  min-width: 9rem;
+  text-align: center;
+}
+
+.month-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.month-btn.today {
+  border-color: #60a5fa;
+}
+
+.schedule-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+}
+
+.day-cell {
+  background: var(--color-card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 6px var(--color-card-shadow);
+  padding: 12px;
+  min-height: 120px;
+}
+
+.day-date {
+  font-weight: bold;
+  color: var(--color-main);
+  margin-bottom: 5px;
+}
+
+.event-title {
+  font-size: 0.95rem;
+  color: #111;
+}
+
+.event-time {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.event-artist {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.schedule-list {
+  display: none;
+}
+
+/* ========== 7. プロフィール ========== */
+
+/* 横並びの行コンテナ */
+.profile-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* 画像コンテナ（常に同じサイズで安定させる） */
+.jpeg_area {
+  /* 画面幅に応じて変わるけど、min/max でガード */
+  width: 35vw; /* 好みで 30vw〜40vw くらいに調整 */
+  max-width: var(--profile-img-max-width);
+  min-width: var(--profile-img-min-width);
+
+  /* 高さも同様に上下限だけ決めておく */
+  max-height: var(--profile-img-max-height);
+  min-height: var(--profile-img-min-height);
+
+  overflow: hidden;
+  flex: 0 1 auto; /* 必要なら 0 0 auto にしてもOK */
+}
+
+.jpeg_area img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* 枠いっぱいに表示しつつ中央トリミング */
+}
+
+/* テキスト側のブロック（名前・紹介文） */
+.profile-meta {
+  padding-top: 10px; /* 写真のmargin-topと揃える */
+  max-width: 36ch; /* 1行の理想幅（36文字程度）に自動改行 */
+}
+
+/* \n を改行表示しつつ、英単語や長い文字列も折り返す */
+.profile-text {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+}
+
+/* ========== 8. フェードイン（ユーティリティ） ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ========== 9. スマホ対応 ========== */
+@media (max-width: 768px) {
+  :root {
+    /* プロフィール画像用（PCベース） */
+    --profile-img-min-width: 150px;
+    --profile-img-max-width: 150px;
+    --profile-img-min-height: 200px;
+    --profile-img-max-height: 200px;
+  }
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    flex-direction: column;
+    padding: 1rem;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 0.3rem 0;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+
+  /* スマホではカレンダー非表示、一列カードに変更 */
+  .schedule-calendar {
+    display: none;
+  }
+
+  .schedule-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .schedule-item {
+    background: var(--color-card-bg);
+    border-radius: var(--radius-card);
+    box-shadow: 0 2px 6px var(--color-card-shadow);
+    padding: 1rem;
+  }
+
+  .schedule-item-date {
+    font-weight: bold;
+    color: var(--color-main);
+  }
+
+  .schedule-item-title {
+    font-size: 1rem;
+    color: #111;
+    margin-top: 5px;
+  }
+
+  .schedule-item-time {
+    color: #444;
+    font-size: 0.9rem;
+  }
+
+  .schedule-item-artist {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .hero-area {
+    height: var(--hero-height-sp);
+    overflow: hidden; /* ← これを必ず指定 */
+  }
+
+  .slide {
+    /* border: 3px solid red;  */
+    padding: 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    justify-items: stretch;
+    background-color: hotpink; /* 一時的なテスト用 */
+  }
+
+  .jpeg_area {
+    /* 画面幅に応じて変わるけど、min/max でガード */
+    width: 35vw; /* 好みで 30vw〜40vw くらいに調整 */
+    max-width: var(--profile-img-max-width);
+    min-width: var(--profile-img-min-width);
+
+    /* 高さも同様に上下限だけ決めておく */
+    max-height: var(--profile-img-max-height);
+    min-height: var(--profile-img-min-height);
+
+    overflow: hidden;
+    flex: 0 1 auto; /* 必要なら 0 0 auto にしてもOK */
+  }
+  .submenu {
+    margin: 0; /* ← 上0.2rem、下0、左1.5rem（字下げ） */
+    padding: 0;
+    list-style-type: none;
+    border: solid green 2px;
+  }
+
+  /* ▼ 字下げ（下位項目） */
+  .nav-links li.submenu {
+    margin-left: 1.5rem; /* ← インデント */
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .top_cl {
+    border: red solid 1px;
+    margin-bottom: 0px;
+  }
+  .profile-item {
+    border: solid mediumpurple 3px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: stretch;
+    justify-items: stretch;
+
+    width: 100%;
+  }
+  .jpeg_area {
+    border: solid red 1px;
+    width: 100%;
+  }
+  .profile-meta {
+    /* border:solid greenyellow 1px; */
+    width: 100%;
+    font-size: 14px;
+    /* height:100%; */
+  }
+}

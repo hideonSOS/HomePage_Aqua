@@ -1,0 +1,189 @@
+/* ========== 1. トークン（共通変数） ========== */
+:root {
+  /* 色 */
+  --color-main: #0000ff;
+  --color-bg: #f8f9fa;
+  --color-text: #333;
+  --color-heading: #2c3e50;
+  --color-footer-bg: #2c3e50;
+  --color-nav-hover: #dbeafe;
+  --color-card-bg: #ffffff;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+
+  /* レイアウト・サイズ */
+  --header-height: 60px;
+  --layout-max-width: 1100px;
+  --section-padding-y: 60px;
+  /* プロフィール画像用（PCベース） */
+  --profile-img-min-width: 150px;
+  --profile-img-max-width: 150px;
+  --profile-img-min-height: 200px;
+  --profile-img-max-height: 200px;
+  --hero-height-pc: 400px;
+  --hero-height-sp: 250px;
+
+  /* その他 */
+  --radius-card: 8px;
+  --transition-fast: 0.3s;
+
+  /* ブレイクポイント */
+  --bp-sp: 768px;
+}
+
+/* ========== 2. ベース ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+    sans-serif;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+main {
+  margin-top: var(--header-height); /* 固定ヘッダー分の余白 */
+  position: relative;
+}
+
+footer {
+  background: var(--color-footer-bg);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ========== 3. ヘッダー / ナビゲーション ========== */
+.navbar-area {
+  position: fixed;
+  inset: 0 0 auto 0; /* top:0; left:0; right:0 相当 */
+  height: var(--header-height);
+  background-color: var(--color-main);
+
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+}
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  height: 27px;
+}
+
+.logo-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+
+  white-space: nowrap;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  border: solid cyan 2px;
+  margin-top: 0px;
+}
+
+.nav-links a:hover {
+  color: var(--color-nav-hover);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.menu-toggle:active {
+  transform: scale(0.9);
+  color: var(--color-nav-hover);
+}
+
+/* ========== 4. ヒーロー（スライドショー） ========== */
+
+/* ========== 8. フェードイン（ユーティリティ） ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.submenu {
+  margin: 0; /* ← 上0.2rem、下0、左1.5rem（字下げ） */
+  padding: 0;
+  list-style-type: none;
+  border: solid green 2px;
+}
+.nav-links li.submenu {
+  margin-left: 1.5rem; /* ← インデント */
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+/* ========== 9. スマホ対応 ========== */
+@media (max-width: 768px) {
+  :root {
+    /* プロフィール画像用（PCベース） */
+    --profile-img-min-width: 150px;
+    --profile-img-max-width: 150px;
+    --profile-img-min-height: 200px;
+    --profile-img-max-height: 200px;
+  }
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    flex-direction: column;
+    padding: 1rem;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 0.3rem 0;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+}

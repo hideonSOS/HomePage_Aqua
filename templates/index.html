@@ -1,0 +1,134 @@
+{% extends 'template.html' %}
+{% load static %}
+<!DOCTYPE html>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  {% endblock %}
+
+      {% block content %}
+      <!-- メイン領域 -->
+      <div id="app">
+      <main>
+        <!-- スライドショー -->
+        <section class="hero-area" id="home">
+          <div
+            class="slider"
+            :style="{ transform: 'translateX(-' + currentSlide * 100 + '%)' }"
+          >
+            <div
+              class="slide"
+              v-for="(image, index) in heroImages"
+              :key="index"
+              :style="{ backgroundImage: 'url(' + image.url + ')' }"
+            >
+              <div class="hero-content">
+                <h1>[[ image.title ]]</h1>
+                <p>[[ image.subtitle ]]</p>
+              </div>
+            </div>
+          </div>
+          <button class="arrow left" @click="prevSlide">❮</button>
+          <button class="arrow right" @click="nextSlide">❯</button>
+        </section>
+
+        <!-- 出演スケジュール -->
+        <section id="schedule1">
+          <h2 class="section-title">出演スケジュール</h2>
+
+          <!-- ▼ 月送りナビ（PC/スマホ共通） -->
+          <div class="month-nav">
+            <button class="month-btn" @click="goMonth(-1)">◀ 前の月</button>
+            <div class="month-label">[[ year ]]年 [[ month ]]月</div>
+            <button class="month-btn" @click="goMonth(1)">次の月 ▶</button>
+            <button class="month-btn today" @click="goToday">今月</button>
+          </div>
+
+          <!-- PC用カレンダー -->
+          <div class="schedule-calendar">
+            <div v-for="day in calendarDays" :key="day.date" class="day-cell">
+              <div class="day-date">[[ day.date ]]</div>
+              <div
+                v-for="event in day.events"
+                :key="event.id || (event.y + '-' + event.m + '-' + event.d + '-' + event.title)"
+              >
+                <div class="event-title">[[ event.title ]]</div>
+                <div class="event-time">[[ event.time ]]</div>
+                <div class="event-artist">[[ event.artist ]]</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- スマホ用カードリスト（当月のみ表示） -->
+          <div class="schedule-list">
+            <div
+              v-for="event in monthEvents"
+              :key="event.id || (event.y+'-'+event.m+'-'+event.d+'-'+event.title)"
+              class="schedule-item"
+            >
+              <div class="schedule-item-date">
+                [[ event.y ]] / [[ event.m ]] / [[ event.d ]]
+              </div>
+              <div class="schedule-item-title">[[ event.title ]]</div>
+              <div class="schedule-item-time">[[ event.time ]]</div>
+              <div class="schedule-item-artist">[[ event.artist ]]</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="schedule2">
+          <h2 class="section-title">出演者プロフィール</h2>
+
+          <div class="profiles">
+            <div
+              class="profile-item"
+              v-for="(p,i) in profiles"
+              :key="p.path"
+              v-reveal="{ delay: i*80 }"
+            >
+              <div class="jpeg_area">
+                <img :src="p.path" :alt="p.name" />
+              </div>
+              <div class="profile-meta">
+                <div class="profile-name" style="color: #0000ff">
+                  [[ p.name ]]
+                </div>
+                <div class="profile-text">[[ p.text ]]</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="schedule3">
+          <h2 class="section-title">テスト</h2>
+          <!-- [[ test ]] -->
+        </section>
+          {{ data|json_script:'data-json' }}
+        
+      </main>
+    </div>
+    
+
+
+    {% endblock %}
+
+
+    {% block extra_js %}
+    {% load static %}
+<script>
+    // 🎯 必要なベースパスや画像をグローバル変数として定義
+    const STATIC_IMAGE_URLS = {
+        // ベースURLを設定
+        base: "{% static 'images/' %}", 
+        // もしくは個別の画像パスを定義
+        aqualivestation_1: "{% static 'images/aqualivestation_1.jpg' %}",
+        aqualivestation_2: "{% static 'images/aqualivestation_2.jpg' %}",
+        tateyama_kazuma: "{% static 'images/tateyama_kazuma.jpg' %}",
+        yamamoto_syuji: "{% static 'images/yamamoto_syuji.jpg' %}",
+    };
+</script>
+
+<script src="{% static 'path/to/your/app.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+
+    {% endblock %}
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+</head>
+<body>
+	<h1>削除確認</h1>
+
+<p>本当に以下のスケジュールを削除しますか？</p>
+
+
+<p>{{ object.day }}</p>
+<p>{{ object.title }}</p>
+<p>{{ object.time }}</p>
+<p>{{ object.artist }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="削除を実行する">
+    <a href="{% url 'input_page:list' %}">キャンセルして戻る</a>
+</form>
+</div>
+</body>
+</html>

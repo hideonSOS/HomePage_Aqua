@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スケジュール一覧</title>
+	<style>
+		
+
+	</style>
+
+</head>
+<body>
+    <h1>スケジュール一覧</h1>
+    
+    {% if schedule_list %}
+        {% for schedule in schedule_list %}
+            <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
+                <p><strong>日付:</strong> {{ schedule.day|date:"Y年m月d日" }}</p>
+                <p><strong>タイトル:</strong> {{ schedule.title }}</p>
+                <p><strong>出演者:</strong> {{ schedule.artist }}</p>
+
+                <a href="{% url 'input_page:delete' pk=schedule.pk %}">
+                    [削除確認]
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>登録されているスケジュールはありません。</p>
+    {% endif %}
+
+    {% if form %}
+        <h3>新規追加 / 検索フォーム</h3>
+        {{ form.as_p }}
+    {% endif %}
+
+</body>
+</html>

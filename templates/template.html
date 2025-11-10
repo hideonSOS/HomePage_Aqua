@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>アクアライブステーション</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"></script>
+    <link href='{% static "css/4-1-3.css" %}' rel="stylesheet">
+    <link rel='stylesheet' href="{% static 'css/template.css' %}">
+    
+    {% block extra_css %} {% endblock %}
+  </head>
+
+  <body>
+    <div id="splash">
+    <div id="splash_text"></div>
+		<div class="loader_cover loader_cover-up"></div>
+		<div class="loader_cover loader_cover-down"></div>
+	</div>
+      
+      <!-- ヘッダー -->
+      <header class="navbar-area">
+        <nav>
+          <div class="logo-container">
+            <img
+              class="logo-img"
+              src="{% static 'images/logo.svg' %}"
+              alt="アクアライブステーション"
+            />
+          </div>
+
+          <!-- 通常のHTMLナビゲーション -->
+          <button class="menu-toggle">☰</button>
+
+          <ul class="nav-links">
+            <li class='top_cl'><a href="/">ホーム</a></li>
+            <li class="submenu" ><a href="#schedule1">出演スケジュール</a></li>
+            <li class="submenu" ><a href="#schedule2">出演者プロフィール</a></li>
+            
+            <li class="top_cl" ><a href="{% url 'input_page:artist' %}">出演者挨拶</a></li>
+            <li class="top_cl" ><a href="{% url 'room:room' %}">住之江ゼミナール</a></li>
+            <li class="top_cl" ><a href="{% url 'input_page:history' %}">沿革</a></li>
+          </ul>
+        </nav>
+      </header>
+      {% block content %}{% endblock %}
+      <footer>
+          <p>
+            &copy; アクアライブステーション. All rights
+          </p>
+        </footer>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+      <script src='{% static "js/4-1-3.js" %}'></script>
+      <script src='{% static "js/template.js" %}'></script>
+      
+      {% block extra_js %}{% endblock %}
+    
+  
+</html>

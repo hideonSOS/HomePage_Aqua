@@ -1,0 +1,60 @@
+{% extends 'template.html' %} {% block extra_css %}
+<style>
+  #testo {
+    margin-top: 80px;
+    width: 70%;
+    height: 300px;
+    border-color: red;
+    border-style: solid;
+    border-width: 2px;
+  }
+  @media (max-width: 768px) {
+    #testo {
+      margin-top: 80px;
+      width: 100%;
+      height: 215px;
+      border-color: red;
+      border-style: solid;
+      border-width: 2px;
+    }
+  }
+</style>
+
+{% endblock %} 
+
+{% block content %}
+
+<div id="testo">
+  <iframe
+    id="frame1"
+    width="100%"
+    height="100%"
+    src="https://www.youtube.com/embed/Tly9Eqtz_JY?si=5yX5HTVGZe_Dzc2H"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</div>
+<div id="roomapp">
+  <div v-for="(te,i) in test" v-bind:key="i" class="targetdiv" style="border-color:red; border-style:solid; border-width:1px; width:100%; height:100px; margin-top:10px;"></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+<script>
+  const { createApp } = Vue;
+  createApp({
+    delimiters: ["[[", "]]"],
+    data() {
+      return {
+        test: ["sample_text", "test_text",'sss','aaa'],
+		urls:['one','two']
+
+
+      };
+    },
+  }).mount("#roomapp");
+</script>
+{% endblock %} 
