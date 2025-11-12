@@ -1,0 +1,27 @@
+.gallery:nth-child(1){
+	margin-top:65px;
+}
+.gallery{
+	margin-top:30px;
+	margin-bottom:10px;
+	border:skyblue 1.5px solid;
+	width:100vw;
+	aspect-ratio:16/11;
+}
+
+.imgarea{
+	/*border:blue 2px solid;*/
+	width:100vw;
+	
+	aspect-ratio: 16 / 9;
+	
+}
+
+.imgarea img{
+	width:100%;
+	height:100%;
+	object-fit:cover;
+}
+.caption{
+	margin-bottom:5px;
+}
