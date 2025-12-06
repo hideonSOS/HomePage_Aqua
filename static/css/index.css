@@ -1,39 +1,14 @@
+*{
+  margin:0px;
+  padding: 0px;
+}
 img {
   max-width: 100%; /* 親要素の幅を超えない */
   height: auto; /* 縦横比を維持 */
   display: block; /* インライン要素特有の余白問題を解消 */
 }
 /* ========== 1. トークン（共通変数） ========== */
-:root {
-  /* 色 */
-  --color-main: #0000ff;
-  --color-bg: #f8f9fa;
-  --color-text: #333;
-  --color-heading: #2c3e50;
-  --color-footer-bg: #2c3e50;
-  --color-nav-hover: #dbeafe;
-  --color-card-bg: #ffffff;
-  --color-card-shadow: rgba(0, 0, 0, 0.1);
 
-  /* レイアウト・サイズ */
-  --header-height: 60px;
-  --layout-max-width: 1100px;
-  --section-padding-y: 60px;
-  /* プロフィール画像用（PCベース） */
-  --profile-img-min-width: 150px;
-  --profile-img-max-width: 150px;
-  --profile-img-min-height: 200px;
-  --profile-img-max-height: 200px;
-  --hero-height-pc: 400px;
-  --hero-height-sp: 250px;
-
-  /* その他 */
-  --radius-card: 8px;
-  --transition-fast: 0.3s;
-
-  /* ブレイクポイント */
-  --bp-sp: 768px;
-}
 
 /* ========== 2. ベース ========== */
 * {
@@ -53,6 +28,14 @@ body {
 main {
   margin-top: var(--header-height); /* 固定ヘッダー分の余白 */
   position: relative;
+  width: 100%;
+  max-width:100vw; /* template.cssで定義されている 1100px が適用されます */
+  margin-left: auto;  /* 左右中央寄せ */
+  margin-right: auto; /* 左右中央寄せ */
+  padding: 0 20px;    /* 画面幅が狭まったときに端に文字が張り付かないように余白を入れる */
+  display:flex;
+  flex-direction:column;
+  align-items: center;
 }
 
 footer {
@@ -62,59 +45,6 @@ footer {
   padding: 2rem;
 }
 
-/* ========== 3. ヘッダー / ナビゲーション ========== */
-.navbar-area {
-  position: fixed;
-  inset: 0 0 auto 0; /* top:0; left:0; right:0 相当 */
-  height: var(--header-height);
-  background: var(--color-main);
-  color: #fff;
-  z-index: 1000;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-}
-
-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-  position: relative;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  height: 27px;
-}
-
-.logo-img {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
-  display: block;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-
-  white-space: nowrap;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  transition: color var(--transition-fast);
-  border: solid cyan 2px;
-  margin-top: 0px;
-}
-
-.nav-links a:hover {
-  color: var(--color-nav-hover);
-}
 
 .menu-toggle {
   display: none;
@@ -135,8 +65,9 @@ nav {
 .hero-area {
   position: relative;
   overflow: hidden;
-  width: 100%;
-  height: var(--hero-height-pc);
+  width: 48%;     /* mainの幅(最大1100px)に合わせる */
+  /*height: var(--hero-height-pc);*/
+  height:500px;
   z-index: 1;
 }
 
@@ -155,7 +86,7 @@ nav {
   background-size: cover;
   background-position: center;
   position: relative;
-  border: 3px solid gray;
+  object-fit:contain;
 }
 
 .hero-content {
@@ -180,6 +111,8 @@ nav {
   border-radius: 50%;
   cursor: pointer;
 }
+
+
 
 .arrow.left {
   left: 10px;
@@ -206,9 +139,7 @@ nav {
   padding: 30px 2px;
 }
 
-#schedule2 {
-  border: solid cyan 3px;
-}
+
 
 .section-title {
   text-align: center;
@@ -293,14 +224,21 @@ nav {
   display: none;
 }
 
-/* ========== 7. プロフィール ========== */
+.profiles{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  
+}
 
 /* 横並びの行コンテナ */
 .profile-item {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 5px;
   margin-bottom: 12px;
+  border: solid blue 1px;
+  padding:1px;
 }
 
 /* 画像コンテナ（常に同じサイズで安定させる） */
@@ -327,8 +265,8 @@ nav {
 
 /* テキスト側のブロック（名前・紹介文） */
 .profile-meta {
-  padding-top: 10px; /* 写真のmargin-topと揃える */
-  max-width: 36ch; /* 1行の理想幅（36文字程度）に自動改行 */
+  
+  max-width: 95%; /* 1行の理想幅（36文字程度）に自動改行 */
 }
 
 /* \n を改行表示しつつ、英単語や長い文字列も折り返す */
@@ -352,7 +290,7 @@ nav {
 }
 
 /* ========== 9. スマホ対応 ========== */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   :root {
     /* プロフィール画像用（PCベース） */
     --profile-img-min-width: 150px;
@@ -360,31 +298,14 @@ nav {
     --profile-img-min-height: 200px;
     --profile-img-max-height: 200px;
   }
+  .profiles{
+  display:grid;
+  grid-template-columns:repeat(1,1fr);
+  gap:5px;
+ 
+}
   .menu-toggle {
     display: block;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 45px;
-    left: 0;
-    right: 0;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    flex-direction: column;
-    padding: 1rem;
-    display: none;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links li {
-    padding: 0.3rem 0;
-  }
-
-  .nav-links a {
-    font-size: 0.95rem;
   }
 
   /* スマホではカレンダー非表示、一列カードに変更 */
@@ -430,12 +351,13 @@ nav {
   }
 
   .hero-area {
-    height: var(--hero-height-sp);
+    width:100vw;
+    max-width:400px;
+    height:210px;
     overflow: hidden; /* ← これを必ず指定 */
   }
 
   .slide {
-    /* border: 3px solid red;  */
     padding: 0px;
     display: grid;
     grid-template-columns: 1fr;
@@ -470,27 +392,46 @@ nav {
     font-size: 0.95rem;
     opacity: 0.9;
   }
-  .top_cl {
-    border: red solid 1px;
-    margin-bottom: 0px;
-  }
-  .profile-item {
-    border: solid mediumpurple 3px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: stretch;
-    justify-items: stretch;
 
+  .profile-item {
+    border: solid blue 1px;
+    display: flex;
     width: 100%;
   }
   .jpeg_area {
-    border: solid red 1px;
+    
     width: 100%;
   }
   .profile-meta {
-    /* border:solid greenyellow 1px; */
     width: 100%;
     font-size: 14px;
     /* height:100%; */
+
   }
+  #schedule2{
+    width:100vw;
+    max-width:400px;
+  }
+
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+
+.hero-area {
+    width:100vw;
+    height:450px;
+    overflow: hidden; /* ← これを必ず指定 */
+    max-width:800px;
+    
+  }
+.profiles{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  
+}
+/* ▼▼▼ ここに追加 ▼▼▼ */
+  .menu-toggle {
+    display: block; /* これで表示されます */
+  }
+}
 }

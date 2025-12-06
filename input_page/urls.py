@@ -12,7 +12,5 @@ urlpatterns = [
     path('list/', ScheduleListView.as_view(), name='list'),
     path('delete/<int:pk>/', ScheduleDeleteView.as_view(), name='delete'),
     path('update/', ScheduleUpdateView.as_view(), name='update'),
-    path('login/', auth_views.LoginView.as_view(),name='login'),
-    path('artist/', TemplateView.as_view(template_name='input_page/artist.html'), name='artist'),
-    path('history/', TemplateView.as_view(template_name='input_page/history.html'), name='history')
+    path('login/', auth_views.LoginView.as_view(),name='login'), 
 ]

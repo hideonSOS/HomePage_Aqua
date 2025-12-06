@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'top_page',
     'input_page',
     'room',
+    'artist',
+    'history',
 ]
 
 MIDDLEWARE = [

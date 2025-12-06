@@ -1,24 +1,39 @@
 const { createApp } = Vue;
 
-// 1. 外部データの取得と変換をデータ定義の前に実行
-// 'event-data' は Django の json_script タグに指定したIDと一致させてください。
+/* =========================================================
+   修正ポイント1: スライド画像データの取得処理を追加
+   ========================================================= */
+// HTML側の {{ hero_images_data|json_script:"slide-data" }} からデータを取得
+const slideDataElement = document.getElementById("slide-data");
+let dbSlides = [];
+
+if (slideDataElement) {
+  try {
+    dbSlides = JSON.parse(slideDataElement.textContent);
+    console.log("DBからのスライド画像読み込み成功:", dbSlides);
+  } catch (e) {
+    console.error("スライドデータの解析に失敗しました:", e);
+  }
+}
+
+/* =========================================================
+   既存処理: カレンダー用データの取得（そのまま維持）
+   ========================================================= */
 const rawDataElement = document.getElementById("data-json");
 let initialEvents = [];
 
 if (rawDataElement) {
   try {
     const rawData = JSON.parse(rawDataElement.textContent);
-    let nextId = 1; // イベントIDを連番で振るためのカウンター
+    let nextId = 1;
 
     initialEvents = rawData.map((item) => {
-      // item.day が 'YYYY-MM-DD' 形式であると仮定して分割し、数値に変換
       const [y, m, d] = item.day.split("-").map(Number);
-
       return {
-        id: `db-${nextId++}`, // データベース由来のID
-        y: y, // 年
-        m: m, // 月
-        d: d, // 日
+        id: `db-${nextId++}`,
+        y: y,
+        m: m,
+        d: d,
         title: item.title,
         time: item.time,
         artist: item.artist,
@@ -26,7 +41,6 @@ if (rawDataElement) {
     });
   } catch (e) {
     console.error("イベントデータの解析に失敗しました:", e);
-    // エラー時は空の配列を初期値とする
     initialEvents = [];
   }
 }
@@ -38,24 +52,42 @@ const app = createApp({
     const y = now.getFullYear();
     const m = now.getMonth() + 1; // 1-12
 
+    /* =========================================================
+       修正ポイント2: スライド画像の出し分けロジック
+       ========================================================= */
+    // DBから画像が取れていればそれを使い、なければ従来の静的画像を使う
+    let finalHeroImages = [];
+    
+    if (dbSlides.length > 0) {
+        // DBデータを使用
+        finalHeroImages = dbSlides;
+    } else {
+        // DBが空の場合は、既存のデフォルト画像を使用（フォールバック）
+        // ※ STATIC_IMAGE_URLS は HTML内の script タグで定義されている前提
+        finalHeroImages = [
+            {
+              url: STATIC_IMAGE_URLS.aqualivestation_1,
+              title: "ボートレース住之江",
+              subtitle: "公式Youtubeチャンネル",
+            },
+            {
+              url: STATIC_IMAGE_URLS.aqualivestation_2,
+              title: "ライブ配信中！",
+              subtitle: "臨場感あふれる実況",
+            },
+        ];
+    }
+
     return {
       isMenuOpen: false,
       currentSlide: 0,
       currentYear: y,
       loading: true,
       error: null,
-      heroImages: [
-        {
-          url: STATIC_IMAGE_URLS.aqualivestation_1,
-          title: "ボートレース住之江",
-          subtitle: "公式Youtubeチャンネル",
-        },
-        {
-          url: STATIC_IMAGE_URLS.aqualivestation_2,
-          title: "わかりやすさと面白さの融合！",
-          subtitle: "臨場感あふれる実況をお届け",
-        },
-      ],
+      
+      // ★ ここに決定したスライド画像リストをセット
+      heroImages: finalHeroImages,
+
       currentMonthDate: new Date(y, m - 1, 1),
       // ⭐ データベースから変換したデータを代入
       events: initialEvents,
@@ -63,13 +95,52 @@ const app = createApp({
       profiles: [
         {
           path: STATIC_IMAGE_URLS.tateyama_kazuma,
-          name: "立 山 一 馬",
-          text: "GⅠ制覇・・・２回 \n アクアライブステーションのメイン解説者。楽しい解説をモットーとしています。",
+          class1:"元ボートレーサー",
+          class2:"登録番号 2160",
+          name: "立 山 一 馬 ",
+          text: "アクアライブステーションのメイン解説者。楽しい解説をモットーとしています。",
+        },
+        {
+          path: STATIC_IMAGE_URLS.nozoe,
+          class1:"元ボートレーサー",
+          class2:"登録番号 2160",
+          name: "野 添 貴 裕",
+          text: "紹介文",
         },
         {
           path: STATIC_IMAGE_URLS.yamamoto_syuji,
+          class1:"元ボートレーサー",
+          class2:"登録番号 2160",
           name: "山 本 修 次",
-          text: "GⅠ制覇・・・0回",
+          text: "紹介文",
+        },
+        {
+          path: STATIC_IMAGE_URLS.tuda,
+          class1:"元ボートレーサー",
+          class2:"登録番号 2160",
+          name: "津 田 富士男",
+          text: "紹介文",
+        },
+                {
+          path: STATIC_IMAGE_URLS.hoshino,
+          class1:"司会者",
+          class2:"",
+          name: "星野あゆみ",
+          text: "紹介文",
+        },
+                {
+          path: STATIC_IMAGE_URLS.hamaguchi,
+          class1: "司会者",
+          class2:"",
+          name:  "濱口くみ",
+          text:  "紹介文",
+        },
+                {
+          path: STATIC_IMAGE_URLS.masuda,
+          class1: "司会者",
+          class2:"",
+          name:  "益田あゆみ",
+          text:  "紹介文",
         },
       ],
     };

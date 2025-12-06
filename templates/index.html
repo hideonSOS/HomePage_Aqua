@@ -1,8 +1,8 @@
 {% extends 'template.html' %}
 {% load static %}
-<!DOCTYPE html>
+
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}?v={% now 'U' %}">
   {% endblock %}
 
       {% block content %}
@@ -85,10 +85,10 @@
               :key="p.path"
               v-reveal="{ delay: i*80 }"
             >
-              <div class="jpeg_area">
-                <img :src="p.path" :alt="p.name" />
-              </div>
+              <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
               <div class="profile-meta">
+                <div class="profile-text">[[ p.class1 ]]</div>
+                <div class="profile-text">[[ p.class2 ]]</div>
                 <div class="profile-name" style="color: #0000ff">
                   [[ p.name ]]
                 </div>
@@ -102,6 +102,7 @@
           <h2 class="section-title">テスト</h2>
           <!-- [[ test ]] -->
         </section>
+        {{ hero_images_data|json_script:"slide-data" }}
           {{ data|json_script:'data-json' }}
         
       </main>
@@ -113,22 +114,27 @@
 
 
     {% block extra_js %}
-    {% load static %}
-<script>
-    // 🎯 必要なベースパスや画像をグローバル変数として定義
-    const STATIC_IMAGE_URLS = {
-        // ベースURLを設定
-        base: "{% static 'images/' %}", 
-        // もしくは個別の画像パスを定義
-        aqualivestation_1: "{% static 'images/aqualivestation_1.jpg' %}",
-        aqualivestation_2: "{% static 'images/aqualivestation_2.jpg' %}",
-        tateyama_kazuma: "{% static 'images/tateyama_kazuma.jpg' %}",
-        yamamoto_syuji: "{% static 'images/yamamoto_syuji.jpg' %}",
-    };
-</script>
+   
+    <script>
+        // 🎯 必要なベースパスや画像をグローバル変数として定義
+        const STATIC_IMAGE_URLS = {
+            // ベースURLを設定
+            base: "{% static 'images/' %}", 
+            // もしくは個別の画像パスを定義
+            aqualivestation_1: "{% static 'images/aqualivestation_1.jpg' %}",
+            aqualivestation_2: "{% static 'images/aqualivestation_2.jpg' %}",
+            tateyama_kazuma: "{% static 'images/tateyama_kazuma.jpg' %}",
+            yamamoto_syuji: "{% static 'images/yamamoto_syuji.jpg' %}",
+            tuda: "{% static 'images/tuda.jpg' %}",
+            nozoe: "{% static 'images/nozoe.JPG' %}",
+            hoshino: "{% static 'images/hoshino.jpg' %}",
+            hamaguchi: "{% static 'images/hamaguchi.jpeg' %}",
+            masuda: "{% static 'images/masuda.JPG' %}",
+        };
+    </script>
 
-<script src="{% static 'path/to/your/app.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
+    
+    <script src="{% static 'js/index.js' %}?v={% now 'U' %}"></script>
 
     {% endblock %}
 

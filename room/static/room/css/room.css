@@ -1,0 +1,48 @@
+  #container{
+
+    display:flex;
+    flex-direction:column;
+    padding-top:0px;
+    position:relative !important;
+    justify-content:flex-start;
+
+  }
+  .youtube_area {
+      margin-top: 0px;
+      width: 100%;
+      max-width:400px;
+      height: 215px;
+      border:solid 2px cyan;
+
+  }
+
+
+/* =========================================
+   2. iPad / タブレット (768px 以上)
+   スマホのデザインを「上書き」または「レイアウト変更」します。
+   ========================================= */
+@media (min-width: 768px) {
+.youtube_area {
+      width: 100vw;
+      max-width:400px;
+      height: 215px;
+      border:solid 2px blue;
+  }
+  /* iPadではまだハンバーガーメニューのままで良いなら、ナビ関連は記述しない（スマホの設定を引き継ぐ） */
+}
+
+/* =========================================
+   3. PC / デスクトップ (1024px 以上)
+   さらに画面が広い場合の設定を書きます。
+   ========================================= */
+@media (min-width: 1024px) {
+
+.youtube_area {
+      width: 100vw;
+      max-width:400px;
+      height: 215px;
+      border:solid 2px green;
+  }
+  }
+}
+  

@@ -2,17 +2,14 @@
 	margin-top:65px;
 }
 .gallery{
-	margin-top:30px;
-	margin-bottom:10px;
-	border:skyblue 1.5px solid;
+	margin:0;
 	width:100vw;
 	aspect-ratio:16/11;
 }
 
 .imgarea{
-	/*border:blue 2px solid;*/
-	width:100vw;
 	
+	width:100vw;
 	aspect-ratio: 16 / 9;
 	
 }
