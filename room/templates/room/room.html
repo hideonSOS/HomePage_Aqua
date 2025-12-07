@@ -2,7 +2,7 @@
 {% load static %} 
 {% block extra_css %}
 
-<link rel='stylesheet' href="{% static 'room/css/room.css' %}">
+<link rel='stylesheet' href="{% static 'room/css/room.css' %}?v={% now 'U' %}">
 
 
 {% endblock %} 
@@ -10,6 +10,7 @@
 {% block content %}
 <main>
 <div id='container'>
+  <section id='first_sec'><p>待機行動について</p></section>
 <div class="youtube_area">
   <iframe
     id="frame1"
@@ -23,7 +24,18 @@
     allowfullscreen
   ></iframe>
 </div>
-<div class="youtube_area"></div>
+<section><p>プロペラについて</p></section>
+<div class="youtube_area">
+  <iframe 
+  id="frame2"
+  width="100%" 
+  height="100%" 
+  src="https://www.youtube.com/embed/uyay95MPwr0?si=-txU3_75foiTrCJL" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 <div class="youtube_area"></div>
 <div id="roomapp">
   <div v-for="(te,i) in test" v-bind:key="i" class="targetdiv"></div>

@@ -1,10 +1,10 @@
   #container{
-
     display:flex;
     flex-direction:column;
     padding-top:0px;
     position:relative !important;
     justify-content:flex-start;
+    /*gap:20px;*/
 
   }
   .youtube_area {
@@ -12,10 +12,12 @@
       width: 100%;
       max-width:400px;
       height: 215px;
-      border:solid 2px cyan;
-
+      margin:10px 0px;
   }
 
+  #first_sec{
+    margin-top:10px;
+  }
 
 /* =========================================
    2. iPad / タブレット (768px 以上)
@@ -26,7 +28,6 @@
       width: 100vw;
       max-width:400px;
       height: 215px;
-      border:solid 2px blue;
   }
   /* iPadではまだハンバーガーメニューのままで良いなら、ナビ関連は記述しない（スマホの設定を引き継ぐ） */
 }
@@ -41,7 +42,7 @@
       width: 100vw;
       max-width:400px;
       height: 215px;
-      border:solid 2px green;
+      
   }
   }
 }
