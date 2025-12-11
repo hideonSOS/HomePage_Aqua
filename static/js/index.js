@@ -95,45 +95,45 @@ const app = createApp({
       profiles: [
         {
           path: STATIC_IMAGE_URLS.tateyama_kazuma,
-          class1:"元ボートレーサー",
+          class1:"元ボートレーサー（大阪支部）",
           class2:"登録番号 2160",
           name: "立 山 一 馬 ",
           text: "アクアライブステーションのメイン解説者。楽しい解説をモットーとしています。",
         },
         {
           path: STATIC_IMAGE_URLS.tuda,
-          class1:"元ボートレーサー",
+          class1:"元ボートレーサー（大阪支部）",
           class2:"登録番号 2717",
           name: "津 田 富士男",
-          text: "紹介文",
+          text: "現役時代は攻撃的なスタートまくりで大活躍。堅実な語り口が持ち味です。",
         },
         {
           path: STATIC_IMAGE_URLS.nozoe,
-          class1:"元ボートレーサー",
+          class1:"元ボートレーサー（大阪支部）",
           class2:"登録番号 3555",
           name: "野 添 貴 裕",
-          text: "紹介文",
+          text: "近代ボートレース理論の伝導者。巧みな言語化能力で選手の心理を語ります。",
         },
         {
           path: STATIC_IMAGE_URLS.yamamoto_syuji,
-          class1:"元ボートレーサー",
+          class1:"元ボートレーサー（滋賀支部）",
           class2:"登録番号 3633",
           name: "山 本 修 次",
-          text: "紹介文",
+          text: "国立大卒＞＞＞ボートレーサーという異色の経歴の持ち主。舟券予想の解を導きます。",
         },
         {
           path: STATIC_IMAGE_URLS.hamaguchi,
           class1: "司会者",
           class2:"",
           name:  "濱口くみ",
-          text:  "紹介文",
+          text:  "巧みな話術でトークを盛り上げます。",
         },
                 {
           path: STATIC_IMAGE_URLS.hoshino,
           class1:"司会者",
           class2:"",
           name: "星野あゆみ",
-          text: "紹介文",
+          text: "アナウンス力と親しみやすさを併せ持つ、優れた司会者です。",
         },
                 
                 {
@@ -141,7 +141,7 @@ const app = createApp({
           class1: "司会者",
           class2:"",
           name:  "益田あゆみ",
-          text:  "紹介文",
+          text:  "アイドルから司会者とマルチに活躍中。",
         },
       ],
     };
