@@ -45,18 +45,27 @@
 
           <!-- PC用カレンダー -->
           <div class="schedule-calendar">
-            <div v-for="day in calendarDays" :key="day.date" class="day-cell">
-              <div class="day-date">[[ day.date ]]</div>
-              <div
-                v-for="event in day.events"
-                :key="event.id || (event.y + '-' + event.m + '-' + event.d + '-' + event.title)"
-              >
-                <div class="event-title">[[ event.title ]]</div>
-                <div class="event-time">[[ event.time ]]</div>
-                <div class="event-artist">[[ event.artist ]]</div>
-              </div>
-            </div>
-          </div>
+  <div class="weekday-header" v-for="w in weekdays" :key="w">[[ w ]]</div>
+
+  <div 
+    v-for="(day, index) in calendarDays" 
+    :key="index" 
+    class="day-cell"
+    :class="{ 'empty-cell': !day.date }" 
+  >
+    <template v-if="day.date">
+      <div class="day-date">[[ day.date ]]</div>
+      <div
+        v-for="event in day.events"
+        :key="event.id || (event.y + '-' + event.m + '-' + event.d + '-' + event.title)"
+      >
+        <div class="event-title">[[ event.title ]]</div>
+        <div class="event-time">[[ event.time ]]</div>
+        <div class="event-artist">[[ event.artist ]]</div>
+      </div>
+    </template>
+  </div>
+</div>
 
           <!-- スマホ用カードリスト（当月のみ表示） -->
           <div class="schedule-list">
@@ -66,8 +75,9 @@
               class="schedule-item"
             >
               <div class="schedule-item-date">
-                [[ event.y ]] / [[ event.m ]] / [[ event.d ]]
+                [[ event.y ]] / [[ event.m ]] / [[ event.d ]] ([[ getWeekday(event.y, event.m, event.d) ]])
               </div>
+              
               <div class="schedule-item-title">[[ event.title ]]</div>
               <div class="schedule-item-time">[[ event.time ]]</div>
               <div class="schedule-item-artist">[[ event.artist ]]</div>
@@ -98,10 +108,7 @@
           </div>
         </section>
 
-        <section id="schedule3">
-          <h2 class="section-title">テスト</h2>
-          <!-- [[ test ]] -->
-        </section>
+
         {{ hero_images_data|json_script:"slide-data" }}
           {{ data|json_script:'data-json' }}
         

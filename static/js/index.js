@@ -91,6 +91,9 @@ const app = createApp({
       currentMonthDate: new Date(y, m - 1, 1),
       // ⭐ データベースから変換したデータを代入
       events: initialEvents,
+      
+      // 【★前回追加】カレンダーのヘッダー表示用（月曜始まり）
+      weekdays: ["月", "火", "水", "木", "金", "土", "日"],
 
       profiles: [
         {
@@ -128,15 +131,14 @@ const app = createApp({
           name:  "濱口くみ",
           text:  "巧みな話術でトークを盛り上げます。",
         },
-                {
+        {
           path: STATIC_IMAGE_URLS.hoshino,
           class1:"司会者",
           class2:"",
           name: "星野あゆみ",
           text: "アナウンス力と親しみやすさを併せ持つ、優れた司会者です。",
-        },
-                
-                {
+        },     
+        {
           path: STATIC_IMAGE_URLS.masuda,
           class1: "司会者",
           class2:"",
@@ -170,8 +172,25 @@ const app = createApp({
           a.d - b.d || String(a.time || "").localeCompare(String(b.time || ""))
       );
     },
+    
+    // 【★前回修正】月曜始まりに対応したカレンダー生成ロジック
     calendarDays() {
       const days = [];
+      
+      // 1. 今月の1日が「何曜日か」を取得 (0=日, 1=月 ... 6=土)
+      const firstDayOfWeek = new Date(this.year, this.month - 1, 1).getDay();
+
+      // 2. 月曜始まりにするための「空白数」を計算
+      // (曜日 + 6) % 7 で、月(1)→0, 火(2)→1, ... 日(0)→6 に変換
+      const emptyCount = (firstDayOfWeek + 6) % 7;
+
+      // 3. 配列の先頭に「空白データ（日付なし）」を入れる
+      for (let i = 0; i < emptyCount; i++) {
+        // dateを空文字にしておき、HTML側で !day.date なら空白セルとして扱う
+        days.push({ date: "", events: [] });
+      }
+
+      // 4. その後に「実際の日付データ」を入れる
       for (let d = 1; d <= this.daysInMonth; d++) {
         const dayEvents = this.events
           .filter((e) => {
@@ -190,6 +209,17 @@ const app = createApp({
     },
   },
   methods: {
+    // 【★今回追加】スマホ用：年月日から曜日（月〜日）の文字を返す関数
+    getWeekday(y, m, d) {
+        if (!y || !m || !d) return "";
+        const date = new Date(y, m - 1, d);
+        const dayIndex = date.getDay(); // 0=日, 1=月...
+        
+        // 月曜始まりの配列(weekdays)に合わせるためのインデックス計算
+        const index = (dayIndex + 6) % 7;
+        return this.weekdays[index];
+    },
+
     parseDateParts(input) {
       if (typeof input !== "string") return null;
       let m = input.match(/^(\d{4})-(\d{2})-(\d{2})$/);
