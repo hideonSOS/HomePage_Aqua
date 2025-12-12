@@ -428,7 +428,12 @@ footer {
 }
 /* ▼▼▼ ここに追加 ▼▼▼ */
   .menu-toggle {
-    display: block; /* これで表示されます */
+    display: none; /* これで表示されます */
   }
+  .schedule-calendar {
+  
+  max-width: 800px;
+  width:800px;
+  margin: 0 auto;
 }
 }
