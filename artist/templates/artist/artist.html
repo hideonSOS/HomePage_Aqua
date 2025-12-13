@@ -1,9 +1,89 @@
 {% extends 'template.html' %}
-
+{% load static %}
+{% block extra_css %}
+<link rel='stylesheet' href="{% static 'artist/css/artist.css' %}">
+{% endblock %}
 {% block content %}
-<div style="margin:60px 0px 0px 0px; color:black; border:solid red 3px;">
 
-<p>出演者動画ページ</p>
-<p>test</p>
+<div id='main'>
+	<div class="id-card" role="group" aria-label="ID card sample">
+  		<div class="id-card__watermark">SAMPLE</div>
+
+  		<div class="id-card__photo">
+    <!-- 画像を差し替え -->
+    		<img src="{% static 'artist/gazou/bick_tateyama.webp' %}" alt="顔写真" />
+  		</div>
+  		<div class="id-card__info">
+			<div class="note">
+  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
+			</div>
+ 	 	</div>
+	</div>
+
+	<div class='id-card'>
+		<div class="id-card__watermark">SAMPLE</div>
+
+  		<div class="id-card__photo">
+    <!-- 画像を差し替え -->
+    		<img src="{% static 'artist/gazou/bick_tuda.webp' %}" alt="顔写真" />
+  		</div>
+  		<div class="id-card__info">
+			<div class="note">
+  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
+			</div>
+ 	 	</div>
+	</div>
+	<div class='id-card'>
+		<div class="id-card__watermark">SAMPLE</div>
+
+  		<div class="id-card__photo">
+    <!-- 画像を差し替え -->
+    		<img src="{% static 'artist/gazou/bick_okiguchi.webp' %}" alt="顔写真" />
+  		</div>
+  		<div class="id-card__info">
+			<div class="note">
+  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
+			</div>
+ 	 	</div>
+	</div>
+	<div class='id-card'>
+		<div class="id-card__watermark">SAMPLE</div>
+
+  		<div class="id-card__photo">
+    <!-- 画像を差し替え -->
+    		<img src="{% static 'artist/gazou/bick_iida.webp' %}" alt="顔写真" />
+  		</div>
+  		<div class="id-card__info">
+			<div class="note">
+  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
+			</div>
+ 	 	</div>
+	</div>
+	<div class='id-card'>
+		<div class="id-card__watermark">SAMPLE</div>
+
+  		<div class="id-card__photo">
+    <!-- 画像を差し替え -->
+    		<img src="{% static 'artist/gazou/bick_komatsu.webp' %}" alt="顔写真" />
+  		</div>
+  		<div class="id-card__info">
+			<div class="note">
+  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
+			</div>
+ 	 	</div>
+	</div>
+	<div class='id-card'>
+		<div class="id-card__watermark">SAMPLE</div>
+
+  		<div class="id-card__photo">
+    <!-- 画像を差し替え -->
+    		<img src="{% static 'artist/gazou/bick_nozoe.webp' %}" alt="顔写真" />
+  		</div>
+  		<div class="id-card__info">
+			<div class="note">
+  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
+			</div>
+ 	 	</div>
+	</div>
 </div>
 {% endblock %}

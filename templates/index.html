@@ -86,12 +86,12 @@
         </section>
 
         <section id="schedule2">
-          <h2 class="section-title">出演者プロフィール</h2>
+          <h2 class="section-title">解説者プロフィール</h2>
 
           <div class="profiles">
             <div
               class="profile-item"
-              v-for="(p,i) in profiles"
+              v-for="(p,i) in kaisetsu_profiles"
               :key="p.path"
               v-reveal="{ delay: i*80 }"
             >
@@ -107,7 +107,28 @@
             </div>
           </div>
         </section>
+<section id="schedule3">
+          <h2 class="section-title">司会者プロフィール</h2>
 
+          <div class="profiles">
+            <div
+              class="profile-item"
+              v-for="(p,i) in mc_profiles"
+              :key="p.path"
+              v-reveal="{ delay: i*80 }"
+            >
+              <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
+              <div class="profile-meta">
+                <div class="profile-text">[[ p.class1 ]]</div>
+                <div class="profile-text">[[ p.class2 ]]</div>
+                <div class="profile-name" style="color: #0000ff">
+                  [[ p.name ]]
+                </div>
+                <div class="profile-text">[[ p.text ]]</div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {{ hero_images_data|json_script:"slide-data" }}
           {{ data|json_script:'data-json' }}

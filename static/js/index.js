@@ -95,7 +95,7 @@ const app = createApp({
       // 【★前回追加】カレンダーのヘッダー表示用（月曜始まり）
       weekdays: ["月", "火", "水", "木", "金", "土", "日"],
 
-      profiles: [
+      kaisetsu_profiles: [
         {
           path: STATIC_IMAGE_URLS.tateyama_kazuma,
           class1:"元ボートレーサー（大阪支部）",
@@ -124,6 +124,10 @@ const app = createApp({
           name: "山 本 修 次",
           text: "国立大卒＞＞＞ボートレーサーという異色の経歴の持ち主。舟券予想の解を導きます。",
         },
+        
+      ],
+      mc_profiles: [
+        
         {
           path: STATIC_IMAGE_URLS.hamaguchi,
           class1: "司会者",
