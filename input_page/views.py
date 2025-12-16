@@ -17,10 +17,10 @@ class ScheduleCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('input_page:input')
     login_url='/input_page/login/'
 
+
 class ScheduleListView(LoginRequiredMixin,ListView):
     template_name = "input_page/list.html"
     model = Schedule
-    # form_class = ScheduleForm
     login_url='/input_page/login/'
     context_object_name = 'schedule_list'
     
@@ -28,9 +28,9 @@ class ScheduleListView(LoginRequiredMixin,ListView):
 class ScheduleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "input_page/delete.html"
     model = Schedule
-    
     success_url = reverse_lazy('input_page:list')
     login_url='/input_page/login/'
+
 
 class ScheduleUpdateView(TemplateView):
     template_name = "input_page/update.html"

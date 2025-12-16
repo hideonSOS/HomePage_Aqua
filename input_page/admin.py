@@ -3,7 +3,7 @@ from .models import Schedule, SlideImage
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('day','title','time','artist')
+    list_display = ('day','title','time','artist1','artist2','artist3','artist4')
 
 
 @admin.register(SlideImage)

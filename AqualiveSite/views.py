@@ -8,7 +8,7 @@ def indexView(request):
     # ==========================================
     # 1. 既存の処理（カレンダー情報の取得）
     # ==========================================
-    schedules = Schedule.objects.values('day', 'title', 'time', 'artist')
+    schedules = Schedule.objects.values('day', 'title', 'time', 'artist1', 'artist2', 'artist3', 'artist4')
     
     # DataFrameの処理（print確認用としてそのまま残します）
     df = pd.DataFrame.from_records(schedules)

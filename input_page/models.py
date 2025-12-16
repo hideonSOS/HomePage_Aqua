@@ -5,9 +5,15 @@ class Schedule(models.Model):
     day = models.DateField()
     title = models.CharField(max_length=30)
     time = models.CharField(max_length=30)
-    artist = models.CharField(max_length=50)
+    artist1 = models.CharField(max_length=50, null=True, blank=True)
+    artist2 = models.CharField(max_length=50, null=True, blank=True)
+    artist3 = models.CharField(max_length=50, null=True, blank=True)
+    artist4 = models.CharField(max_length=50, null=True, blank=True)
     def __str__(self):
-        return f"{self.day} - {self.title} - {self.time} - {self.artist}"
+        return f"{self.day} - {self.title} - {self.time} - {self.artist1}- {self.artist2}- {self.artist3}- {self.artist4}"
+
+
+
 
 
 class SlideImage(models.Model):

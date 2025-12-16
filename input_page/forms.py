@@ -6,7 +6,7 @@ import django.forms as forms
 class ScheduleForm(ModelForm):
     class Meta:
         model = Schedule
-        fields = ['day','title','time','artist']
+        fields = ['day','title','time','artist1','artist2','artist3','artist4']
         
         widgets = {
         'day': forms.DateInput(
@@ -31,7 +31,27 @@ class ScheduleForm(ModelForm):
                 'placeholder': '配信開始時刻～終了時刻を入力',
             }
         ),
-        'artist': forms.Textarea(
+        'artist1': forms.Textarea(
+            attrs={
+                'id': 'input-artist',
+                'class': 'form-control',
+                'placeholder': '出演者を入力',
+            }
+        ),
+        'artist2': forms.Textarea(
+            attrs={
+                'id': 'input-artist',
+                'class': 'form-control',
+                'placeholder': '出演者を入力',
+            }
+        ),
+        'artist3': forms.Textarea(
+            attrs={
+                'id': 'input-artist',
+                'class': 'form-control',
+                'placeholder': '出演者を入力',
+            }
+        ),'artist4': forms.Textarea(
             attrs={
                 'id': 'input-artist',
                 'class': 'form-control',

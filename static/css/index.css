@@ -405,7 +405,7 @@ footer {
     /* height:100%; */
 
   }
-  #schedule2{
+  #schedule2, #schedule3{
     width:100vw;
     max-width:400px;
   }

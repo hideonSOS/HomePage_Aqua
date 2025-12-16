@@ -36,7 +36,10 @@ if (rawDataElement) {
         d: d,
         title: item.title,
         time: item.time,
-        artist: item.artist,
+        artist1: item.artist1,
+        artist2: item.artist2,
+        artist3: item.artist3,
+        artist4: item.artist4,
       };
     });
   } catch (e) {
