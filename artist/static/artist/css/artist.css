@@ -30,7 +30,6 @@
   /* --- Grid設定の核心 --- */
   display: grid;
   grid-template-columns: 1fr 1fr; /* 左右2分割 */
-
   gap: 10px;
   padding: 22px; /* 上下左右の内側余白 */
   
@@ -38,7 +37,6 @@
   align-items: center; 
   /* アイテムを強制的に左右中央配置（念の為） */
   justify-items: center; 
-  
   border: solid 2px purple;
   grid-template-rows: 1fr;   /* 行を確定させる（重要） */
   align-content: center;     /* ★グリッド全体を上下中央へ */
@@ -53,7 +51,6 @@
   /* 親枠(Gridセル)からはみ出さないための絶対防壁 */
   max-width: 100%;
   max-height: 100%;
-  
   /* これで「収まる範囲で最大の正方形」になる */
   aspect-ratio: 1 / 1;
   
@@ -62,7 +59,6 @@
   align-self: center;   /* 上下中央 */
   
   border-radius: 14px;
-  border: 2px solid red;
   background: rgba(255,255,255,.6);
   padding: 10px;
   

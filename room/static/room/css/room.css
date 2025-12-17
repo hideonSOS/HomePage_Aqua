@@ -13,7 +13,7 @@
       max-width:700px;
       height: 380px;
       margin:10px 0px;
-      border:solid red 3px;
+      /* border:solid red 3px; */
   }
 
   #first_sec{
@@ -41,10 +41,11 @@
 
 .youtube_area {
       width: 100vw;
-      max-width:600px;
-      height: 400px;
+      max-width:700px;
       
+      height: 400px;
+      aspect-ratio: 16/9;
   }
   }
-}
+
   
