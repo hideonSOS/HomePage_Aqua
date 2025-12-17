@@ -10,9 +10,10 @@
   .youtube_area {
       margin-top: 0px;
       width: 100%;
-      max-width:400px;
-      height: 215px;
+      max-width:700px;
+      height: 380px;
       margin:10px 0px;
+      border:solid red 3px;
   }
 
   #first_sec{
@@ -23,7 +24,7 @@
    2. iPad / タブレット (768px 以上)
    スマホのデザインを「上書き」または「レイアウト変更」します。
    ========================================= */
-@media (min-width: 768px) {
+@media (max-width: 767px) {
 .youtube_area {
       width: 100vw;
       max-width:400px;
@@ -36,12 +37,12 @@
    3. PC / デスクトップ (1024px 以上)
    さらに画面が広い場合の設定を書きます。
    ========================================= */
-@media (min-width: 1024px) {
+@media (min-width:768px)and (max-width: 1024px) {
 
 .youtube_area {
       width: 100vw;
-      max-width:400px;
-      height: 215px;
+      max-width:600px;
+      height: 400px;
       
   }
   }
