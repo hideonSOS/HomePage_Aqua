@@ -1,0 +1,83 @@
+/* デザインの根幹 */
+:root {
+    --main-blue: #0056b3;
+    --bg-gradient: linear-gradient(135deg, #004e92, #000428);
+    --card-bg: #ffffff;
+}
+
+.blog-page-wrapper {
+    background: var(--bg-gradient);
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    min-height: calc(100vh - 60px);
+}
+
+.phone-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #f8f9fa;
+    min-height: 80vh;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.blog-header {
+    background-color: var(--main-blue);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.timeline { padding: 15px; }
+
+.blog-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.post-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.post-content { padding: 15px; }
+.post-date { font-size: 0.85rem; color: var(--main-blue); font-weight: bold; display: block; }
+.post-description { font-size: 0.95rem; color: #333; line-height: 1.6; white-space: pre-wrap; }
+
+/* 投稿ボタン (FAB) */
+.fab {
+    position: fixed;
+    bottom: 30px;
+    right: calc(50% - 180px);
+    width: 60px; height: 60px;
+    background-color: var(--main-blue);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white !important; font-size: 30px; text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    z-index: 1000;
+}
+
+/* モーダル関連 */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    justify-content: center; align-items: center;
+}
+
+@media (max-width: 400px) {
+    .fab { right: 20px; }
+}

@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'blog/css/blogpage.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="blog-page-wrapper">
+    <div class="phone-container">
+        <div class="blog-header">Photo Diary</div>
+        <div class="timeline">
+            {% for post in posts %}
+            <article class="blog-card">
+                {% if post.image %}<img src="{{ post.image.url }}" class="post-image">{% endif %}
+                <div class="post-content">
+                    <span class="post-date">{{ post.post_date|date:"Y.m.d" }}</span>
+                    <p class="post-description">{{ post.description }}</p>
+                </div>
+            </article>
+            {% empty %}
+            <p style="text-align:center; color:#999; margin-top:50px;">投稿がありません</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

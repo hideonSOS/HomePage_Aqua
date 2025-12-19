@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from .models import Schedule
 import django.forms as forms
+from .models import Blog
 
 
 class ScheduleForm(ModelForm):
@@ -60,3 +61,12 @@ class ScheduleForm(ModelForm):
         ),
     }
         
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ['image', 'post_date', 'description']
+        widgets = {
+            'post_date': forms.DateInput(attrs={'type': 'date'}),
+            'description': forms.Textarea(attrs={'rows': 4, 'placeholder': '説明文を入力してください'}),
+        }

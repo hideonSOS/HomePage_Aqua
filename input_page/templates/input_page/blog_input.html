@@ -1,0 +1,76 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'input_page/css/blog_input.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="blog-page-wrapper">
+    <div class="phone-container">
+        <div class="blog-header">管理モード: タイムライン</div>
+        <div class="timeline">
+            {% for post in posts %}
+            <article class="blog-card">
+                {% if post.image %}<img src="{{ post.image.url }}" class="post-image">{% endif %}
+                <div class="post-content">
+                    <span class="post-date">{{ post.post_date|date:"Y.m.d" }}</span>
+                    <p class="post-description">{{ post.description }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <a href="javascript:void(0);" class="fab" onclick="toggleModal(true)">+</a>
+    </div>
+</div>
+
+<div id="postModal" class="modal-overlay">
+    <div class="modal-content phone-container">
+        <div class="blog-header" style="display:flex; justify-content:space-between;">
+            <span>新規投稿</span>
+            <span onclick="toggleModal(false)" style="cursor:pointer;">×</span>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="timeline" action="{% url 'input_page:blog_input' %}">
+            {% csrf_token %}
+            <div class="blog-card">
+                <div id="preview-area" style="width:100%; height:200px; background:#eee; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                    <img id="img-preview" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+                    <span id="preview-msg">写真を選択してください</span>
+                </div>
+                <div class="post-content">
+                    {{ form.image }}
+                    <div style="margin:10px 0;">{{ form.post_date }}</div>
+                    {{ form.description }}
+                    <button type="submit" style="width:100%; background:var(--main-blue); color:white; border:none; padding:12px; border-radius:8px; margin-top:15px; font-weight:bold;">投稿を確定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// モーダルの開閉
+function toggleModal(show) {
+    const modal = document.getElementById('postModal');
+    modal.style.display = show ? 'flex' : 'none';
+}
+
+// 画像プレビュー
+const imageInput = document.querySelector('input[type="file"]');
+if (imageInput) {
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('img-preview');
+                img.src = e.target.result;
+                img.style.display = 'block';
+                document.getElementById('preview-msg').style.display = 'none';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+}
+</script>
+{% endblock %}

@@ -13,6 +13,7 @@ urlpatterns = [
     path('room/', include('room.urls')),
     path('history/', include('history.urls')),
     path('artist/', include('artist.urls')),
+    path('blog/',include('blog.urls')),
     path('',indexView, name='indexview'),
 
 ]
