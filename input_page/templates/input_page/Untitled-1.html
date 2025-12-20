@@ -1,0 +1,55 @@
+<style>
+  /* 好みで数値だけ調整OK */
+  .dom-tree {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre;
+    line-height: 1.6;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    overflow: auto;
+  }
+
+  /* 深さごとの色（ダーク背景でも見やすい系） */
+  .d0 { font-weight: 700; color: #e6edf3; }
+  .d1 { color: #8be9fd; }
+  .d2 { color: #50fa7b; }
+  .d3 { color: #f1fa8c; }
+  .d4 { color: #ff79c6; }
+  .d5 { color: #bd93f9; }
+  .d6 { color: #ffa657; }
+</style>
+
+<pre class="dom-tree">
+<span class="d0">Document</span>
+<span class="d1">└─ html</span>
+<span class="d2">   └─ body</span>
+<span class="d3">      └─ (block content)</span>
+<span class="d4">         └─ div.container.mt-4</span>
+<span class="d5">            ├─ h2</span>
+<span class="d6">            │  └─ "新規スケジュール登録"</span>
+<span class="d5">            ├─ hr</span>
+<span class="d5">            └─ div.card.shadow-sm</span>
+<span class="d6">               └─ div.card-body</span>
+<span class="d1">                  └─ form (method="post", enctype="multipart/form-data")</span>
+<span class="d2">                     ├─ input[type="hidden"] (csrf_token)</span>
+<span class="d2">                     ├─ (for each field in form)</span>
+<span class="d3">                     │  └─ div.mb-3</span>
+<span class="d4">                     │     ├─ label.form-label (for="{field.id_for_label}")</span>
+<span class="d5">                     │     │  └─ "{field.label}"</span>
+<span class="d4">                     │     ├─ (field widget element) ← {{ field }}</span>
+<span class="d5">                     │     │  ├─ input / select / textarea / etc...</span>
+<span class="d5">                     │     │  └─ (attrs: id=..., name=..., class=..., etc...)</span>
+<span class="d4">                     │     ├─ (optional if field.help_text)</span>
+<span class="d5">                     │     │  └─ div.form-text</span>
+<span class="d6">                     │     │     └─ "{field.help_text}"</span>
+<span class="d4">                     │     └─ (for each error in field.errors)</span>
+<span class="d5">                     │        └─ div.text-danger.small</span>
+<span class="d6">                     │           └─ "{error message}"</span>
+<span class="d2">                     └─ div.mt-4</span>
+<span class="d3">                        ├─ button.btn.btn-primary (type="submit")</span>
+<span class="d4">                        │  └─ "登録する"</span>
+<span class="d3">                        └─ a.btn.btn-secondary (href="{% url 'input_page:list' %}")</span>
+<span class="d4">                           └─ "一覧へ戻る"</span>
+</pre>

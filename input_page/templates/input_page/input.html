@@ -1,20 +1,28 @@
 {% extends 'input_page/staff_template.html' %} {% load static %}
 
 {% block extra_css %} 
-<link rel="stylesheet" href="{% static 'input_page/css/input.css' %}">
+<link rel = "stylesheet" href = "{% static 'input_page/css/input.css' %}">
 {% endblock %}
 {% block content %}
 
-<div>アクアライブステーションスタッフ用</div>
-<div>配信スケジュール入力画面</div>
-<div id="form_div">
-  <form id="formon" method="post" action="{% url 'input_page:input' %}">
+
+<div class = "wrapper">
+
+  <form id = "formon" method = "post" action = "{% url 'input_page:input' %}">
     {% csrf_token %} {{ form.as_p }}
     <button type="submit">送 信</button>
   </form>
+  </div>
+
+
+<div id = "delete_page_area">
+  <p>削　除ページへ</p>
+  <a href = "{% url 'input_page:list' %}">進 む</a>
 </div>
-<div id="delete_page_area">
-  <p>削除ページへ・・・</p>
-  <a href="{% url 'input_page:list' %}">進む</a>
+
+<div id = "blog_page_area">
+  <p>ブログページへ</p>
+  <a href = "{% url 'input_page:blog_input' %}">進 む</a>
 </div>
+
 {% endblock %}
