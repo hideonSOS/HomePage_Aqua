@@ -36,27 +36,27 @@ class ScheduleForm(ModelForm):
             attrs={
                 'id': 'input-artist',
                 'class': 'form-control',
-                'placeholder': '出演者を入力',
+                'placeholder': '前半スタジオ解説者を入力',
             }
         ),
         'artist2': forms.Textarea(
             attrs={
                 'id': 'input-artist',
                 'class': 'form-control',
-                'placeholder': '出演者を入力',
+                'placeholder': '後半スタジオ解説者を入力',
             }
         ),
         'artist3': forms.Textarea(
             attrs={
                 'id': 'input-artist',
                 'class': 'form-control',
-                'placeholder': '出演者を入力',
+                'placeholder': 'MCを入力',
             }
         ),'artist4': forms.Textarea(
             attrs={
                 'id': 'input-artist',
                 'class': 'form-control',
-                'placeholder': '出演者を入力',
+                'placeholder': 'ゲスト出演者を入力',
             }
         ),
     }

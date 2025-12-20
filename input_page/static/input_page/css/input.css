@@ -23,14 +23,14 @@
   height: auto; /* #formon の高さに合わせるため */
   color: black;
   border: greenyellow solid 1px;
-  height: 650px;
+  height: 100vh;
   margin-top:10px;
 }
 
 #formon {
   /* フォーム全体を囲むコンテナ (Gridコンテナ) */
   width: 97%; /* 親の #form_div の幅いっぱいを使う */
-  height: 650px; /* 縦の制約 (この高さで固定) */
+  height: 100%; /* 縦の制約 (この高さで固定) */
   background-color: lightgray;
   /* border: 1px yellow solid; */
   font-size: 16px;
@@ -72,8 +72,8 @@
 
 #input-artist {
   /* Artist欄の入力フィールドを特別に扱う場合 */
-  border: 3px green solid;
-  height: 100%; /* 親pタグの高さをいっぱい使う */
+  /*border: 3px green solid;*/
+  height: 60px; /* 親pタグの高さをいっぱい使う */
   margin: 10px 0px;
 }
 
@@ -93,7 +93,7 @@
 #delete_page_area {
   border: solid cyan 2px;
   width: 95%;
-  height: 100px;
+  height: 100%;
   
   padding: 5px;
 }
