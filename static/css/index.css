@@ -32,7 +32,7 @@ main {
   max-width:100vw; /* template.cssで定義されている 1100px が適用されます */
   margin-left: auto;  /* 左右中央寄せ */
   margin-right: auto; /* 左右中央寄せ */
-  padding: 0 20px;    /* 画面幅が狭まったときに端に文字が張り付かないように余白を入れる */
+  padding: 0 10px;    /* 画面幅が狭まったときに端に文字が張り付かないように余白を入れる */
   display:flex;
   flex-direction:column;
   align-items: center;
@@ -135,13 +135,13 @@ footer {
 #schedule3 {
   /* デバッグ用なら、落ち着いたら外してOK */
   width: 100%;
-  
+  max-width:1400px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 1px;
   margin-top: 5px;
   background: var(--color-bg);
-  padding: 30px 2px;
+  padding: 30px 0px;
 }
 
 
@@ -191,35 +191,100 @@ footer {
   border-color: #60a5fa;
 }
 
+/* カレンダー全体のコンテナ */
 .schedule-calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
- 
-  width:100%;
+  gap: 1px; /* 境界線を細く白くする */
+  background: #eef2ff; /* 隙間から見える線の色（薄い青） */
+  width: 100%;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
-  border:1px solid grey;
-  box-shadow: 0 2px 6px var(--color-card-shadow);
-  padding:15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 255, 0.05);
+  border: none;
+  padding:0;
 }
 
-.day-cell {
-  background: var(--color-card-bg);
-  border-radius: var(--radius-card);
-  box-shadow: 0 2px 6px var(--color-card-shadow);
-  padding: 12px;
-  height:250px;
-  font-size:2rem;
-  min-height:100px;
-  
-}
-
-.day-date {
+/* 曜日のヘッダー */
+.weekday-header {
+  background: #0000ff;
+  color: #fff;
+  padding: 12px 0;
   font-weight: bold;
-  color: var(--color-main);
-  margin-bottom: 5px;
+  font-size: 0.9rem;
+  text-align: center;
+  letter-spacing: 0.1em;
 }
 
+/* 各日付のセル */
+.day-cell {
+  background: #ffffff;
+  padding: 10px 8px;
+  min-height: 160px; /* 高さを適正に調整 */
+  height: auto;      /* 内容量に応じて伸びるように */
+  transition: background 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ホバーした時に少し色を変える */
+.day-cell:not(.empty-cell):hover {
+  background: #f8faff;
+}
+
+/* 日付の数字 */
+.day-date {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #aab4cc; /* 通常時は少し薄めに */
+  margin-bottom: 10px;
+}
+
+/* イベントがある日の日付を目立たせる */
+.day-cell:has(.event-title) .day-date {
+  color: #0000ff;
+}
+
+/* イベント情報エリア（2番目のdiv） */
+.day-cell > div:nth-child(2) {
+  border: none; /* 赤い線などは削除 */
+  padding: 0;
+  margin-top: 5px;
+}
+
+/* イベントタイトル */
+.event-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  background: rgba(0, 0, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border-left: 3px solid #0000ff;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+/* 時間と出演者 */
+.event-time {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #0000ff;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+}
+.event-time::before { content: "⏰"; margin-right: 3px; }
+
+.event-artist {
+  font-size: 0.75rem;
+  color: #666;
+  line-height: 1.4;
+  padding-left: 5px;
+}
 /* day-cellの直下にある2番目のdiv（イベント情報全体）に線を引く */
 .day-cell > div:nth-child(2) {
   
@@ -242,42 +307,84 @@ footer {
 }
 
 /* 横並びの行コンテナ */
+/* プロフィールカード全体 */
 .profile-item {
   display: flex;
-  align-items: flex-start;
-  gap: 5px;
-  margin-bottom: 12px;
-  border: solid blue 1px;
-  padding:1px;
-      border-radius: 10px;
-    overflow:hidden;
+  align-items: stretch; /* 高さを揃える */
+  gap: 0;               /* 画像とテキストを密着させる */
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: none;         /* 古い枠線を消す */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 255, 0.05),
+    0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease;
 }
 
-/* 画像コンテナ（常に同じサイズで安定させる） */
+/* 画像エリア */
 .jpeg_area {
-  flex:0 0 50%;
+  flex: 0 0 35%;      /* 画像の幅を少し抑える */
+  position: relative;
   overflow: hidden;
-  
 }
 
 .jpeg_area img {
   width: 100%;
   height: 100%;
-  display: block;
-  object-fit: cover; /* 枠いっぱいに表示しつつ中央トリミング */
+  object-fit: cover;
+  /* 画像の右端を少しだけ斜めにカットしてデザイン性を出す */
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
 
-/* テキスト側のブロック（名前・紹介文） */
+/* テキストエリア */
 .profile-meta {
-  
-  max-width: 95%; /* 1行の理想幅（36文字程度）に自動改行 */
+  flex: 1;
+  padding: 15px 15px 15px 5px; /* 左側の余白を少し調整 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* \n を改行表示しつつ、英単語や長い文字列も折り返す */
-.profile-text {
-  white-space: pre-line;
-  overflow-wrap: anywhere;
-  line-height: 1.8;
+/* クラス名（肩書き） */
+.profile-text:first-of-type {
+  font-size: 0.75rem;
+  color: #0000ff;
+  font-weight: 700;
+  margin-bottom: 2px;
+  opacity: 0.8;
+}
+
+/* 名前 */
+.profile-name {
+  font-size: 1.2rem !important;
+  font-weight: 900 !important;
+  color: #1a1a1a !important; /* 青から黒に変更して視認性アップ */
+  margin: 5px 0;
+  position: relative;
+  display: inline-block;
+}
+
+/* 名前の横にアクセントのドット（スケジュールと共通感） */
+.profile-name::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #0000ff;
+  border-radius: 50%;
+  margin-left: 8px;
+  vertical-align: middle;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+
+/* 自己紹介文 */
+.profile-text:last-of-type {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #555;
+  margin-top: 8px;
 }
 
 /* ========== 8. フェードイン（ユーティリティ） ========== */
@@ -292,7 +399,57 @@ footer {
   opacity: 1;
   transform: none;
 }
+.section-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0000ff;
+  background: none;
+  margin: 60px auto 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  letter-spacing: 0.15em;
+  position: relative;
+}
 
+/* 左右のダブルライン */
+.section-title::before,
+.section-title::after {
+  content: "";
+  height: 3px;
+  width: 50px;
+  /* 2本の細い線を作るグラデーション */
+  background: repeating-linear-gradient(
+    to bottom,
+    #0000ff,
+    #0000ff 1px,
+    transparent 1px,
+    transparent 3px,
+    #0000ff 3px,
+    #0000ff 4px
+  );
+  opacity: 0.6;
+}
+
+/* 中央の小さなひし形装飾（クリスタル） */
+.section-title span::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: #0000ff;
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* ほのかに光る */
+}
+
+.schedule-calendar{
+  border:solid 1px red;
+  width:100%;
+}
 /* ========== 9. スマホ対応 ========== */
 @media (max-width: 767px) {
   :root {
@@ -306,7 +463,6 @@ footer {
   display:grid;
   grid-template-columns:repeat(1,1fr);
   gap:5px;
- 
 }
   .menu-toggle {
     display: block;
@@ -421,7 +577,106 @@ footer {
     max-width:400px;
     /*border:solid red 1px;*/
   }
+/* スマホ用カードリストのカスタマイズ */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* カード間の余白を少し広めに */
+  padding: 10px;
+}
 
+.schedule-item {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  border-left: 5px solid #0000ff; /* 左側にアクセントの青線 */
+  border-radius: 12px;
+  /* 複数のシャドウを重ねて奥行きを出す */
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 1.2rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* きらびやかな光沢エフェクト（疑似要素） */
+.schedule-item::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.schedule-item-date {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.05); /* わずかに背景色を調整 */
+  border: 1px solid rgba(0, 0, 255, 0.3);
+  color: #0000ff;
+  padding: 2px 14px;
+  border-radius: 4px; 
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  
+  /* ▼ 点（中黒）を消すための設定 */
+  list-style: none; 
+}
+
+
+
+/* タイトル：フォントを大きくし、少し文字間を広げる */
+.schedule-item-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 8px 0;
+  line-height: 1.4;
+  border-bottom: 1px solid #e0eaff;
+  padding-bottom: 8px;
+}
+
+/* 時間：時計アイコンのようなアクセント */
+.schedule-item-time {
+  color: #0000ff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.schedule-item-time::before {
+  content: "⏰";
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+/* 出演者：少しグレーにしてタイトルと差をつける */
+.schedule-item-artist {
+  color: #444;
+  font-size: 0.9rem;
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+}
+.schedule-item-artist::before {
+  content: "👤";
+  margin-right: 8px;
+  opacity: 0.6;
+}
+
+/* ホバー（タップ）時の動き */
+.schedule-item:active {
+  transform: scale(0.98);
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0eaff 100%);
+}
 }
 @media (min-width: 768px) and (max-width: 1024px) {
 
