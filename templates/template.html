@@ -36,11 +36,13 @@
           <ul class="nav-links">
             <li class='top_cl'><a href="/">ホーム</a></li>
             <li class="top_cl" ><a href="/#schedule1">出演スケジュール</a></li>
-            <li class="top_cl" ><a href="/#schedule2">出演者プロフィール</a></li>  
+            <li class="top_cl" ><a href="{% url 'input_page:blog_input' %}">アクアライブブログ</a></li>
+            <!-- <li class="top_cl" ><a href="/#schedule2">出演者プロフィール</a></li>   -->
             <!-- <li class="top_cl" ><a href="/#schedule3">司会者プロフィール</a></li>   -->
-            <li class="top_cl" ><a href="{% url 'input_page:blog_input' %}">アクアライブブログ</a></li>    
-            <li class="top_cl" ><a href="{% url 'artist:artist' %}">出演者イラスト</a></li>
+            <li class="top_cl" ><a href="{% url 'gaidline:gaidline' %}">番組説明</a></li>
+            
             <li class="top_cl" ><a href="{% url 'room:room' %}">住之江ゼミナール</a></li>
+            <li class="top_cl" ><a href="{% url 'artist:artist' %}">出演者イラスト</a></li>
             <li class="top_cl" ><a href="{% url 'history:history' %}">沿革</a></li>
             <li class="top_cl" ><a href="{% url 'input_page:input' %}">開発者ページ</a></li>
           </ul>
