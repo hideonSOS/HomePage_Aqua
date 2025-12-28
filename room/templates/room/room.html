@@ -1,50 +1,84 @@
 {% extends 'template.html' %}
-{% load static %} 
+{% load static %}
+
 {% block extra_css %}
-
 <link rel='stylesheet' href="{% static 'room/css/room.css' %}?v={% now 'U' %}">
-
-
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
-<main>
-<div id='container'>
-  <section id='first_sec'><p>待機行動について</p></section>
-<div class="youtube_area">
-  <iframe
-    id="frame1"
-    width="100%"
-    height="100%"
-    src="https://www.youtube.com/embed/Tly9Eqtz_JY?si=5yX5HTVGZe_Dzc2H"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-  ></iframe>
-</div>
-<section><p>プロペラについて</p></section>
-<div class="youtube_area">
-  <iframe 
-  id="frame2"
-  width="100%" 
-  height="100%" 
-  src="https://www.youtube.com/embed/uyay95MPwr0?si=-txU3_75foiTrCJL" 
-  title="YouTube video player" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+<div class="room-wrapper">
 
-<div id="roomapp">
-  <div v-for="(te,i) in test" v-bind:key="i" class="targetdiv"></div>
-</div>
+    <div class="page-header">
+        <h1 class="page-title">
+            <div class="title-text-box">
+                
+                解説動画
+            </div>
+        </h1>
+    </div>
+
+    <section class="content-section">
+        <div class="split-container">
+            
+            <div class="split-item media-area">
+                <div class="youtube-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/Tly9Eqtz_JY?si=5yX5HTVGZe_Dzc2H" 
+                        title="待機行動について" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="split-item text-area">
+                <h3 class="text-title">待機行動について</h3>
+                <p class="text-body">
+                    レース開始前の待機行動に関する解説動画です。<br>
+                    選手の心理や、コース取りの駆け引きなど、スタート前の重要なポイントを分かりやすく解説しています。
+                    この動画を見て、レース展開の予想に役立てましょう。
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="split-container">
+            
+            <div class="split-item media-area">
+                <div class="youtube-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/uyay95MPwr0?si=-txU3_75foiTrCJL" 
+                        title="プロペラについて" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="split-item text-area">
+                <h3 class="text-title">プロペラについて</h3>
+                <p class="text-body">
+                    ボートレースの勝敗を大きく左右する「プロペラ」についての解説です。<br>
+                    調整方法による伸び足・出足の変化や、天候に合わせたセッティングなど、専門的な知識を深めることができます。
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="roomapp">
+        <div v-for="(te,i) in test" v-bind:key="i" class="targetdiv"></div>
+    </div>
 
 </div>
-</main>
 {% endblock %}
+
 {% block extra_js %}
 {{ block.super }}
-
-{% endblock %} 
+{% endblock %}

@@ -14,6 +14,7 @@ urlpatterns = [
     path('history/', include('history.urls')),
     path('artist/', include('artist.urls')),
     path('blog/',include('blog.urls')),
+    path('gaidline/', include('gaidline.urls')),
     path('',indexView, name='indexview'),
 
 ]

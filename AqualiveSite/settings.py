@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'artist',
     'history',
     'blog',
+    'gaidline',
 ]
 
 MIDDLEWARE = [

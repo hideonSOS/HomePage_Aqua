@@ -1,13 +1,21 @@
+section{
+	margin:50px;
+}
+
 /* =========================================
    1. ベースレイアウト設定
    ========================================= */
-.room-wrapper {
+.guideline-wrapper {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     min-height: 80vh; 
-    min-width: 320px; /* スマホでの潰れ防止 */
+    
+    /* ▼▼▼ 追加設定 ▼▼▼ */
+    /* どんなに画面が狭くなっても、320px以下には潰れないようにする */
+    /* これにより、極小画面では要素が潰れず横スクロールが発生します */
+    min-width: 320px; 
     
     display: flex;
     flex-direction: column;
@@ -15,72 +23,51 @@
 }
 
 /* =========================================
-   2. タイトルエリアのデザイン（Pattern A：左右線）
+   2. タイトルエリアのデザイン（パターンA）
    ========================================= */
 .page-header {
     text-align: center;
-    margin-top: 70px; /* ご指定のマージン */
-        width: 100%;
+    margin-top: 70px;
+    margin-bottom:0;
+    width: 100%;
 }
 
 .page-title {
     font-size: 2rem;
     font-weight: 800;
     color: #0055ff;
-    
-    /* ▼ Flexboxで線とテキストを横並びにする */
-    display: flex;
+    display: flex;             /* 横並びにする */
     align-items: center;       /* 上下中央揃え */
     justify-content: center;   /* 左右中央揃え */
     gap: 20px;                 /* 線と文字の間隔 */
 }
 
-/* テキスト部分の補正（サブテキスト用） */
-.title-text-box {
-    line-height: 1.2;
-    text-align: center;
-}
-
-.page-title .sub-text {
-    font-size: 1rem;
-    color: #00bfff;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 5px;
-}
-
-/* ▼ 左右の線を作る設定 */
+/* 左右の線を作る設定 */
 .page-title::before,
 .page-title::after {
     content: '';
     height: 3px;
     width: 60px;               /* 線の長さ */
-    /* 左側のグラデーション */
-    background: linear-gradient(to right, transparent, #00bfff); 
+    background: linear-gradient(to right, transparent, #00bfff); /* グラデーション */
     border-radius: 3px;
-    flex-shrink: 0;            /* 画面が狭くなっても線が縮まないようにする */
 }
 
 /* 右側の線はグラデーションの向きを逆にする */
 .page-title::after {
     background: linear-gradient(to left, transparent, #00bfff);
 }
-
-
 /* =========================================
-   3. コンテンツエリア（動画とテキストの配置）
+   3. コンテンツエリア（画像とテキストの配置）
    ========================================= */
 .content-section {
     width: 100%;
-    margin:40px;
 }
 
 /* ▼ PC版：左右並びにするためのコンテナ設定 */
 .split-container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;     /* 上下中央揃え */
+    align-items: stretch;    /* 左右の高さを強制的に揃える */
     justify-content: space-between;
     gap: 40px;
     width: 100%;
@@ -88,37 +75,23 @@
 
 /* 左右アイテムの共通設定（PC時は固定幅計算） */
 .split-item {
-    /* 隙間(40px)の半分(20px)を引いた正確な50%幅 */
+    /* 隙間(40px)の半分(20px)を引いた正確な50%幅にする */
     width: calc(50% - 20px); 
-    flex: 0 0 calc(50% - 20px);
+    flex: 0 0 calc(50% - 20px); /* 伸縮させない */
     
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* --- 動画エリアのデザイン --- */
-.media-area {
+/* --- 画像エリアのデザイン --- */
+.slide-image {
     width: 100%;
-}
-
-/* YouTubeのアスペクト比(16:9)を維持するラッパー */
-.youtube-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9; /* 自動で高さを計算 */
+    height: 100%;        /* 親要素の高さに追従 */
+    object-fit: cover;   /* 比率を維持して埋める */
     border-radius: 12px;
-    overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    background: #000;
-}
-
-.youtube-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    display: block;
 }
 
 /* --- テキストエリアのデザイン --- */
@@ -126,6 +99,8 @@
     padding: 20px;
     background: #fff;
     border-radius: 12px;
+    /* 必要に応じて枠線などを追加 */
+    /* border: 1px solid #f0f0f0; */
 }
 
 .text-title {
@@ -148,34 +123,33 @@
    4. スマホ対応（レスポンシブ設定）
    ========================================= */
 @media (max-width: 768px) {
-    .room-wrapper {
+    .guideline-wrapper {
         padding: 15px;
+        /* ここでもmin-widthは効いていますが、念のため継承されます */
     }
 
-    /* タイトルの調整 */
-    .page-title {
-        font-size: 1.6rem; /* 少し小さく */
-        gap: 10px;         /* 線との間隔を狭く */
-    }
-    
-    .page-title::before,
-    .page-title::after {
-        width: 30px;       /* スマホでは線を短くする */
-    }
-
-    /* レイアウトの縦並び化 */
     .split-container {
-        flex-direction: column; 
-        gap: 20px;
+        flex-direction: column; /* 縦並びに変更 */
+        gap: 30px;
     }
 
     .split-item {
+        /* スマホ時は幅100%に戻す */
         width: 100%;
         flex: 0 0 100%;
     }
     
+    /* スマホでは画像の高さを強制せず、自然な比率で表示 */
+    .slide-image {
+        height: auto; 
+        aspect-ratio: 16/9; /* 必要に応じて比率を固定 */
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
     .text-area {
         padding: 10px;
-        background: transparent;
     }
 }

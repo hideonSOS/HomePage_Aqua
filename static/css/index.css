@@ -139,11 +139,13 @@ footer {
   margin-left: auto;
   margin-right: auto;
   border-radius: 1px;
-  margin-top: px;
   background: var(--color-bg);
   padding: 0px 0px;
 }
+#schedule1{
+  max-width:100%;
 
+}
 
 
 
@@ -154,7 +156,7 @@ footer {
   font-size: 1rem;
   margin-bottom: 1rem;
   color: var(--color-heading);
-  /* border: 0.3px solid blue; */
+  margin-top:30px;
   background: lightskyblue;
   border-radius: 10%;
 }
@@ -198,7 +200,7 @@ footer {
   gap: 1px; /* 境界線を細く白くする */
   background: #eef2ff; /* 隙間から見える線の色（薄い青） */
   width: 100%;
-  max-width: var(--layout-max-width);
+  max-width: 90%;
   margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
@@ -446,10 +448,7 @@ footer {
   box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* ほのかに光る */
 }
 
-.schedule-calendar{
-  border:solid 1px red;
-  width:100%;
-}
+
 /* ========== 9. スマホ対応 ========== */
 @media (max-width: 767px) {
   :root {
@@ -710,5 +709,10 @@ footer {
   padding: 5px;
   margin-top: 5px;
   font-size: 0.5rem;
+}
+.schedule-item{
+  max-width:300px;
+  border:solid 3px red !important;
+  display:block;
 }
 }
