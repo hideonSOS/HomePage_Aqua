@@ -1,25 +1,44 @@
 {% extends 'template.html' %}
 {% load static %}
+
 {% block extra_css %}
 <link rel='stylesheet' href="{% static 'history/css/history.css' %}">
 {% endblock %}
+
 {% block content %}
 <div id='app'>
-	
-	<div v-for='(dict,index) in gallery' v-bind:key='index' class='gallery'>
-		<div class='imgarea'>
-			<img v-bind:src="dict.path" class='imgon'>
-		</div>
+    <div class="history-wrapper">
 
-		<div class='caption'>[[ dict.caption ]]</div>
-	</div>
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="jp-title">アクアライブステーションの歩み</span>
+                <span class="en-title">History</span>
+            </h2>
+        </div>
 
+        <div v-for='(dict, index) in gallery' v-bind:key='index' class="content-section">
+            <div class="split-container">
+                
+                <div class="split-item media-area">
+                    <div class="image-wrapper">
+                        <img v-bind:src="dict.path" class="slide-image">
+                    </div>
+                </div>
+
+                <div class="split-item text-area">
+                    <p class="text-body">[[ dict.caption ]]</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 {% endblock %}
-{% block extra_js %}
 
+{% block extra_js %}
 <script>
-	const STATIC_IMAGE_URLS = {
+    const STATIC_IMAGE_URLS = {
         gazo1: "{% static 'images/aqua.jpg' %}",
         gazo2: "{% static 'images/DSC01443.JPG' %}",
         gazo3: "{% static 'images/asada_ai.JPG' %}",
@@ -33,30 +52,28 @@
         gazo11: "{% static 'images/tateyama_masako.jpg' %}",
         gazo12: "{% static 'images/aqualivestation_2.jpg' %}",
     };
-	const { createApp } = Vue;
-	
-	createApp({
-		delimiters:['[[',']]'],
-		data(){
-			return{
-				gallery:[
-					{path:STATIC_IMAGE_URLS.gazo1, caption:'平成１９年公開FMステージとして発足'},
-					{path:STATIC_IMAGE_URLS.gazo2, caption:'沖口幸栄氏、津田富士男氏、立山一馬氏トークショー'},
-					{path:STATIC_IMAGE_URLS.gazo3, caption:'選手ふれあいコーナー 坂口愛選手トークショー'},
-					{path:STATIC_IMAGE_URLS.gazo4, caption:'立山一馬と永島知洋の名コンビ誕生'},
-					{path:STATIC_IMAGE_URLS.gazo5, caption:'アクアライブステーション時代の永島知洋氏'},
-					{path:STATIC_IMAGE_URLS.gazo6, caption:'新ステージ発足'},
-					{path:STATIC_IMAGE_URLS.gazo7, caption:'松井繁選手と永島知洋氏'},
-					{path:STATIC_IMAGE_URLS.gazo8, caption:'予想解説ステージ'},
-					{path:STATIC_IMAGE_URLS.gazo9, caption:'太閤賞期間中の永島知洋氏'},
-					{path:STATIC_IMAGE_URLS.gazo10, caption:'無観客開催時にYoutubeLiveをスタート'},
-					{path:STATIC_IMAGE_URLS.gazo11, caption:'立山一馬氏と佐藤正子氏'},
-					{path:STATIC_IMAGE_URLS.gazo12, caption:'令和７年８月１４日～公開サテライトスタジオ発足'},
-				]
-			}
-		}
-	}).mount('#app')
-
-
+    const { createApp } = Vue;
+    
+    createApp({
+        delimiters:['[[',']]'],
+        data(){
+            return{
+                gallery:[
+                    {path:STATIC_IMAGE_URLS.gazo1, caption:'平成１９年公開FMステージとして発足'},
+                    {path:STATIC_IMAGE_URLS.gazo2, caption:'沖口幸栄氏、津田富士男氏、立山一馬氏トークショー'},
+                    {path:STATIC_IMAGE_URLS.gazo3, caption:'選手ふれあいコーナー 坂口愛選手トークショー'},
+                    {path:STATIC_IMAGE_URLS.gazo4, caption:'立山一馬と永島知洋の名コンビ誕生'},
+                    {path:STATIC_IMAGE_URLS.gazo5, caption:'アクアライブステーション時代の永島知洋氏'},
+                    {path:STATIC_IMAGE_URLS.gazo6, caption:'新ステージ発足'},
+                    {path:STATIC_IMAGE_URLS.gazo7, caption:'松井繁選手と永島知洋氏'},
+                    {path:STATIC_IMAGE_URLS.gazo8, caption:'予想解説ステージ'},
+                    {path:STATIC_IMAGE_URLS.gazo9, caption:'太閤賞期間中の永島知洋氏'},
+                    {path:STATIC_IMAGE_URLS.gazo10, caption:'無観客開催時にYoutubeLiveをスタート'},
+                    {path:STATIC_IMAGE_URLS.gazo11, caption:'立山一馬氏と佐藤正子氏'},
+                    {path:STATIC_IMAGE_URLS.gazo12, caption:'令和７年８月１４日～公開サテライトスタジオ発足'},
+                ]
+            }
+        }
+    }).mount('#app')
 </script>
 {% endblock %}

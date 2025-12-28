@@ -1,24 +1,185 @@
-.gallery:nth-child(1){
-	margin-top:65px;
-}
-.gallery{
-	margin:0;
-	width:100vw;
-	aspect-ratio:16/11;
+/* =========================================
+   1. ベースレイアウト設定
+   ========================================= */
+.history-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 80vh; 
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.imgarea{
-	
-	width:100vw;
-	aspect-ratio: 16 / 9;
-	
+/* =========================================
+   2. 見出しのデザイン（共通ルール）
+   ========================================= */
+.section-header {
+    text-align: center;
+    margin-top: 80px; /* 固定ヘッダー考慮 */
+    margin-bottom: 50px;
+    width: 100%;
+}
+/* 最初の要素のマージン調整 */
+.section-header:first-child {
+    margin-top: 60px;
 }
 
-.imgarea img{
-	width:100%;
-	height:100%;
-	object-fit:cover;
+.section-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
-.caption{
-	margin-bottom:5px;
+
+/* 日本語タイトル（左右線付き） */
+.jp-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0055ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.jp-title::before,
+.jp-title::after {
+    content: '';
+    height: 3px;
+    width: 60px;
+    background: linear-gradient(to right, transparent, #00bfff);
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+.jp-title::after {
+    background: linear-gradient(to left, transparent, #00bfff);
+}
+
+/* 英語サブタイトル */
+.en-title {
+    font-size: 1rem;
+    color: #00bfff;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* =========================================
+   3. コンテンツエリア（画像とテキスト）
+   ========================================= */
+.content-section {
+    width: 100%;
+    margin-bottom: 40px; /* 各行の間隔 */
+}
+
+/* 左右並びコンテナ */
+.split-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;     /* 上下中央揃え */
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+}
+
+/* 左右アイテム共通（PC時 50%ずつ） */
+.split-item {
+    width: calc(50% - 20px); 
+    flex: 0 0 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- 画像エリア --- */
+.media-area {
+    width: 100%;
+}
+
+.image-wrapper {
+    width: 100%;
+    /* 画像のアスペクト比を16:9で固定したい場合 */
+    aspect-ratio: 16 / 9; 
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    background: #f0f0f0;
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 枠いっぱいにトリミングして表示 */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* 画像ホバー時に少し拡大するエフェクト（お好みで） */
+.image-wrapper:hover .slide-image {
+    transform: scale(1.05);
+}
+
+/* --- テキストエリア --- */
+.text-area {
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    /* カードっぽく見せるなら影を追加 */
+    /* box-shadow: 0 5px 15px rgba(0,0,0,0.05); */
+}
+
+.text-body {
+    font-size: 1.1rem; /* 少し大きめに見やすく */
+    line-height: 1.8;
+    color: #444;
+    font-weight: 500;
+}
+
+/* =========================================
+   4. スマホ対応（レスポンシブ）
+   ========================================= */
+@media (max-width: 768px) {
+    .history-wrapper {
+        padding: 15px;
+    }
+
+    .section-header {
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+
+    /* 見出しサイズ調整 */
+    .jp-title {
+        font-size: 1.6rem;
+        gap: 10px;
+    }
+    .jp-title::before,
+    .jp-title::after {
+        width: 30px;
+    }
+
+    /* 縦並びレイアウトに変更 */
+    .split-container {
+        flex-direction: column;
+        gap: 15px; /* 画像とテキストの距離 */
+    }
+
+    .split-item {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+
+    /* スマホでのテキストエリア調整 */
+    .text-area {
+        padding: 10px 5px;
+        background: transparent;
+        text-align: left; /* 左寄せ */
+    }
+    
+    .text-body {
+        font-size: 1rem;
+    }
 }

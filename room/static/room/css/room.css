@@ -7,106 +7,104 @@
     margin: 0 auto;
     padding: 20px;
     min-height: 80vh; 
-    min-width: 320px; /* スマホでの潰れ防止 */
-    
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 /* =========================================
-   2. タイトルエリアのデザイン（Pattern A：左右線）
+   2. セクション見出しのデザイン（修正版）
    ========================================= */
-.page-header {
+.section-header {
     text-align: center;
-    margin-top: 70px; /* ご指定のマージン */
-        width: 100%;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    width: 100%;
+}
+.section-header:first-child {
+    margin-top: 40px;
 }
 
-.page-title {
+/* 見出し全体の枠（縦並びにする） */
+.section-title {
+    display: flex;
+    flex-direction: column; /* 日本語を上、英語を下に積む */
+    align-items: center;
+    gap: 8px; /* 日本語と英語の間隔 */
+}
+
+/* ▼ 日本語タイトル（ここに左右の線をつける） */
+.jp-title {
     font-size: 2rem;
     font-weight: 800;
     color: #0055ff;
     
-    /* ▼ Flexboxで線とテキストを横並びにする */
+    /* 線と文字を横並びにする */
     display: flex;
-    align-items: center;       /* 上下中央揃え */
-    justify-content: center;   /* 左右中央揃え */
-    gap: 20px;                 /* 線と文字の間隔 */
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* 線と文字の間隔 */
 }
 
-/* テキスト部分の補正（サブテキスト用） */
-.title-text-box {
-    line-height: 1.2;
-    text-align: center;
+/* 左右の線を作る設定 */
+.jp-title::before,
+.jp-title::after {
+    content: '';
+    height: 3px;
+    width: 60px;               /* 線の長さ */
+    background: linear-gradient(to right, transparent, #00bfff); /* グラデーション */
+    border-radius: 3px;
+    flex-shrink: 0;            /* 縮み防止 */
 }
 
-.page-title .sub-text {
+/* 右側の線はグラデーションの向きを逆にする */
+.jp-title::after {
+    background: linear-gradient(to left, transparent, #00bfff);
+}
+
+/* ▼ 英語サブタイトル（装飾なし・下部に表示） */
+.en-title {
     font-size: 1rem;
     color: #00bfff;
     letter-spacing: 0.1em;
     font-weight: 600;
-    display: block;
-    margin-bottom: 5px;
+    line-height: 1;
 }
-
-/* ▼ 左右の線を作る設定 */
-.page-title::before,
-.page-title::after {
-    content: '';
-    height: 3px;
-    width: 60px;               /* 線の長さ */
-    /* 左側のグラデーション */
-    background: linear-gradient(to right, transparent, #00bfff); 
-    border-radius: 3px;
-    flex-shrink: 0;            /* 画面が狭くなっても線が縮まないようにする */
-}
-
-/* 右側の線はグラデーションの向きを逆にする */
-.page-title::after {
-    background: linear-gradient(to left, transparent, #00bfff);
-}
-
 
 /* =========================================
    3. コンテンツエリア（動画とテキストの配置）
    ========================================= */
 .content-section {
     width: 100%;
-    margin:40px;
+    margin-bottom: 40px;
 }
 
-/* ▼ PC版：左右並びにするためのコンテナ設定 */
 .split-container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;     /* 上下中央揃え */
+    align-items: center;
     justify-content: space-between;
     gap: 40px;
     width: 100%;
 }
 
-/* 左右アイテムの共通設定（PC時は固定幅計算） */
 .split-item {
-    /* 隙間(40px)の半分(20px)を引いた正確な50%幅 */
     width: calc(50% - 20px); 
     flex: 0 0 calc(50% - 20px);
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* --- 動画エリアのデザイン --- */
 .media-area {
     width: 100%;
 }
 
-/* YouTubeのアスペクト比(16:9)を維持するラッパー */
 .youtube-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9; /* 自動で高さを計算 */
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -121,7 +119,6 @@
     height: 100%;
 }
 
-/* --- テキストエリアのデザイン --- */
 .text-area {
     padding: 20px;
     background: #fff;
@@ -145,28 +142,33 @@
 }
 
 /* =========================================
-   4. スマホ対応（レスポンシブ設定）
+   4. スマホ対応（レスポンシブ）
    ========================================= */
 @media (max-width: 768px) {
     .room-wrapper {
         padding: 15px;
     }
 
-    /* タイトルの調整 */
-    .page-title {
-        font-size: 1.6rem; /* 少し小さく */
-        gap: 10px;         /* 線との間隔を狭く */
-    }
-    
-    .page-title::before,
-    .page-title::after {
-        width: 30px;       /* スマホでは線を短くする */
+    .section-header {
+        margin-top: 60px;
+        margin-bottom: 30px;
     }
 
-    /* レイアウトの縦並び化 */
+    /* スマホ時の見出し調整 */
+    .jp-title {
+        font-size: 1.6rem;
+        gap: 10px;
+    }
+    
+    .jp-title::before,
+    .jp-title::after {
+        width: 30px; /* 線を短く */
+    }
+
     .split-container {
         flex-direction: column; 
-        gap: 20px;
+        gap: 30px; 
+        margin-bottom: 40px !important;
     }
 
     .split-item {
