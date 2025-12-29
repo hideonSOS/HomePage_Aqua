@@ -1,23 +1,21 @@
 const { createApp } = Vue;
 
 /* =========================================================
-   修正ポイント1: スライド画像データの取得処理を追加
+   1. スライド画像データの取得処理
    ========================================================= */
-// HTML側の {{ hero_images_data|json_script:"slide-data" }} からデータを取得
 const slideDataElement = document.getElementById("slide-data");
 let dbSlides = [];
 
 if (slideDataElement) {
   try {
     dbSlides = JSON.parse(slideDataElement.textContent);
-    console.log("DBからのスライド画像読み込み成功:", dbSlides);
   } catch (e) {
     console.error("スライドデータの解析に失敗しました:", e);
   }
 }
 
 /* =========================================================
-   既存処理: カレンダー用データの取得（そのまま維持）
+   2. イベントデータの取得処理
    ========================================================= */
 const rawDataElement = document.getElementById("data-json");
 let initialEvents = [];
@@ -48,25 +46,20 @@ if (rawDataElement) {
   }
 }
 
-// 2. Vue インスタンスの data に変換後のデータを適用
+// Vue アプリケーションの定義
 const app = createApp({
   data() {
     const now = new Date();
     const y = now.getFullYear();
     const m = now.getMonth() + 1; // 1-12
 
-    /* =========================================================
-       修正ポイント2: スライド画像の出し分けロジック
-       ========================================================= */
-    // DBから画像が取れていればそれを使い、なければ従来の静的画像を使う
+    // スライド画像の出し分け
     let finalHeroImages = [];
     
     if (dbSlides.length > 0) {
-        // DBデータを使用
         finalHeroImages = dbSlides;
     } else {
-        // DBが空の場合は、既存のデフォルト画像を使用（フォールバック）
-        // ※ STATIC_IMAGE_URLS は HTML内の script タグで定義されている前提
+        // DBがない場合のデフォルト画像
         finalHeroImages = [
             {
               url: STATIC_IMAGE_URLS.aqualivestation_1,
@@ -88,14 +81,11 @@ const app = createApp({
       loading: true,
       error: null,
       
-      // ★ ここに決定したスライド画像リストをセット
       heroImages: finalHeroImages,
 
       currentMonthDate: new Date(y, m - 1, 1),
-      // ⭐ データベースから変換したデータを代入
       events: initialEvents,
       
-      // 【★前回追加】カレンダーのヘッダー表示用（月曜始まり）
       weekdays: ["月", "火", "水", "木", "金", "土", "日"],
 
       kaisetsu_profiles: [
@@ -127,10 +117,8 @@ const app = createApp({
           name: "山 本 修 次",
           text: "国立大卒＞＞＞ボートレーサーという異色の経歴の持ち主。舟券予想の解を導きます。",
         },
-        
       ],
       mc_profiles: [
-        
         {
           path: STATIC_IMAGE_URLS.hamaguchi,
           class1: "司会者",
@@ -144,7 +132,7 @@ const app = createApp({
           class2:"",
           name: "星野あゆみ",
           text: "アナウンス力と親しみやすさを併せ持つ、優れた司会者です。",
-        },     
+        },      
         {
           path: STATIC_IMAGE_URLS.masuda,
           class1: "司会者",
@@ -165,39 +153,55 @@ const app = createApp({
     daysInMonth() {
       return new Date(this.year, this.month, 0).getDate();
     },
+
+    /* =========================================================
+       ★修正ポイント: スマホリスト用イベント（過去日非表示対応）
+       ========================================================= */
     monthEvents() {
+      // 現在の日付を取得
+      const now = new Date();
+      const realYear = now.getFullYear();
+      const realMonth = now.getMonth() + 1;
+      const realDay = now.getDate();
+
       const out = [];
       for (const e of this.events) {
         const md = e.y && e.m && e.d ? e : this.parseDateParts(e.date);
         if (!md) continue;
         const yy = md.y ?? this.year;
-        if (yy === this.year && md.m === this.month)
-          out.push({ ...e, y: yy, m: md.m, d: md.d });
+
+        // 表示対象の月かチェック
+        if (yy === this.year && md.m === this.month) {
+            
+            // ★追加ロジック: 
+            // 「表示しているのが現在の月」かつ「日付が今日より前」ならリストに含めない
+            if (this.year === realYear && this.month === realMonth) {
+                if (md.d < realDay) {
+                    continue; // 過去の日付はスキップ
+                }
+            }
+            // (過去の月を見ている場合は履歴として全件表示されます)
+
+            out.push({ ...e, y: yy, m: md.m, d: md.d });
+        }
       }
+      // 日付順 > 時間順にソート
       return out.sort(
         (a, b) =>
           a.d - b.d || String(a.time || "").localeCompare(String(b.time || ""))
       );
     },
     
-    // 【★前回修正】月曜始まりに対応したカレンダー生成ロジック
+    // PCカレンダー用データ（こちらは全日程を表示する）
     calendarDays() {
       const days = [];
-      
-      // 1. 今月の1日が「何曜日か」を取得 (0=日, 1=月 ... 6=土)
       const firstDayOfWeek = new Date(this.year, this.month - 1, 1).getDay();
+      const emptyCount = (firstDayOfWeek + 6) % 7; // 月曜始まり調整
 
-      // 2. 月曜始まりにするための「空白数」を計算
-      // (曜日 + 6) % 7 で、月(1)→0, 火(2)→1, ... 日(0)→6 に変換
-      const emptyCount = (firstDayOfWeek + 6) % 7;
-
-      // 3. 配列の先頭に「空白データ（日付なし）」を入れる
       for (let i = 0; i < emptyCount; i++) {
-        // dateを空文字にしておき、HTML側で !day.date なら空白セルとして扱う
         days.push({ date: "", events: [] });
       }
 
-      // 4. その後に「実際の日付データ」を入れる
       for (let d = 1; d <= this.daysInMonth; d++) {
         const dayEvents = this.events
           .filter((e) => {
@@ -216,14 +220,12 @@ const app = createApp({
     },
   },
   methods: {
-    // 【★今回追加】スマホ用：年月日から曜日（月〜日）の文字を返す関数
+    // 曜日取得用
     getWeekday(y, m, d) {
         if (!y || !m || !d) return "";
         const date = new Date(y, m - 1, d);
         const dayIndex = date.getDay(); // 0=日, 1=月...
-        
-        // 月曜始まりの配列(weekdays)に合わせるためのインデックス計算
-        const index = (dayIndex + 6) % 7;
+        const index = (dayIndex + 6) % 7; // 月曜始まりインデックス
         return this.weekdays[index];
     },
 
@@ -259,10 +261,8 @@ const app = createApp({
   },
 });
 
-/* Vue 3 デリミタ */
 app.config.compilerOptions.delimiters = ["[[", "]]"];
 
-/* フェードイン（ループ対応） */
 app.directive("reveal", {
   mounted(el, binding) {
     el.classList.add("reveal");
@@ -274,9 +274,8 @@ app.directive("reveal", {
       typeof binding?.value?.exit === "number" ? binding.value.exit : 0.0;
     const rootMargin = binding?.value?.rootMargin ?? "0px 0px -10% 0px";
     if (typeof delay === "number") el.style.transitionDelay = delay + "ms";
-    // ★ ここでサポートチェック
+    
     if (!("IntersectionObserver" in window)) {
-      // 対応していないブラウザでは、最初から表示して終わり
       el.classList.add("is-visible");
       return;
     }

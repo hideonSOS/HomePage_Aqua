@@ -6,148 +6,147 @@
   {% endblock %}
 
       {% block content %}
-      <!-- メイン領域 -->
-      <div id="app">
-      <main>
-        <!-- スライドショー -->
-        <section class="hero-area" id="home">
-          <div
-            class="slider"
-            :style="{ transform: 'translateX(-' + currentSlide * 100 + '%)' }"
-          >
-            <div
-              class="slide"
-              v-for="(image, index) in heroImages"
-              :key="index"
-              :style="{ backgroundImage: 'url(' + image.url + ')' }"
-            >
-              <div class="hero-content">
-                <h1>[[ image.title ]]</h1>
-                <p>[[ image.subtitle ]]</p>
-              </div>
-            </div>
-          </div>
-          <button class="arrow left" @click="prevSlide">❮</button>
-          <button class="arrow right" @click="nextSlide">❯</button>
-        </section>
-
-        <!-- 出演スケジュール -->
-        <section id="schedule1">
-          <h2 class="section-title">出演スケジュール</h2>
-
-          <!-- ▼ 月送りナビ（PC/スマホ共通） -->
-          <div class="month-nav">
-            <button class="month-btn" @click="goMonth(-1)">◀ 前の月</button>
-            <div class="month-label">[[ year ]]年 [[ month ]]月</div>
-            <button class="month-btn" @click="goMonth(1)">次の月 ▶</button>
-            <button class="month-btn today" @click="goToday">今月</button>
-          </div>
-
-          <!-- PC用カレンダー -->
-          <div class="schedule-calendar">
-  <div class="weekday-header" v-for="w in weekdays" :key="w">[[ w ]]</div>
-
-  <div 
-    v-for="(day, index) in calendarDays" 
-    :key="index" 
-    class="day-cell"
-    :class="{ 'empty-cell': !day.date }" 
-  >
-    <template v-if="day.date">
-      <div class="day-date">[[ day.date ]]</div>
+<div id="app">
+  <main>
+    <section class="hero-area" id="home">
       <div
-        v-for="event in day.events"
-        :key="event.id || (event.y + '-' + event.m + '-' + event.d + '-' + event.title)"
+        class="slider"
+        :style="{ transform: 'translateX(-' + currentSlide * 100 + '%)' }"
       >
-        <div class="event-title">[[ event.title ]]</div>
-        <div class="event-time">[[ event.time ]]</div>
-        <div class="event-artist">[[ event.artist1 ]]</div>
-        <div class="event-artist">[[ event.artist2 ]]</div>
-        <div class="event-artist">[[ event.artist3 ]]</div>
-        <div class="event-artist">[[ event.artist4 ]]</div>
-        
+        <div
+          class="slide"
+          v-for="(image, index) in heroImages"
+          :key="index"
+          :style="{ backgroundImage: 'url(' + image.url + ')' }"
+        >
+          <div class="hero-content">
+            <h1>[[ image.title ]]</h1>
+            <p>[[ image.subtitle ]]</p>
+          </div>
+        </div>
       </div>
-    </template>
-  </div>
-</div>
+      <button class="arrow left" @click="prevSlide">❮</button>
+      <button class="arrow right" @click="nextSlide">❯</button>
+    </section>
 
-          <!-- スマホ用カードリスト（当月のみ表示） -->
-          <div class="schedule-list">
-  <div
-    v-for="event in monthEvents"
-    :key="event.id || (event.y+'-'+event.m+'-'+event.d+'-'+event.title)"
-    class="schedule-item"
-  >
-    <div class="schedule-item-date">
-      [[ event.y ]] / [[ event.m ]] / [[ event.d ]] ([[ getWeekday(event.y, event.m, event.d) ]])
-    </div>
-    
-    <div class="schedule-item-title">[[ event.title ]]</div>
-    <div class="schedule-item-time">[[ event.time ]]</div>
+    <section id="schedule1">
+      <h2 class="section-title">
+        <span class="jp-title">出演スケジュール</span>
+        <span class="en-title">Schedule</span>
+      </h2>
 
-    <div v-if="event.artist1" class="schedule-item-artist">[[ event.artist1 ]]</div>
-    <div v-if="event.artist2" class="schedule-item-artist">[[ event.artist2 ]]</div>
-    <div v-if="event.artist3" class="schedule-item-artist">[[ event.artist3 ]]</div>
-    <div v-if="event.artist4" class="schedule-item-artist">[[ event.artist4 ]]</div>
-  </div>
-</div>
-        </section>
+      <div class="month-nav">
+        <button class="month-btn" @click="goMonth(-1)">◀ 前の月</button>
+        <div class="month-label">[[ year ]]年 [[ month ]]月</div>
+        <button class="month-btn" @click="goMonth(1)">次の月 ▶</button>
+        <button class="month-btn today" @click="goToday">今月</button>
+      </div>
 
-        <section id="schedule2">
-          <h2 class="section-title">解説者プロフィール</h2>
+      <div class="schedule-calendar">
+        <div class="weekday-header" v-for="w in weekdays" :key="w">[[ w ]]</div>
 
-          <div class="profiles">
+        <div 
+          v-for="(day, index) in calendarDays" 
+          :key="index" 
+          class="day-cell"
+          :class="{ 'empty-cell': !day.date }" 
+        >
+          <template v-if="day.date">
+            <div class="day-date">[[ day.date ]]</div>
             <div
-              class="profile-item"
-              v-for="(p,i) in kaisetsu_profiles"
-              :key="p.path"
-              v-reveal="{ delay: i*80 }"
+              v-for="event in day.events"
+              :key="event.id || (event.y + '-' + event.m + '-' + event.d + '-' + event.title)"
             >
-              <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
-              <div class="profile-meta">
-                <div class="profile-text">[[ p.class1 ]]</div>
-                <div class="profile-text">[[ p.class2 ]]</div>
-                <div class="profile-name" style="color: #0000ff">
-                  [[ p.name ]]
-                </div>
-                <div class="profile-text">[[ p.text ]]</div>
-              </div>
+              <div class="event-title">[[ event.title ]]</div>
+              <div class="event-time">[[ event.time ]]</div>
+              <div class="event-artist">[[ event.artist1 ]]</div>
+              <div class="event-artist">[[ event.artist2 ]]</div>
+              <div class="event-artist">[[ event.artist3 ]]</div>
+              <div class="event-artist">[[ event.artist4 ]]</div>
             </div>
+          </template>
+        </div>
+      </div>
+
+      <div class="schedule-list">
+        <div
+          v-for="event in monthEvents"
+          :key="event.id || (event.y+'-'+event.m+'-'+event.d+'-'+event.title)"
+          class="schedule-item"
+        >
+          <div class="schedule-item-date">
+            [[ event.y ]] / [[ event.m ]] / [[ event.d ]] ([[ getWeekday(event.y, event.m, event.d) ]])
           </div>
-        </section>
+          
+          <div class="schedule-item-title">[[ event.title ]]</div>
+          <div class="schedule-item-time">[[ event.time ]]</div>
 
-        <section id="schedule3">
-          <h2 class="section-title">司会者プロフィール</h2>
+          <div v-if="event.artist1" class="schedule-item-artist">[[ event.artist1 ]]</div>
+          <div v-if="event.artist2" class="schedule-item-artist">[[ event.artist2 ]]</div>
+          <div v-if="event.artist3" class="schedule-item-artist">[[ event.artist3 ]]</div>
+          <div v-if="event.artist4" class="schedule-item-artist">[[ event.artist4 ]]</div>
+        </div>
+      </div>
+    </section>
 
-          <div class="profiles">
-            <div
-              class="profile-item"
-              v-for="(p,i) in mc_profiles"
-              :key="p.path"
-              v-reveal="{ delay: i*80 }"
-            >
-              <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
-              <div class="profile-meta">
-                <div class="profile-text">[[ p.class1 ]]</div>
-                <div class="profile-text">[[ p.class2 ]]</div>
-                <div class="profile-name" style="color: #0000ff">
-                  [[ p.name ]]
-                </div>
-                <div class="profile-text">[[ p.text ]]</div>
-              </div>
+    <section id="schedule2">
+      <h2 class="section-title">
+        <span class="jp-title">解説者プロフィール</span>
+        <span class="en-title">Commentator Profile</span>
+      </h2>
+
+      <div class="profiles">
+        <div
+          class="profile-item"
+          v-for="(p,i) in kaisetsu_profiles"
+          :key="p.path"
+          v-reveal="{ delay: i*80 }"
+        >
+          <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
+          <div class="profile-meta">
+            <div class="profile-text">[[ p.class1 ]]</div>
+            <div class="profile-text">[[ p.class2 ]]</div>
+            <div class="profile-name" style="color: #0000ff">
+              [[ p.name ]]
             </div>
+            <div class="profile-text">[[ p.text ]]</div>
           </div>
-        </section>
+        </div>
+      </div>
+    </section>
 
-        {{ hero_images_data|json_script:"slide-data" }}
-          {{ data|json_script:'data-json' }}
-        
-      </main>
-    </div>
+    <section id="schedule3">
+      <h2 class="section-title">
+        <span class="jp-title">司会者プロフィール</span>
+        <span class="en-title">MC Profile</span>
+      </h2>
+
+      <div class="profiles">
+        <div
+          class="profile-item"
+          v-for="(p,i) in mc_profiles"
+          :key="p.path"
+          v-reveal="{ delay: i*80 }"
+        >
+          <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
+          <div class="profile-meta">
+            <div class="profile-text">[[ p.class1 ]]</div>
+            <div class="profile-text">[[ p.class2 ]]</div>
+            <div class="profile-name" style="color: #0000ff">
+              [[ p.name ]]
+            </div>
+            <div class="profile-text">[[ p.text ]]</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {{ hero_images_data|json_script:"slide-data" }}
+    {{ data|json_script:'data-json' }}
     
-
-
-    {% endblock %}
+  </main>
+</div>
+{% endblock %}
 
 
     {% block extra_js %}
