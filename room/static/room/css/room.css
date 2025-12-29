@@ -16,14 +16,17 @@
 /* =========================================
    2. セクション見出しのデザイン（修正版）
    ========================================= */
-.section-header {
+.section-header:first-of-type{
     text-align: center;
     margin-top: 80px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     width: 100%;
 }
-.section-header:first-child {
-    margin-top: 40px;
+.section-header:nth-of-type(2){
+    text-align: center;
+    margin-top:60px;
+    margin-bottom: 30px;
+    width: 100%;
 }
 
 /* 見出し全体の枠（縦並びにする） */
@@ -32,6 +35,8 @@
     flex-direction: column; /* 日本語を上、英語を下に積む */
     align-items: center;
     gap: 8px; /* 日本語と英語の間隔 */
+    /*border:solid black 3px;*/
+    margin-top:0;
 }
 
 /* ▼ 日本語タイトル（ここに左右の線をつける） */
@@ -123,6 +128,7 @@
     padding: 20px;
     background: #fff;
     border-radius: 12px;
+    min-height:225px;
 }
 
 .text-title {
@@ -150,8 +156,8 @@
     }
 
     .section-header {
-        margin-top: 60px;
-        margin-bottom: 30px;
+        margin-top: 3s0px;
+        margin-bottom: 10px;
     }
 
     /* スマホ時の見出し調整 */
