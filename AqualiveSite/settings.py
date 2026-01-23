@@ -16,8 +16,8 @@ DEBUG = True
 # DEBUG = False
 
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS=['160.251.141.146','localhost','127.0.0.1']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS=['160.251.141.146','localhost','127.0.0.1','www.aqualivestation.com','aqualivestation.com']
 
 
 # Application definition
