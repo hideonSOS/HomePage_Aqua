@@ -131,3 +131,6 @@ LOGIN_REDIRECT_URL = '/input_page/input/'
 
 # ログアウト後の遷移先
 LOGOUT_REDIRECT_URL = '/input_page/login/'
+
+# settings.py
+CSRF_TRUSTED_ORIGINS = ['https://aqualivestation.com', 'https://www.aqualivestation.com']
