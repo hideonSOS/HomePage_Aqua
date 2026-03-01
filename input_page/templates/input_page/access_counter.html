@@ -1,0 +1,73 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  .access-counter-wrapper {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  .total-count {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .total-count h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .total-count .count-number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #2196F3;
+  }
+  .page-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .page-table th,
+  .page-table td {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .page-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  .page-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="access-counter-wrapper">
+  <div class="total-count">
+    <h1>総アクセス数</h1>
+    <div class="count-number">{{ total }}</div>
+  </div>
+
+  <h2>ページ別アクセス数</h2>
+  <table class="page-table">
+    <thead>
+      <tr>
+        <th>ページ</th>
+        <th>アクセス数</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in by_page %}
+      <tr>
+        <td>{{ item.page }}</td>
+        <td>{{ item.count }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="2">データがありません</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

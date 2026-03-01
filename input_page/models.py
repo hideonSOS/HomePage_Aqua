@@ -30,6 +30,14 @@ class SlideImage(models.Model):
     def __str__(self):
         return f"スライド画像 {self.id}"
 
+class AccessLog(models.Model):
+    page = models.CharField(max_length=255)
+    accessed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "アクセスログ"
+
+
 class Blog(models.Model):
      # 画像フィールド：upload_toで保存先フォルダを指定
     image = models.ImageField(upload_to='blog_photos/', verbose_name="投稿画像")

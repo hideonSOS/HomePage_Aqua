@@ -37,6 +37,24 @@ class ScheduleUpdateView(TemplateView):
     template_name = "input_page/update.html"
 
 
+from django.db.models import Count
+from .models import Blog, AccessLog
+
+
+def access_counter(request):
+    total = AccessLog.objects.count()
+    by_page = (
+        AccessLog.objects
+        .values('page')
+        .annotate(count=Count('id'))
+        .order_by('-count')
+    )
+    return render(request, 'input_page/access_counter.html', {
+        'total': total,
+        'by_page': by_page,
+    })
+
+
 from .models import Blog
 from .forms import BlogForm # 後ほどforms.pyで定義します
 
