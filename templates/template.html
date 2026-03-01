@@ -78,16 +78,7 @@
           </ul>
         </nav>
       </header>
-      <!-- 出演者イラストページ 遷移アニメーションオーバーレイ -->
-      <div id="artist-transition" aria-hidden="true">
-        <div class="at-sky"></div>
-        <div class="at-ground"></div>
-        <img class="at-char at-char--1" src="{% static 'artist/gazou/pet_dog.svg' %}" alt="dog">
-        <img class="at-char at-char--2" src="{% static 'artist/gazou/pet_cat.svg' %}" alt="cat">
-        <img class="at-char at-char--3" src="{% static 'artist/gazou/pet_penguin.svg' %}" alt="penguin">
-      </div>
-
-      {% block content %}{% endblock %}
+{% block content %}{% endblock %}
       <footer>
           <p>
             &copy; アクアライブステーション. All rights

@@ -18,24 +18,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ========== 出演者イラスト 遷移アニメーション ==========
-  const artistTransition = document.getElementById("artist-transition");
-
-  document.querySelectorAll('a[href*="/artist/"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      // 既にアニメーション中なら何もしない
-      if (artistTransition.classList.contains("active")) return;
-
-      e.preventDefault();
-      const dest = link.href;
-
-      // オーバーレイを表示してアニメーション開始
-      artistTransition.classList.add("active");
-
-      // 最後のキャラクターが渡り終わる頃（delay 0.7s + duration 2.0s = 2.7s）に遷移
-      setTimeout(() => {
-        window.location.href = dest;
-      }, 2700);
-    });
-  });
 });
