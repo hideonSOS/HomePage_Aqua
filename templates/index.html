@@ -8,26 +8,40 @@
       {% block content %}
 <div id="app">
   <main>
-    <section class="hero-area" id="home">
-      <div
-        class="slider"
-        :style="{ transform: 'translateX(-' + currentSlide * 100 + '%)' }"
-      >
+    <div class="hero-wrapper">
+      <section class="hero-area" id="home">
         <div
-          class="slide"
-          v-for="(image, index) in heroImages"
-          :key="index"
-          :style="{ backgroundImage: 'url(' + image.url + ')' }"
+          class="slider"
+          :style="{ transform: 'translateX(-' + currentSlide * 100 + '%)' }"
         >
-          <div class="hero-content">
-            <h1>[[ image.title ]]</h1>
-            <p>[[ image.subtitle ]]</p>
+          <div
+            class="slide"
+            v-for="(image, index) in heroImages"
+            :key="index"
+            :style="{ backgroundImage: 'url(' + image.url + ')' }"
+          >
+            <div class="hero-content">
+              <h1>[[ image.title ]]</h1>
+              <p>[[ image.subtitle ]]</p>
+            </div>
           </div>
         </div>
+        <button class="arrow left" @click="prevSlide">❮</button>
+        <button class="arrow right" @click="nextSlide">❯</button>
+      </section>
+
+      <!-- サムネイル選択バー -->
+      <div class="slide-thumbs">
+        <div
+          v-for="(image, index) in heroImages"
+          :key="'thumb-' + index"
+          class="slide-thumb"
+          :class="{ active: currentSlide === index }"
+          @click="currentSlide = index"
+          :style="{ backgroundImage: 'url(' + image.url + ')' }"
+        ></div>
       </div>
-      <button class="arrow left" @click="prevSlide">❮</button>
-      <button class="arrow right" @click="nextSlide">❯</button>
-    </section>
+    </div>
 
     <section id="schedule1">
       <h2 class="section-title">

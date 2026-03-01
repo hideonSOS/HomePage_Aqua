@@ -143,6 +143,132 @@ nav {
   transform: none;
 }
 
+/* ========== 出演者イラスト 遷移アニメーション ========== */
+#artist-transition {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#artist-transition.active {
+  display: block;
+}
+
+.at-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #1a237e 0%, #1565c0 50%, #42a5f5 100%);
+}
+
+.at-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+  border-top: 4px solid #81c784;
+}
+
+/* 歩行アニメーション：右から左へ移動しながら上下にバウンス */
+@keyframes at-walk {
+  0%   { transform: translateX(115vw) translateY(0)     scaleX(-1); }
+  10%  { transform: translateX(94vw)  translateY(-20px) scaleX(-1); }
+  20%  { transform: translateX(73vw)  translateY(0)     scaleX(-1); }
+  30%  { transform: translateX(52vw)  translateY(-20px) scaleX(-1); }
+  40%  { transform: translateX(31vw)  translateY(0)     scaleX(-1); }
+  50%  { transform: translateX(10vw)  translateY(-20px) scaleX(-1); }
+  60%  { transform: translateX(-11vw) translateY(0)     scaleX(-1); }
+  70%  { transform: translateX(-32vw) translateY(-20px) scaleX(-1); }
+  80%  { transform: translateX(-53vw) translateY(0)     scaleX(-1); }
+  100% { transform: translateX(-120vw) translateY(0)    scaleX(-1); }
+}
+
+.at-char {
+  position: absolute;
+  bottom: 28%;
+  left: 0;
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+  transform: translateX(115vw);
+}
+
+#artist-transition.active .at-char--1 {
+  animation: at-walk 2.0s linear forwards 0s;
+}
+#artist-transition.active .at-char--2 {
+  animation: at-walk 2.0s linear forwards 0.35s;
+}
+#artist-transition.active .at-char--3 {
+  animation: at-walk 2.0s linear forwards 0.7s;
+}
+
+/* ========== PC専用 ドロップダウンメニュー ========== */
+
+/* モバイルではドロップダウンを完全非表示 */
+.dropdown {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  /* li を基準にドロップダウンを配置 */
+  .nav-links li.top_cl {
+    position: relative;
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+  }
+
+  /* ドロップダウン本体：opacity + translateY でフェードイン */
+  .dropdown {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-main);
+    list-style: none;
+    min-width: 130px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    z-index: 1001;
+    /* 非表示状態 */
+    opacity: 0;
+    transform: translateY(-6px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+  }
+
+  /* ホバーで展開 */
+  .nav-links li.top_cl:hover .dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s;
+  }
+
+  .dropdown li {
+    padding: 0.6rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dropdown li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  .dropdown li a:hover {
+    color: var(--color-nav-hover);
+  }
+}
+
 /* ========== 9. スマホ対応 ========== */
 @media (max-width: 768px) {
   :root {

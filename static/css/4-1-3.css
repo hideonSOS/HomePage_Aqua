@@ -29,6 +29,26 @@
     height: 2px;
 }
 
+/* ローディング中に歩くペット */
+/* #splash(fixed 100vw/100vh)を基準に配置 */
+#splash-pet {
+    position: absolute;
+    height: 125px;
+    width: auto;
+    /* バーライン(#splash_textはtop:50%に配置)のすぐ上 */
+    top: calc(50% - 125px);
+    left: 100%;
+    animation: splash-pet-bob 0.45s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* 左向きに反転＋上下バウンス */
+@keyframes splash-pet-bob {
+    0%,100% { transform: translateX(-50%) scaleX(-1) translateY(0px);  }
+    50%      { transform: translateX(-50%) scaleX(-1) translateY(-8px); }
+}
+
 /*割れる画面のアニメーション*/
 .loader_cover {
     width: 100%;

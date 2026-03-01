@@ -21,6 +21,11 @@ var bar = new ProgressBar.Line(splash_text, {//id名を指定
 	},
 	step: function(state, bar) {
 		bar.setText(Math.round(bar.value() * 100) + ' %'); //テキストの数値
+		// ペットをバーの先頭に追従させる（右→左）
+		var pet = document.getElementById('splash-pet');
+		if (pet) {
+			pet.style.left = (75 - bar.value() * 50) + '%';
+		}
 	}
 });
 

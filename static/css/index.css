@@ -54,12 +54,51 @@ footer {
 }
 
 /* ========== 2. ヒーローエリア ========== */
+.hero-wrapper {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+}
+
 .hero-area {
   position: relative;
   overflow: hidden;
-  width: 48%;
+  width: 100%;
   aspect-ratio: 16/9;
   z-index: 1;
+}
+
+/* サムネイル選択バー */
+.slide-thumbs {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 5px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-main) transparent;
+}
+
+.slide-thumb {
+  flex-shrink: 0;
+  width: 70px;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 4px;
+  opacity: 0.5;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
+}
+
+.slide-thumb:hover {
+  opacity: 0.8;
+}
+
+.slide-thumb.active {
+  border-color: var(--color-main);
+  opacity: 1;
 }
 
 .slider {
@@ -505,11 +544,23 @@ footer {
     background: linear-gradient(135deg, #f0f7ff 0%, #e0eaff 100%);
   }
 
-  .hero-area {
+  .hero-wrapper {
     width: 100vw;
     max-width: 400px;
+  }
+
+  .hero-area {
+    width: 100%;
     aspect-ratio: 16/9;
     overflow: hidden;
+  }
+
+  .slide-thumbs {
+    gap: 3px;
+  }
+
+  .slide-thumb {
+    width: 55px;
   }
   
   .slide {
@@ -559,11 +610,15 @@ footer {
 
 /* ========== 7. タブレット対応 (min: 768px, max: 1024px) ========== */
 @media (min-width: 768px) and (max-width: 1024px) {
-  .hero-area {
+  .hero-wrapper {
     width: 100vw;
+    max-width: 800px;
+  }
+
+  .hero-area {
+    width: 100%;
     height: 450px;
     overflow: hidden;
-    max-width: 800px;
   }
   .profiles {
     display: grid;
