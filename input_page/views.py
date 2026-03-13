@@ -108,7 +108,8 @@ def blog_delete(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     if request.method == 'POST':
         post.delete()
-        return redirect('input_page:blog_list')
+        next_url = request.POST.get('next', 'input_page:blog_list')
+        return redirect(next_url)
     return render(request, 'input_page/blog_delete.html', {'post': post})
 
 

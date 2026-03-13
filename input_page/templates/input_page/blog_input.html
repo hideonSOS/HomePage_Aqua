@@ -24,6 +24,12 @@
                 <div class="post-content">
                     <span class="post-date">{{ post.post_date|date:"Y.m.d" }}</span>
                     <p class="post-description">{{ post.description }}</p>
+                    <form method="post" action="{% url 'input_page:blog_delete' pk=post.pk %}"
+                          onsubmit="return confirm('この投稿を削除しますか？')">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="input_page:blog_input">
+                        <button type="submit" class="btn-post-delete">削除</button>
+                    </form>
                 </div>
             </article>
             {% endfor %}
