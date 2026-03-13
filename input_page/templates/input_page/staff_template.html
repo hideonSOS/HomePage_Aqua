@@ -4,11 +4,231 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'input_page/css/staff_template.css' %}">
-    {% block extra_css %} {% endblock %}
+    <title>関係者ページ - アクアライブステーション</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #f5f5f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+
+      /* ヘッダー */
+      .staff-header {
+        background: #1a237e;
+        color: white;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      }
+      .staff-header .site-title {
+        font-size: 1rem;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+        color: white;
+        text-decoration: none;
+      }
+      .staff-header .badge {
+        font-size: 0.7rem;
+        background: #ff6f00;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+      .staff-header .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .staff-header .username {
+        font-size: 0.8rem;
+        color: #9fa8da;
+      }
+
+      /* ハンバーガーボタン（スマホのみ表示） */
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.6rem;
+        cursor: pointer;
+        line-height: 1;
+        padding: 4px;
+        transition: transform 0.2s;
+      }
+      .menu-toggle:active { transform: scale(0.9); }
+
+      /* ナビゲーション（PC・タブレット：横並び帯） */
+      .staff-nav {
+        background: #283593;
+        display: flex;
+        gap: 4px;
+        padding: 0 16px;
+        position: sticky;
+        top: 56px;
+        z-index: 100;
+      }
+      .staff-nav a {
+        display: inline-block;
+        padding: 10px 18px;
+        color: #cfd8f0;
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: bold;
+        border-bottom: 3px solid transparent;
+        transition: color 0.15s, border-color 0.15s, background 0.15s;
+        white-space: nowrap;
+      }
+      .staff-nav a:hover {
+        color: white;
+        border-bottom-color: #7986cb;
+      }
+      .staff-nav a.active {
+        color: white;
+        background: rgba(255, 255, 255, 0.15);
+        border-bottom-color: #ff6f00;
+        border-radius: 4px 4px 0 0;
+      }
+      .staff-nav .nav-logout {
+        margin-left: auto;
+        color: #ef9a9a;
+      }
+      .staff-nav .nav-logout:hover {
+        color: #ef5350;
+        border-bottom-color: #ef5350;
+      }
+
+      /* メインコンテンツ */
+      .staff-main {
+        flex: 1;
+        max-width: 960px;
+        width: 100%;
+        margin: 40px auto;
+        padding: 0 24px;
+      }
+
+      /* フッター */
+      .staff-footer {
+        background: #1a237e;
+        color: #9fa8da;
+        text-align: center;
+        padding: 16px;
+        font-size: 0.8rem;
+        margin-top: auto;
+      }
+
+      /* ========== タブレット (〜 768px) ========== */
+      @media (max-width: 768px) {
+        .staff-header { height: 48px; padding: 0 16px; }
+        .staff-nav { top: 48px; }
+        .staff-nav a { padding: 8px 12px; font-size: 0.82rem; }
+        .staff-main { margin: 24px auto; padding: 0 16px; }
+      }
+
+      /* ========== スマホ (〜 480px) ========== */
+      @media (max-width: 480px) {
+        .staff-header .site-title { font-size: 0.88rem; }
+        .staff-header .username { display: none; }
+
+        /* ハンバーガーボタン表示 */
+        .menu-toggle { display: block; }
+
+        /* ナビ：通常時は非表示、openedで縦展開 */
+        .staff-nav {
+          position: fixed;
+          top: 48px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          gap: 0;
+          padding: 8px 0;
+          display: none;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          z-index: 150;
+        }
+        .staff-nav.opened { display: flex; }
+        .staff-nav a {
+          padding: 14px 24px;
+          font-size: 0.95rem;
+          border-bottom: 1px solid rgba(255,255,255,0.1);
+          border-left: 3px solid transparent;
+        }
+        .staff-nav a:last-of-type { border-bottom: none; }
+        .staff-nav a.active {
+          border-bottom-color: rgba(255,255,255,0.1);
+          border-left-color: #ff6f00;
+          border-radius: 0;
+          background: rgba(255,255,255,0.12);
+        }
+        .staff-nav a:hover {
+          border-bottom-color: rgba(255,255,255,0.1);
+          border-left-color: #7986cb;
+        }
+        .staff-nav .nav-logout {
+          margin-left: 0;
+          border-top: 1px solid rgba(255,255,255,0.2);
+          margin-top: 4px;
+        }
+        .staff-main { margin: 16px auto; padding: 0 12px; }
+      }
+    </style>
+    {% block extra_css %}{% endblock %}
   </head>
   <body>
-    {% block content %}{% endblock %}
+
+    <header class="staff-header">
+      <a href="{% url 'input_page:access_counter' %}" class="site-title">
+        アクアライブステーション
+        <span class="badge">関係者</span>
+      </a>
+      <div class="header-right">
+        <span class="username">{{ user.username }}</span>
+        <button class="menu-toggle" id="menuToggle" aria-label="メニュー">☰</button>
+      </div>
+    </header>
+
+    <nav class="staff-nav" id="staffNav">
+      <a href="{% url 'input_page:access_counter' %}" {% if request.path == '/input_page/access/' %}class="active"{% endif %}>ダッシュボード</a>
+      <a href="{% url 'input_page:input' %}" {% if request.path == '/input_page/input/' %}class="active"{% endif %}>スケジュール入力</a>
+      <a href="{% url 'input_page:list' %}" {% if request.path == '/input_page/list/' %}class="active"{% endif %}>スケジュール一覧</a>
+      <a href="{% url 'input_page:blog_input' %}" {% if request.path|slice:":20" == '/input_page/blog/' %}class="active"{% endif %}>ブログ投稿</a>
+      <a href="{% url 'input_page:slide_manage' %}" {% if request.path|slice:":17" == '/input_page/slide' %}class="active"{% endif %}>スライド管理</a>
+      <a href="#" class="nav-logout" onclick="event.preventDefault(); document.getElementById('staff-logout-form').submit();">ログアウト</a>
+      <form id="staff-logout-form" method="post" action="{% url 'input_page:logout' %}" style="display:none;">{% csrf_token %}</form>
+    </nav>
+
+    <main class="staff-main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="staff-footer">
+      &copy; アクアライブステーション 関係者ページ
+    </footer>
+
+    <script>
+      const toggle = document.getElementById('menuToggle');
+      const nav    = document.getElementById('staffNav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const isOpen = nav.classList.toggle('opened');
+          toggle.textContent = isOpen ? '✕' : '☰';
+        });
+        // リンククリックで閉じる
+        nav.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            nav.classList.remove('opened');
+            toggle.textContent = '☰';
+          });
+        });
+      }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+
   </body>
 </html>

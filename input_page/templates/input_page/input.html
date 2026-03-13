@@ -1,28 +1,16 @@
-{% extends 'input_page/staff_template.html' %} {% load static %}
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
 
-{% block extra_css %} 
-<link rel = "stylesheet" href = "{% static 'input_page/css/input.css' %}">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'input_page/css/input.css' %}">
 {% endblock %}
+
 {% block content %}
-
-
-<div class = "wrapper">
-
-  <form id = "formon" method = "post" action = "{% url 'input_page:input' %}">
-    {% csrf_token %} {{ form.as_p }}
-    <button type="submit">送 信</button>
+<div class="input-card">
+  <form id="formon" method="post" action="{% url 'input_page:input' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-submit">送 信</button>
   </form>
-  </div>
-
-
-<div id = "delete_page_area">
-  <p>削　除ページへ</p>
-  <a href = "{% url 'input_page:list' %}">進 む</a>
 </div>
-
-<div id = "blog_page_area">
-  <p>ブログページへ</p>
-  <a href = "{% url 'input_page:blog_input' %}">進 む</a>
-</div>
-
 {% endblock %}

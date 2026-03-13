@@ -1,0 +1,74 @@
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  h1 { font-size: 1.6rem; color: #1a237e; margin-bottom: 24px; }
+  .blog-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .blog-card img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .blog-info { flex: 1; }
+  .blog-info .date { font-size: 0.85rem; color: #888; margin-bottom: 4px; }
+  .blog-info .desc { font-size: 0.95rem; }
+  .btn-area { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-edit {
+    padding: 5px 14px;
+    background: #1976D2;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  .btn-edit:hover { background: #1251a3; }
+  .btn-delete {
+    padding: 5px 14px;
+    background: #e53935;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  .btn-delete:hover { background: #b71c1c; }
+  .empty-msg { color: #888; }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h1>ブログ投稿一覧</h1>
+
+  {% if posts %}
+    {% for post in posts %}
+      <div class="blog-card">
+        {% if post.image %}
+          <img src="{{ post.image.url }}" alt="投稿画像">
+        {% endif %}
+        <div class="blog-info">
+          <div class="date">{{ post.post_date|date:"Y年m月d日" }}</div>
+          <div class="desc">{{ post.description|truncatechars:80 }}</div>
+          <div class="btn-area">
+            <a href="{% url 'input_page:blog_update' pk=post.pk %}" class="btn-edit">編集</a>
+            <a href="{% url 'input_page:blog_delete' pk=post.pk %}" class="btn-delete">削除</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty-msg">投稿がありません。</p>
+  {% endif %}
+{% endblock %}

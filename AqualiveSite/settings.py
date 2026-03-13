@@ -128,7 +128,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/input_page/login/'
 
 # ログイン後の遷移先
-LOGIN_REDIRECT_URL = '/input_page/input/'
+LOGIN_REDIRECT_URL = '/input_page/access/'
 
 # ログアウト後の遷移先
 LOGOUT_REDIRECT_URL = '/input_page/login/'

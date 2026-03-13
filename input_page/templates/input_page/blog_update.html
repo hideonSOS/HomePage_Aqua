@@ -1,0 +1,60 @@
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  h1 { font-size: 1.6rem; color: #1a237e; margin-bottom: 24px; }
+  .form-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .form-card p { margin-bottom: 16px; }
+  .form-card input[type="date"],
+  .form-card textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  .btn-area { display: flex; gap: 12px; margin-top: 20px; }
+  .btn-save {
+    padding: 10px 24px;
+    background: #1976D2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn-save:hover { background: #1251a3; }
+  .btn-cancel {
+    padding: 10px 24px;
+    background: #757575;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .btn-cancel:hover { background: #4a4a4a; }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h1>ブログ編集</h1>
+
+  <div class="form-card">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="btn-area">
+        <button type="submit" class="btn-save">保存する</button>
+        <a href="{% url 'input_page:blog_list' %}" class="btn-cancel">キャンセル</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,27 +1,62 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
 
-</head>
-<body>
-	<h1>削除確認</h1>
+{% block extra_css %}
+<style>
+  h1 { font-size: 1.6rem; color: #c62828; margin-bottom: 16px; }
+  .confirm-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .confirm-card p { margin: 6px 0; font-size: 0.95rem; }
+  .confirm-card strong { color: #555; }
+  .btn-area { display: flex; gap: 12px; }
+  .btn-delete {
+    padding: 10px 24px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn-delete:hover { background: #b71c1c; }
+  .btn-cancel {
+    padding: 10px 24px;
+    background: #757575;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .btn-cancel:hover { background: #4a4a4a; }
+</style>
+{% endblock %}
 
-<p>本当に以下のスケジュールを削除しますか？</p>
+{% block content %}
+  <h1>削除確認</h1>
+  <p style="margin-bottom:20px; color:#555;">以下のスケジュールを本当に削除しますか？</p>
 
+  <div class="confirm-card">
+    <p><strong>日付：</strong>{{ object.day }}</p>
+    <p><strong>タイトル：</strong>{{ object.title }}</p>
+    <p><strong>時間：</strong>{{ object.time }}</p>
+    {% if object.artist1 %}<p><strong>出演者①：</strong>{{ object.artist1 }}</p>{% endif %}
+    {% if object.artist2 %}<p><strong>出演者②：</strong>{{ object.artist2 }}</p>{% endif %}
+    {% if object.artist3 %}<p><strong>出演者③：</strong>{{ object.artist3 }}</p>{% endif %}
+    {% if object.artist4 %}<p><strong>出演者④：</strong>{{ object.artist4 }}</p>{% endif %}
+  </div>
 
-<p>{{ object.day }}</p>
-<p>{{ object.title }}</p>
-<p>{{ object.time }}</p>
-<p>{{ object.artist }}</p>
-
-<form method="post">
+  <form method="post">
     {% csrf_token %}
-    <input type="submit" value="削除を実行する">
-    <a href="{% url 'input_page:list' %}">キャンセルして戻る</a>
-</form>
-</div>
-</body>
-</html>
+    <div class="btn-area">
+      <button type="submit" class="btn-delete">削除する</button>
+      <a href="{% url 'input_page:list' %}" class="btn-cancel">キャンセル</a>
+    </div>
+  </form>
+{% endblock %}

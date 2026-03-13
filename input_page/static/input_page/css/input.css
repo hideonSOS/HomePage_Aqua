@@ -1,103 +1,101 @@
-/* 1. 全てのinputのデフォルトを上書きするため、詳細度の高いIDセレクタを使う */
-#formon #input-day {
-  width: 96%; /* 例: 親のpタグの幅の50%に設定 */
-  margin: 10px auto;
+/* ========================================
+   スケジュール入力フォーム
+   ======================================== */
+
+.input-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+  padding: 32px 28px;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* 2. 他の入力欄はデフォルトの 100% を維持 */
-#formon input {
-  width: 100%; /* ← 全てのinputに適用されているルール */
-  margin: 10px 0px;
+/* form.as_p が出力する p タグ */
+#formon p {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
 }
 
-.form-control{
-  width:375px;
-  margin:0 10px;
+#formon p label {
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 4px;
 }
 
-.wrapper{
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  border-radius:10px;
-  justify-content: center;
-  align-items:center;
-  background:linear-gradient(135deg,#004e92,#000428);
-}
-
-/* =========================================
-   フォームコンテナの設定
-   ========================================= */
-
-#formon {
-  /* フォーム全体を囲むコンテナ (Gridコンテナ) */
-  width: 97%; /* 親の #form_div の幅いっぱいを使う */
-  height: 100%; /* 縦の制約 (この高さで固定) */
-  background-color: #f8f9fa;
-  color:black;
-  border-radius:10px;
-  font-size: 16px;
-  gap: 0; /* gapは0を維持 */
-  padding: 5px; /* 内側に少し余白を持たせ、要素が端に張り付くのを防ぐ */
-  max-width:400px;
-  display: grid;
-  box-shadow:0 0 50px rgba(0,0,0,0.5);
-  grid-template-rows: repeat(5, minmax(60px, auto)) auto; /* 各項目に最低60pxの高さを保証しつつ、コンテンツに合わせて調整 */
-  grid-template-columns: 100%; /* 1列のみ */
-  overflow: hidden;
-}
-
-#formon p input,
-#formon p select,
-#formon p textarea{
-  width: 96%;
-  margin: 10px auto;   /* 左右均等 */
+/* テキスト・日付 input */
+#formon input[type="text"],
+#formon input[type="date"] {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #333;
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
 }
 
-#formon p label{
-  width: 94%;
-  margin: 0 auto;      /* 左右均等 */
-  text-align: left;    /* Day/Title/Time は左のまま */
+#formon input[type="text"]:focus,
+#formon input[type="date"]:focus {
+  outline: none;
+  border-color: #3949ab;
+  box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.12);
+  background: white;
 }
 
-/* =========================================
-   フォームフィールドの設定 ({{ form.as_p }} の影響を修正)
-   ========================================= */
-/* 1. {{ form.as_p }} で出力される p タグの修正 */
-
-#formon p {
-  width:100%;
-  margin: 0 auto; /* Gridアイテムなのでマージンを解除 */
-  display: flex; /* pタグをFlexコンテナにし、中の label と input を整列 */
-  flex-direction: column; /* 縦に並べる */
+/* textarea（出演者欄） */
+#formon textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #333;
+  background: #fafafa;
+  resize: vertical;
+  min-height: 56px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
-/* 2. pタグ内の input 要素の修正 */
-#formon input {
-  width: 96%; /* pタグ (Flexアイテム) の幅いっぱいを使う */
-  height: 30px; /* inputの高さを固定 */
-  min-width: 0; /* 念のため再設定 */
+#formon textarea:focus {
+  outline: none;
+  border-color: #3949ab;
+  box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.12);
+  background: white;
 }
 
-#input-artist {
-  height: 60px; /* 親pタグの高さをいっぱい使う */
-  margin: 10px 0px;
+/* 送信ボタン */
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: #1a237e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: background 0.2s;
 }
 
-#formon button {
-  height: 30px;
-  width: 50%; /* 親の幅いっぱいを使う */
-  font-size: 16px;
-  align-self: end; /* Gridアイテムのボタンを一番下に配置 */
-  margin: 10px 0px;
-  margin-left: auto;
-  margin-right: auto;
+.btn-submit:hover {
+  background: #283593;
 }
 
-#delete_page_area {
-  width: 95%;
-  height: 100%;
-  padding: 5px;
-  margin-top: 10px;
+/* スマホ最適化 */
+@media (max-width: 480px) {
+  .input-card {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 24px 16px;
+  }
 }

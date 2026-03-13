@@ -1,14 +1,22 @@
-{% extends 'template.html' %}
+{% extends 'input_page/staff_template.html' %}
 {% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'input_page/css/blog_input.css' %}">
+<style>
+  /* staff-main のパディングを無効化してphone-containerを中央寄せ */
+  .staff-main {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="blog-page-wrapper">
     <div class="phone-container">
-        <div class="blog-header">管理モード: タイムライン</div>
+        <div class="blog-header">投稿モード: タイムライン</div>
         <div class="timeline">
             {% for post in posts %}
             <article class="blog-card">
@@ -41,21 +49,21 @@
                     {{ form.image }}
                     <div style="margin:10px 0;">{{ form.post_date }}</div>
                     {{ form.description }}
-                    <button type="submit" style="width:100%; background:var(--main-blue); color:white; border:none; padding:12px; border-radius:8px; margin-top:15px; font-weight:bold;">投稿を確定</button>
+                    <button type="submit" style="width:100%; background:#0056b3; color:white; border:none; padding:12px; border-radius:8px; margin-top:15px; font-weight:bold;">投稿を確定</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
-// モーダルの開閉
 function toggleModal(show) {
     const modal = document.getElementById('postModal');
     modal.style.display = show ? 'flex' : 'none';
 }
 
-// 画像プレビュー
 const imageInput = document.querySelector('input[type="file"]');
 if (imageInput) {
     imageInput.addEventListener('change', function(e) {
@@ -67,7 +75,7 @@ if (imageInput) {
                 img.src = e.target.result;
                 img.style.display = 'block';
                 document.getElementById('preview-msg').style.display = 'none';
-            }
+            };
             reader.readAsDataURL(file);
         }
     });

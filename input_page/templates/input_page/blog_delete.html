@@ -1,0 +1,72 @@
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  h1 { font-size: 1.6rem; color: #c62828; margin-bottom: 16px; }
+  .confirm-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .confirm-card img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .confirm-card .date { font-size: 0.85rem; color: #888; margin-bottom: 6px; }
+  .confirm-card .desc { font-size: 0.95rem; }
+  .btn-area { display: flex; gap: 12px; }
+  .btn-delete {
+    padding: 10px 24px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn-delete:hover { background: #b71c1c; }
+  .btn-cancel {
+    padding: 10px 24px;
+    background: #757575;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .btn-cancel:hover { background: #4a4a4a; }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h1>投稿削除確認</h1>
+  <p style="margin-bottom:20px; color:#555;">以下の投稿を本当に削除しますか？</p>
+
+  <div class="confirm-card">
+    {% if post.image %}
+      <img src="{{ post.image.url }}" alt="投稿画像">
+    {% endif %}
+    <div>
+      <div class="date">{{ post.post_date|date:"Y年m月d日" }}</div>
+      <div class="desc">{{ post.description }}</div>
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="btn-area">
+      <button type="submit" class="btn-delete">削除する</button>
+      <a href="{% url 'input_page:blog_list' %}" class="btn-cancel">キャンセル</a>
+    </div>
+  </form>
+{% endblock %}

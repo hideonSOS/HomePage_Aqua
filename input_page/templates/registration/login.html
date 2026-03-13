@@ -1,17 +1,110 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>関係者ログイン - アクアライブステーション</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #e8eaf6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      padding: 40px 48px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-card h1 {
+      font-size: 1.3rem;
+      color: #1a237e;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .login-card .subtitle {
+      font-size: 0.85rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .login-card p { margin-bottom: 16px; }
+    .login-card label {
+      display: block;
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+    .login-card input[type="text"],
+    .login-card input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    .login-card input[type="text"]:focus,
+    .login-card input[type="password"]:focus {
+      outline: none;
+      border-color: #3949ab;
+      box-shadow: 0 0 0 2px rgba(57,73,171,0.15);
+    }
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: #1a237e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .btn-login:hover { background: #283593; }
+    .error-list { color: #e53935; font-size: 0.85rem; margin-bottom: 16px; list-style: none; }
+    .back-link { text-align: center; margin-top: 20px; }
+    .back-link a { color: #3949ab; font-size: 0.85rem; text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-    <div>loginpage</div>
-    <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">ログイン</button>
-</form>
+  <div class="login-card">
+    <h1>関係者ログイン</h1>
+    <p class="subtitle">アクアライブステーション</p>
 
+    {% if form.errors %}
+      <ul class="error-list">
+        <li>ユーザー名またはパスワードが正しくありません。</li>
+      </ul>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <p>
+        <label for="id_username">ユーザー名</label>
+        {{ form.username }}
+      </p>
+      <p>
+        <label for="id_password">パスワード</label>
+        {{ form.password }}
+      </p>
+      <button type="submit" class="btn-login">ログイン</button>
+    </form>
+
+    <div class="back-link">
+      <a href="/">サイトトップへ戻る</a>
+    </div>
+  </div>
 </body>
 </html>

@@ -1,25 +1,26 @@
-{% extends 'template.html' %}
+{% extends 'input_page/staff_template.html' %}
 {% load static %}
 
 {% block extra_css %}
 <style>
-  .access-counter-wrapper {
-    max-width: 900px;
-    margin: 60px auto;
-    padding: 0 20px;
-  }
   .total-count {
     text-align: center;
     margin-bottom: 40px;
   }
   .total-count h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 8px;
+    color: #1a237e;
   }
-  .total-count .count-number {
+  .count-number {
     font-size: 4rem;
     font-weight: bold;
     color: #2196F3;
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #555;
   }
   .page-table {
     width: 100%;
@@ -32,17 +33,36 @@
     text-align: left;
   }
   .page-table th {
-    background-color: #f0f0f0;
+    background-color: #e8eaf6;
     font-weight: bold;
+    color: #1a237e;
   }
   .page-table tr:nth-child(even) {
     background-color: #fafafa;
+  }
+
+  /* タブレット (〜 768px) */
+  @media (max-width: 768px) {
+    .total-count h1 { font-size: 1.5rem; }
+    .count-number { font-size: 3rem; }
+    .total-count { margin-bottom: 28px; }
+    .page-table th,
+    .page-table td { padding: 8px 10px; font-size: 0.92rem; }
+  }
+
+  /* スマホ (〜 480px) */
+  @media (max-width: 480px) {
+    .total-count h1 { font-size: 1.2rem; }
+    .count-number { font-size: 2.4rem; }
+    .total-count { margin-bottom: 20px; }
+    h2 { font-size: 1rem; }
+    .page-table th,
+    .page-table td { padding: 8px; font-size: 0.88rem; }
   }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="access-counter-wrapper">
   <div class="total-count">
     <h1>総アクセス数</h1>
     <div class="count-number">{{ total }}</div>
@@ -69,5 +89,4 @@
       {% endfor %}
     </tbody>
   </table>
-</div>
 {% endblock %}

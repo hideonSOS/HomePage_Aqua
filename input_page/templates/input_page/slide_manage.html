@@ -1,0 +1,211 @@
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  /* アップロードカード */
+  .upload-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 24px 28px;
+    margin-bottom: 36px;
+  }
+  .upload-card h2 {
+    font-size: 1rem;
+    color: #1a237e;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8eaf6;
+  }
+  .upload-form {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .upload-form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.82rem;
+    font-weight: bold;
+    color: #555;
+  }
+  .upload-form input[type="file"] {
+    padding: 6px;
+    border: 1px solid #c5cae9;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    background: #fafafa;
+    cursor: pointer;
+  }
+  .upload-form input[type="number"] {
+    width: 100px;
+    padding: 8px 10px;
+    border: 1px solid #c5cae9;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #fafafa;
+  }
+  .upload-form input[type="number"]:focus {
+    outline: none;
+    border-color: #3949ab;
+    box-shadow: 0 0 0 3px rgba(57,73,171,0.12);
+  }
+  .btn-upload {
+    padding: 10px 28px;
+    background: #1a237e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .btn-upload:hover { background: #283593; }
+
+  /* プレビューエリア */
+  #upload-preview {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    display: none;
+  }
+
+  /* スライド一覧グリッド */
+  .slides-section h2 {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 16px;
+  }
+  .slide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .slide-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .slide-item img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+  .slide-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+  }
+  .slide-order {
+    font-size: 0.82rem;
+    color: #888;
+  }
+  .btn-delete {
+    padding: 4px 12px;
+    background: #e53935;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-delete:hover { background: #b71c1c; }
+
+  .empty-msg { color: #aaa; font-size: 0.9rem; }
+
+  /* レスポンシブ */
+  @media (max-width: 480px) {
+    .upload-form { flex-direction: column; align-items: stretch; }
+    .upload-form input[type="number"] { width: 100%; }
+    .btn-upload { width: 100%; }
+    .slide-grid { grid-template-columns: 1fr; }
+    .slide-item img { height: 250px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- アップロードフォーム -->
+  <div class="upload-card">
+    <h2>スライド画像を追加</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="upload-form">
+        <div class="field">
+          <label>画像ファイル</label>
+          {{ form.image }}
+        </div>
+        <div class="field">
+          <label>表示順</label>
+          {{ form.order }}
+        </div>
+        <img id="upload-preview" src="" alt="プレビュー">
+        <button type="submit" class="btn-upload">アップロード</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 登録済みスライド一覧 -->
+  <div class="slides-section">
+    <h2>登録済みスライド（{{ slides|length }}枚 / 表示順）</h2>
+    {% if slides %}
+      <div class="slide-grid">
+        {% for slide in slides %}
+        <div class="slide-item">
+          <img src="{{ slide.image.url }}" alt="スライド {{ slide.id }}">
+          <div class="slide-item-footer">
+            <span class="slide-order">順番 {{ slide.order }}</span>
+            <form method="post" action="{% url 'input_page:slide_delete' pk=slide.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-delete"
+                onclick="return confirm('この画像を削除しますか？')">削除</button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-msg">登録されているスライド画像がありません。</p>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // アップロード前プレビュー
+  const fileInput = document.querySelector('input[type="file"]');
+  const preview   = document.getElementById('upload-preview');
+  if (fileInput && preview) {
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.style.display = 'none';
+      }
+    });
+  }
+</script>
+{% endblock %}

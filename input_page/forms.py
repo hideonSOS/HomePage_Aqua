@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from .models import Schedule
 import django.forms as forms
-from .models import Blog
+from .models import Blog, SlideImage
 
 
 class ScheduleForm(ModelForm):
@@ -69,4 +69,13 @@ class BlogForm(forms.ModelForm):
         widgets = {
             'post_date': forms.DateInput(attrs={'type': 'date'}),
             'description': forms.Textarea(attrs={'rows': 4, 'placeholder': '説明文を入力してください'}),
+        }
+
+
+class SlideImageForm(forms.ModelForm):
+    class Meta:
+        model = SlideImage
+        fields = ['image', 'order']
+        widgets = {
+            'order': forms.NumberInput(attrs={'placeholder': '表示順（小さい数字が先）', 'min': 0}),
         }

@@ -1,38 +1,85 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スケジュール一覧</title>
-	<style>
-		
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
 
-	</style>
+{% block extra_css %}
+<style>
+  h1 { font-size: 1.6rem; color: #1a237e; margin-bottom: 24px; }
+  .schedule-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    min-height: 210px;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .schedule-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .schedule-info p { margin: 4px 0; font-size: 0.95rem; }
+  .schedule-info strong { color: #555; }
+  .btn-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    padding-left: 16px;
+  }
+  .btn-edit {
+    padding: 6px 16px;
+    background: #1976D2;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .btn-edit:hover { background: #1251a3; }
+  .btn-delete {
+    padding: 6px 16px;
+    background: #e53935;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .btn-delete:hover { background: #b71c1c; }
+  .empty-msg { color: #888; }
+</style>
+{% endblock %}
 
-</head>
-<body>
-    <h1>スケジュール一覧</h1>
-    
-    {% if schedule_list %}
-        {% for schedule in schedule_list %}
-            <div style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px;">
-                <p><strong>日付:</strong> {{ schedule.day|date:"Y年m月d日" }}</p>
-                <p><strong>タイトル:</strong> {{ schedule.title }}</p>
-                <p><strong>出演者:</strong> {{ schedule.artist }}</p>
+{% block content %}
+  <h1>スケジュール一覧</h1>
 
-                <a href="{% url 'input_page:delete' pk=schedule.pk %}">
-                    [削除確認]
-                </a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>登録されているスケジュールはありません。</p>
-    {% endif %}
-
-    {% if form %}
-        <h3>新規追加 / 検索フォーム</h3>
-        {{ form.as_p }}
-    {% endif %}
-
-</body>
-</html>
+  {% if schedule_list %}
+    {% for schedule in schedule_list %}
+      <div class="schedule-card">
+        <div class="schedule-info">
+          <p><strong>日付：</strong>{{ schedule.day|date:"Y年m月d日" }}</p>
+          <p><strong>タイトル：</strong>{{ schedule.title }}</p>
+          <p><strong>時間：</strong>{{ schedule.time }}</p>
+          {% if schedule.artist1 %}<p><strong>出演者①：</strong>{{ schedule.artist1 }}</p>{% endif %}
+          {% if schedule.artist2 %}<p><strong>出演者②：</strong>{{ schedule.artist2 }}</p>{% endif %}
+          {% if schedule.artist3 %}<p><strong>出演者③：</strong>{{ schedule.artist3 }}</p>{% endif %}
+          {% if schedule.artist4 %}<p><strong>出演者④：</strong>{{ schedule.artist4 }}</p>{% endif %}
+        </div>
+        <div class="btn-area">
+          <a href="{% url 'input_page:update' pk=schedule.pk %}" class="btn-edit">編集</a>
+          <a href="{% url 'input_page:delete' pk=schedule.pk %}" class="btn-delete">削除</a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="empty-msg">登録されているスケジュールはありません。</p>
+  {% endif %}
+{% endblock %}

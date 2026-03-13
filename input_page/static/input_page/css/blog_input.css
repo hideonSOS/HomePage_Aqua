@@ -10,7 +10,7 @@
     display: flex;
     justify-content: center;
     padding: 20px 0;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 96px); /* staff header(56px) + nav(40px) */
 }
 
 .phone-container {
