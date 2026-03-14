@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" fill="#1e3a8a">
+
+  <!-- ===== 中央核（最密集・大粒） ===== -->
+  <circle cx="700" cy="420" r="7"/><circle cx="672" cy="405" r="6"/><circle cx="728" cy="405" r="6"/>
+  <circle cx="655" cy="390" r="5"/><circle cx="700" cy="388" r="5"/><circle cx="745" cy="390" r="5"/>
+  <circle cx="680" cy="372" r="5"/><circle cx="720" cy="372" r="5"/><circle cx="658" cy="435" r="5"/>
+  <circle cx="742" cy="435" r="5"/><circle cx="632" cy="418" r="5"/><circle cx="768" cy="418" r="5"/>
+  <circle cx="700" cy="450" r="6"/><circle cx="668" cy="455" r="5"/><circle cx="732" cy="455" r="5"/>
+
+  <!-- ===== 左スプレー・第1帯（近距離・中粒） ===== -->
+  <circle cx="618" cy="378" r="5"/><circle cx="598" cy="362" r="5"/><circle cx="578" cy="348" r="4"/>
+  <circle cx="605" cy="345" r="4"/><circle cx="582" cy="328" r="4"/><circle cx="558" cy="340" r="5"/>
+  <circle cx="542" cy="358" r="4"/><circle cx="565" cy="370" r="4"/><circle cx="525" cy="345" r="5"/>
+  <circle cx="548" cy="325" r="4"/><circle cx="522" cy="308" r="4"/><circle cx="498" cy="325" r="5"/>
+  <circle cx="512" cy="365" r="4"/><circle cx="488" cy="348" r="4"/><circle cx="608" cy="398" r="4"/>
+  <circle cx="585" cy="412" r="5"/><circle cx="558" cy="405" r="4"/><circle cx="532" cy="418" r="4"/>
+  <circle cx="505" cy="408" r="4"/><circle cx="478" cy="422" r="5"/><circle cx="452" cy="412" r="4"/>
+  <circle cx="620" cy="358" r="3"/><circle cx="595" cy="332" r="4"/><circle cx="568" cy="315" r="3"/>
+
+  <!-- ===== 左スプレー・第2帯 ===== -->
+  <circle cx="462" cy="368" r="4"/><circle cx="438" cy="352" r="4"/><circle cx="415" cy="368" r="4"/>
+  <circle cx="448" cy="335" r="3"/><circle cx="422" cy="320" r="4"/><circle cx="398" cy="335" r="3"/>
+  <circle cx="375" cy="352" r="4"/><circle cx="355" cy="368" r="3"/><circle cx="392" cy="372" r="4"/>
+  <circle cx="365" cy="385" r="3"/><circle cx="338" cy="370" r="4"/><circle cx="312" cy="382" r="3"/>
+  <circle cx="428" cy="390" r="3"/><circle cx="402" cy="405" r="4"/><circle cx="375" cy="398" r="3"/>
+  <circle cx="348" cy="412" r="4"/><circle cx="320" cy="402" r="3"/><circle cx="295" cy="418" r="3"/>
+  <circle cx="445" cy="315" r="3"/><circle cx="418" cy="298" r="3"/><circle cx="392" cy="308" r="3"/>
+  <circle cx="365" cy="320" r="4"/><circle cx="338" cy="308" r="3"/><circle cx="312" cy="320" r="3"/>
+  <circle cx="285" cy="335" r="4"/><circle cx="260" cy="350" r="3"/><circle cx="268" cy="368" r="3"/>
+  <circle cx="242" cy="382" r="3"/><circle cx="285" cy="398" r="3"/><circle cx="258" cy="412" r="3"/>
+
+  <!-- ===== 左スプレー・第3帯（中距離・小粒） ===== -->
+  <circle cx="238" cy="352" r="3"/><circle cx="215" cy="365" r="2.5"/><circle cx="192" cy="352" r="3"/>
+  <circle cx="222" cy="338" r="2.5"/><circle cx="198" cy="325" r="2.5"/><circle cx="175" cy="338" r="3"/>
+  <circle cx="152" cy="352" r="2.5"/><circle cx="235" cy="322" r="2.5"/><circle cx="210" cy="308" r="2.5"/>
+  <circle cx="185" cy="318" r="2.5"/><circle cx="162" cy="330" r="2.5"/><circle cx="138" cy="345" r="2.5"/>
+  <circle cx="268" cy="308" r="2.5"/><circle cx="242" cy="295" r="2.5"/><circle cx="218" cy="305" r="2.5"/>
+  <circle cx="195" cy="292" r="2.5"/><circle cx="170" cy="305" r="2.5"/><circle cx="148" cy="318" r="2.5"/>
+  <circle cx="125" cy="332" r="2.5"/><circle cx="232" cy="428" r="2.5"/><circle cx="208" cy="440" r="2.5"/>
+  <circle cx="185" cy="432" r="2.5"/><circle cx="162" cy="448" r="2.5"/><circle cx="138" cy="438" r="2.5"/>
+  <circle cx="115" cy="452" r="2.5"/><circle cx="260" cy="418" r="2.5"/><circle cx="128" cy="365" r="2.5"/>
+  <circle cx="105" cy="348" r="2.5"/><circle cx="115" cy="380" r="2.5"/><circle cx="92" cy="362" r="2"/>
+
+  <!-- ===== 左・上部への飛散 ===== -->
+  <circle cx="555" cy="298" r="3"/><circle cx="532" cy="282" r="3"/><circle cx="508" cy="270" r="3"/>
+  <circle cx="485" cy="282" r="2.5"/><circle cx="462" cy="270" r="2.5"/><circle cx="438" cy="282" r="3"/>
+  <circle cx="415" cy="268" r="2.5"/><circle cx="390" cy="278" r="2.5"/><circle cx="365" cy="265" r="2.5"/>
+  <circle cx="342" cy="278" r="2.5"/><circle cx="318" cy="268" r="2.5"/><circle cx="292" cy="280" r="2.5"/>
+  <circle cx="268" cy="268" r="2.5"/><circle cx="575" cy="278" r="2.5"/><circle cx="548" cy="262" r="2.5"/>
+  <circle cx="522" cy="252" r="2"/><circle cx="495" cy="242" r="2.5"/><circle cx="468" cy="252" r="2"/>
+  <circle cx="442" cy="240" r="2"/><circle cx="415" cy="250" r="2"/><circle cx="388" cy="240" r="2"/>
+  <circle cx="362" cy="252" r="2"/><circle cx="335" cy="242" r="2"/><circle cx="308" cy="255" r="2"/>
+  <circle cx="282" cy="245" r="2"/><circle cx="255" cy="258" r="2"/><circle cx="228" cy="268" r="2"/>
+  <circle cx="202" cy="278" r="2"/><circle cx="178" cy="268" r="2"/><circle cx="155" cy="280" r="2"/>
+
+  <!-- ===== 左・下部への飛散 ===== -->
+  <circle cx="560" cy="468" r="3"/><circle cx="535" cy="482" r="3"/><circle cx="508" cy="472" r="2.5"/>
+  <circle cx="482" cy="488" r="3"/><circle cx="455" cy="478" r="2.5"/><circle cx="428" cy="492" r="3"/>
+  <circle cx="400" cy="480" r="2.5"/><circle cx="372" cy="495" r="2.5"/><circle cx="345" cy="482" r="2.5"/>
+  <circle cx="318" cy="498" r="2.5"/><circle cx="290" cy="485" r="2.5"/><circle cx="262" cy="500" r="2.5"/>
+  <circle cx="235" cy="488" r="2.5"/><circle cx="208" cy="502" r="2"/><circle cx="180" cy="490" r="2"/>
+  <circle cx="155" cy="505" r="2"/><circle cx="128" cy="492" r="2"/><circle cx="102" cy="508" r="2"/>
+
+  <!-- ===== 左・ミスト（最遠・極細） ===== -->
+  <circle cx="118" cy="298" r="2"/><circle cx="95" cy="312" r="2"/><circle cx="72" cy="298" r="1.5"/>
+  <circle cx="105" cy="285" r="1.5"/><circle cx="82" cy="272" r="1.5"/><circle cx="58" cy="285" r="1.5"/>
+  <circle cx="142" cy="278" r="2"/><circle cx="118" cy="265" r="1.5"/><circle cx="95" cy="252" r="1.5"/>
+  <circle cx="72" cy="265" r="1.5"/><circle cx="48" cy="278" r="1"/><circle cx="68" cy="328" r="1.5"/>
+  <circle cx="45" cy="315" r="1.5"/><circle cx="55" cy="342" r="1"/><circle cx="78" cy="398" r="1.5"/>
+  <circle cx="55" cy="412" r="1.5"/><circle cx="38" cy="398" r="1"/><circle cx="72" cy="425" r="1.5"/>
+  <circle cx="48" cy="438" r="1.5"/><circle cx="25" cy="425" r="1"/><circle cx="88" cy="462" r="1.5"/>
+  <circle cx="65" cy="478" r="1.5"/><circle cx="42" cy="462" r="1"/><circle cx="20" cy="478" r="1"/>
+
+  <!-- ===== 右スプレー・第1帯（近距離・中粒） ===== -->
+  <circle cx="782" cy="378" r="5"/><circle cx="802" cy="362" r="5"/><circle cx="822" cy="348" r="4"/>
+  <circle cx="795" cy="345" r="4"/><circle cx="818" cy="328" r="4"/><circle cx="842" cy="340" r="5"/>
+  <circle cx="858" cy="358" r="4"/><circle cx="835" cy="370" r="4"/><circle cx="875" cy="345" r="5"/>
+  <circle cx="852" cy="325" r="4"/><circle cx="878" cy="308" r="4"/><circle cx="902" cy="325" r="5"/>
+  <circle cx="888" cy="365" r="4"/><circle cx="912" cy="348" r="4"/><circle cx="792" cy="398" r="4"/>
+  <circle cx="815" cy="412" r="5"/><circle cx="842" cy="405" r="4"/><circle cx="868" cy="418" r="4"/>
+  <circle cx="895" cy="408" r="4"/><circle cx="922" cy="422" r="5"/><circle cx="948" cy="412" r="4"/>
+  <circle cx="780" cy="358" r="3"/><circle cx="805" cy="332" r="4"/><circle cx="832" cy="315" r="3"/>
+
+  <!-- ===== 右スプレー・第2帯 ===== -->
+  <circle cx="938" cy="368" r="4"/><circle cx="962" cy="352" r="4"/><circle cx="985" cy="368" r="4"/>
+  <circle cx="952" cy="335" r="3"/><circle cx="978" cy="320" r="4"/><circle cx="1002" cy="335" r="3"/>
+  <circle cx="1025" cy="352" r="4"/><circle cx="1045" cy="368" r="3"/><circle cx="1008" cy="372" r="4"/>
+  <circle cx="1035" cy="385" r="3"/><circle cx="1062" cy="370" r="4"/><circle cx="1088" cy="382" r="3"/>
+  <circle cx="972" cy="390" r="3"/><circle cx="998" cy="405" r="4"/><circle cx="1025" cy="398" r="3"/>
+  <circle cx="1052" cy="412" r="4"/><circle cx="1080" cy="402" r="3"/><circle cx="1105" cy="418" r="3"/>
+  <circle cx="955" cy="315" r="3"/><circle cx="982" cy="298" r="3"/><circle cx="1008" cy="308" r="3"/>
+  <circle cx="1035" cy="320" r="4"/><circle cx="1062" cy="308" r="3"/><circle cx="1088" cy="320" r="3"/>
+  <circle cx="1115" cy="335" r="4"/><circle cx="1140" cy="350" r="3"/><circle cx="1132" cy="368" r="3"/>
+  <circle cx="1158" cy="382" r="3"/><circle cx="1115" cy="398" r="3"/><circle cx="1142" cy="412" r="3"/>
+
+  <!-- ===== 右スプレー・第3帯 ===== -->
+  <circle cx="1162" cy="352" r="3"/><circle cx="1185" cy="365" r="2.5"/><circle cx="1208" cy="352" r="3"/>
+  <circle cx="1178" cy="338" r="2.5"/><circle cx="1202" cy="325" r="2.5"/><circle cx="1225" cy="338" r="3"/>
+  <circle cx="1248" cy="352" r="2.5"/><circle cx="1165" cy="322" r="2.5"/><circle cx="1190" cy="308" r="2.5"/>
+  <circle cx="1215" cy="318" r="2.5"/><circle cx="1238" cy="330" r="2.5"/><circle cx="1262" cy="345" r="2.5"/>
+  <circle cx="1132" cy="308" r="2.5"/><circle cx="1158" cy="295" r="2.5"/><circle cx="1182" cy="305" r="2.5"/>
+  <circle cx="1205" cy="292" r="2.5"/><circle cx="1230" cy="305" r="2.5"/><circle cx="1252" cy="318" r="2.5"/>
+  <circle cx="1275" cy="332" r="2.5"/><circle cx="1168" cy="428" r="2.5"/><circle cx="1192" cy="440" r="2.5"/>
+  <circle cx="1215" cy="432" r="2.5"/><circle cx="1238" cy="448" r="2.5"/><circle cx="1262" cy="438" r="2.5"/>
+  <circle cx="1285" cy="452" r="2.5"/><circle cx="1140" cy="418" r="2.5"/><circle cx="1272" cy="365" r="2.5"/>
+  <circle cx="1295" cy="348" r="2.5"/><circle cx="1285" cy="380" r="2.5"/><circle cx="1308" cy="362" r="2"/>
+
+  <!-- ===== 右・上部への飛散 ===== -->
+  <circle cx="845" cy="298" r="3"/><circle cx="868" cy="282" r="3"/><circle cx="892" cy="270" r="3"/>
+  <circle cx="915" cy="282" r="2.5"/><circle cx="938" cy="270" r="2.5"/><circle cx="962" cy="282" r="3"/>
+  <circle cx="985" cy="268" r="2.5"/><circle cx="1010" cy="278" r="2.5"/><circle cx="1035" cy="265" r="2.5"/>
+  <circle cx="1058" cy="278" r="2.5"/><circle cx="1082" cy="268" r="2.5"/><circle cx="1108" cy="280" r="2.5"/>
+  <circle cx="1132" cy="268" r="2.5"/><circle cx="825" cy="278" r="2.5"/><circle cx="852" cy="262" r="2.5"/>
+  <circle cx="878" cy="252" r="2"/><circle cx="905" cy="242" r="2.5"/><circle cx="932" cy="252" r="2"/>
+  <circle cx="958" cy="240" r="2"/><circle cx="985" cy="250" r="2"/><circle cx="1012" cy="240" r="2"/>
+  <circle cx="1038" cy="252" r="2"/><circle cx="1065" cy="242" r="2"/><circle cx="1092" cy="255" r="2"/>
+  <circle cx="1118" cy="245" r="2"/><circle cx="1145" cy="258" r="2"/><circle cx="1172" cy="268" r="2"/>
+  <circle cx="1198" cy="278" r="2"/><circle cx="1222" cy="268" r="2"/><circle cx="1245" cy="280" r="2"/>
+
+  <!-- ===== 右・下部への飛散 ===== -->
+  <circle cx="840" cy="468" r="3"/><circle cx="865" cy="482" r="3"/><circle cx="892" cy="472" r="2.5"/>
+  <circle cx="918" cy="488" r="3"/><circle cx="945" cy="478" r="2.5"/><circle cx="972" cy="492" r="3"/>
+  <circle cx="1000" cy="480" r="2.5"/><circle cx="1028" cy="495" r="2.5"/><circle cx="1055" cy="482" r="2.5"/>
+  <circle cx="1082" cy="498" r="2.5"/><circle cx="1110" cy="485" r="2.5"/><circle cx="1138" cy="500" r="2.5"/>
+  <circle cx="1165" cy="488" r="2.5"/><circle cx="1192" cy="502" r="2"/><circle cx="1220" cy="490" r="2"/>
+  <circle cx="1245" cy="505" r="2"/><circle cx="1272" cy="492" r="2"/><circle cx="1298" cy="508" r="2"/>
+
+  <!-- ===== 右・ミスト（最遠・極細） ===== -->
+  <circle cx="1282" cy="298" r="2"/><circle cx="1305" cy="312" r="2"/><circle cx="1328" cy="298" r="1.5"/>
+  <circle cx="1295" cy="285" r="1.5"/><circle cx="1318" cy="272" r="1.5"/><circle cx="1342" cy="285" r="1.5"/>
+  <circle cx="1258" cy="278" r="2"/><circle cx="1282" cy="265" r="1.5"/><circle cx="1305" cy="252" r="1.5"/>
+  <circle cx="1328" cy="265" r="1.5"/><circle cx="1352" cy="278" r="1"/><circle cx="1332" cy="328" r="1.5"/>
+  <circle cx="1355" cy="315" r="1.5"/><circle cx="1345" cy="342" r="1"/><circle cx="1322" cy="398" r="1.5"/>
+  <circle cx="1345" cy="412" r="1.5"/><circle cx="1362" cy="398" r="1"/><circle cx="1328" cy="425" r="1.5"/>
+  <circle cx="1352" cy="438" r="1.5"/><circle cx="1375" cy="425" r="1"/><circle cx="1312" cy="462" r="1.5"/>
+  <circle cx="1335" cy="478" r="1.5"/><circle cx="1358" cy="462" r="1"/><circle cx="1380" cy="478" r="1"/>
+
+  <!-- ===== 最上部・細かい飛散 ===== -->
+  <circle cx="500" cy="228" r="2"/><circle cx="528" cy="215" r="1.5"/><circle cx="555" cy="205" r="2"/>
+  <circle cx="582" cy="195" r="1.5"/><circle cx="610" cy="188" r="1.5"/><circle cx="638" cy="178" r="1.5"/>
+  <circle cx="665" cy="172" r="1.5"/><circle cx="700" cy="165" r="2"/><circle cx="735" cy="172" r="1.5"/>
+  <circle cx="762" cy="178" r="1.5"/><circle cx="790" cy="188" r="1.5"/><circle cx="818" cy="195" r="1.5"/>
+  <circle cx="845" cy="205" r="2"/><circle cx="872" cy="215" r="1.5"/><circle cx="900" cy="228" r="2"/>
+  <circle cx="472" cy="215" r="1.5"/><circle cx="445" cy="205" r="1.5"/><circle cx="418" cy="218" r="1.5"/>
+  <circle cx="928" cy="215" r="1.5"/><circle cx="955" cy="205" r="1.5"/><circle cx="982" cy="218" r="1.5"/>
+  <circle cx="392" cy="228" r="1.5"/><circle cx="365" cy="215" r="1.5"/><circle cx="338" cy="228" r="1.5"/>
+  <circle cx="1008" cy="228" r="1.5"/><circle cx="1035" cy="215" r="1.5"/><circle cx="1062" cy="228" r="1.5"/>
+  <circle cx="312" cy="242" r="1.5"/><circle cx="285" cy="228" r="1.5"/><circle cx="258" cy="242" r="1.5"/>
+  <circle cx="1088" cy="242" r="1.5"/><circle cx="1115" cy="228" r="1.5"/><circle cx="1142" cy="242" r="1.5"/>
+
+  <!-- ===== 最下部・細かい飛散 ===== -->
+  <circle cx="468" cy="545" r="2"/><circle cx="498" cy="558" r="1.5"/><circle cx="528" cy="545" r="2"/>
+  <circle cx="558" cy="562" r="1.5"/><circle cx="590" cy="550" r="1.5"/><circle cx="622" cy="568" r="1.5"/>
+  <circle cx="655" cy="555" r="1.5"/><circle cx="700" cy="572" r="2"/><circle cx="745" cy="555" r="1.5"/>
+  <circle cx="778" cy="568" r="1.5"/><circle cx="810" cy="550" r="1.5"/><circle cx="842" cy="562" r="1.5"/>
+  <circle cx="872" cy="545" r="2"/><circle cx="902" cy="558" r="1.5"/><circle cx="932" cy="545" r="2"/>
+  <circle cx="438" cy="532" r="1.5"/><circle cx="408" cy="545" r="1.5"/><circle cx="378" cy="532" r="1.5"/>
+  <circle cx="962" cy="532" r="1.5"/><circle cx="992" cy="545" r="1.5"/><circle cx="1022" cy="532" r="1.5"/>
+
+</svg>

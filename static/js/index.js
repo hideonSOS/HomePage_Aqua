@@ -80,6 +80,8 @@ const app = createApp({
       currentYear: y,
       loading: true,
       error: null,
+      modalOpen: false,
+      selectedProfile: null,
       
       heroImages: finalHeroImages,
 
@@ -255,9 +257,22 @@ const app = createApp({
       const now = new Date();
       this.currentMonthDate = new Date(now.getFullYear(), now.getMonth(), 1);
     },
+    openModal(profile) {
+      this.selectedProfile = profile;
+      this.modalOpen = true;
+      document.body.style.overflow = 'hidden';
+    },
+    closeModal() {
+      this.modalOpen = false;
+      this.selectedProfile = null;
+      document.body.style.overflow = '';
+    },
   },
   async mounted() {
     setInterval(this.nextSlide, 5000);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.closeModal();
+    });
   },
 });
 
@@ -266,15 +281,12 @@ app.config.compilerOptions.delimiters = ["[[", "]]"];
 app.directive("reveal", {
   mounted(el, binding) {
     el.classList.add("reveal");
-    const once = !!binding?.modifiers?.once || !!binding?.value?.once;
     const delay = binding?.value?.delay;
     const enter =
       typeof binding?.value?.enter === "number" ? binding.value.enter : 0.2;
-    const exit =
-      typeof binding?.value?.exit === "number" ? binding.value.exit : 0.0;
     const rootMargin = binding?.value?.rootMargin ?? "0px 0px -10% 0px";
     if (typeof delay === "number") el.style.transitionDelay = delay + "ms";
-    
+
     if (!("IntersectionObserver" in window)) {
       el.classList.add("is-visible");
       return;
@@ -282,16 +294,13 @@ app.directive("reveal", {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const ratio = entry.intersectionRatio ?? 0;
-          if (entry.isIntersecting && ratio >= enter) {
+          if (entry.isIntersecting && entry.intersectionRatio >= enter) {
             el.classList.add("is-visible");
-            if (once) io.unobserve(el);
-          } else if (!once && ratio <= exit) {
-            el.classList.remove("is-visible");
+            io.unobserve(el); // 一度発火したら監視停止
           }
         });
       },
-      { threshold: [exit, enter], rootMargin }
+      { threshold: [enter], rootMargin }
     );
 
     el._io = io;

@@ -115,6 +115,7 @@
           v-for="(p,i) in kaisetsu_profiles"
           :key="p.path"
           v-reveal="{ delay: i*80 }"
+          @click="openModal(p)"
         >
           <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
           <div class="profile-meta">
@@ -128,6 +129,26 @@
         </div>
       </div>
     </section>
+
+    <!-- =========================================
+         解説者モーダル
+         ========================================= -->
+    <div v-if="modalOpen" class="profile-modal" @click.self="closeModal">
+      <div class="profile-modal-content">
+        <button class="profile-modal-close" @click="closeModal">✕</button>
+        <div class="profile-modal-body" v-if="selectedProfile">
+          <div class="profile-modal-img">
+            <img :src="selectedProfile.path" :alt="selectedProfile.name" />
+          </div>
+          <div class="profile-modal-text">
+            <p class="profile-modal-role">[[ selectedProfile.class1 ]]</p>
+            <p class="profile-modal-role">[[ selectedProfile.class2 ]]</p>
+            <h2 class="profile-modal-name">[[ selectedProfile.name ]]</h2>
+            <p class="profile-modal-desc">[[ selectedProfile.text ]]</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <section id="schedule3">
       <h2 class="section-title">

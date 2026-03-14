@@ -8,7 +8,7 @@
 {% block content %}
 <div class="room-wrapper">
 
-    <div class="section-header">
+    <div class="section-header" id="information">
         <h2 class="section-title">
             <span class="jp-title">番組からのご案内</span>
             <span class="en-title">Information</span>
@@ -22,14 +22,24 @@
                     住之江ゼミナールのページへようこそ。<br>
                     当番組は開催初日及び予選最終日等、シリーズの節目に配信しています。<br>
                     番組ではチャットを中心に皆様の様々なボートレースに関わる疑問にお答えしています。<br>
-                    
                 </p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="{% static 'pdfs/annual_schedule.pdf' %}" target="_blank" style="
+                        display: inline-block;
+                        padding: 12px 32px;
+                        background-color: #2563eb;
+                        color: #fff;
+                        border-radius: 6px;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        text-decoration: none;
+                    ">📄 年間スケジュール</a>
+                </div>
             </div>
         </div>
     </section>
 
-
-    <div class="section-header">
+    <div class="section-header" id="movie">
         <h2 class="section-title">
             <span class="jp-title">解説動画</span>
             <span class="en-title">Training Movie</span>
@@ -37,16 +47,16 @@
     </div>
 
     <section class="content-section">
-        
+
         <div class="split-container" style="margin-bottom: 60px;">
             <div class="split-item media-area">
                 <div class="youtube-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/Tly9Eqtz_JY?si=5yX5HTVGZe_Dzc2H" 
-                        title="待機行動について" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
+                    <iframe
+                        src="https://www.youtube.com/embed/Tly9Eqtz_JY?si=5yX5HTVGZe_Dzc2H"
+                        title="待機行動について"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen>
                     </iframe>
                 </div>
@@ -63,12 +73,12 @@
         <div class="split-container">
             <div class="split-item media-area">
                 <div class="youtube-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/uyay95MPwr0?si=-txU3_75foiTrCJL" 
-                        title="プロペラについて" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
+                    <iframe
+                        src="https://www.youtube.com/embed/uyay95MPwr0?si=-txU3_75foiTrCJL"
+                        title="プロペラについて"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen>
                     </iframe>
                 </div>
@@ -83,10 +93,6 @@
         </div>
 
     </section>
-
-    <div id="roomapp">
-        <div v-for="(te,i) in test" v-bind:key="i" class="targetdiv"></div>
-    </div>
 
 </div>
 {% endblock %}

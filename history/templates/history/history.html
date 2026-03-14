@@ -19,14 +19,15 @@
         <div v-for='(dict, index) in gallery' v-bind:key='index' class="content-section">
             <div class="split-container">
                 
+                <div class="split-item text-area">
+                    <span class="entry-number">[[ String(index + 1).padStart(2, '0') ]]</span>
+                    <p class="text-body">[[ dict.caption ]]</p>
+                </div>
+
                 <div class="split-item media-area">
                     <div class="image-wrapper">
                         <img v-bind:src="dict.path" class="slide-image">
                     </div>
-                </div>
-
-                <div class="split-item text-area">
-                    <p class="text-body">[[ dict.caption ]]</p>
                 </div>
 
             </div>
@@ -73,6 +74,25 @@
                     {path:STATIC_IMAGE_URLS.gazo12, caption:'令和７年８月１４日～公開サテライトスタジオ発足'},
                 ]
             }
+        },
+        mounted(){
+            this.$nextTick(() => {
+                const sections = document.querySelectorAll('.content-section');
+                const observer = new IntersectionObserver((entries) => {
+                    // 表示領域に入った要素を上から順に並べてstagger
+                    const visible = entries
+                        .filter(e => e.isIntersecting)
+                        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+                    visible.forEach((entry, i) => {
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, i * 150);
+                        observer.unobserve(entry.target);
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+                sections.forEach(section => observer.observe(section));
+            });
         }
     }).mount('#app')
 </script>
