@@ -1,4 +1,20 @@
 /* =========================================
+   フェードインアニメーション（スクロール連動・1回のみ）
+   ========================================= */
+.r-fade {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.r-fade.r-delay {
+    transition-delay: 0.2s;
+}
+.r-fade.r-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================
    1. ベースレイアウト設定
    ========================================= */
 .room-wrapper {

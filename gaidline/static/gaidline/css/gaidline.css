@@ -3,6 +3,22 @@ section{
 }
 
 /* =========================================
+   フェードインアニメーション（スクロール連動・1回のみ）
+   ========================================= */
+.g-fade {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.g-fade.g-delay {
+    transition-delay: 0.2s;
+}
+.g-fade.g-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================
    1. ベースレイアウト設定
    ========================================= */
 .guideline-wrapper {
