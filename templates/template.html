@@ -37,7 +37,7 @@
           <button class="menu-toggle">☰</button>
 
           <ul class="nav-links">
-            <li class='top_cl'>
+            <li class="top_cl{% if request.path == '/' %} nav-active{% endif %}">
               <a href="/">ホーム</a>
               <ul class="dropdown">
                 <li><a href="/#schedule1">出演者スケジュール</a></li>
@@ -45,28 +45,26 @@
                 <li><a href="/#schedule3">司会者プロフィール</a></li>
               </ul>
             </li>
-            <li class="top_cl">
+            <li class="top_cl{% if '/blog/' in request.path %} nav-active{% endif %}">
               <a href="{% url 'blog:blog' %}">アクアライブブログ</a>
             </li>
-            <!-- <li class="top_cl" ><a href="/#schedule2">出演者プロフィール</a></li>   -->
-            <!-- <li class="top_cl" ><a href="/#schedule3">司会者プロフィール</a></li>   -->
-            <li class="top_cl">
+            <li class="top_cl{% if '/gaidline/' in request.path %} nav-active{% endif %}">
               <a href="{% url 'gaidline:gaidline' %}">番組説明</a>
             </li>
-            <li class="top_cl">
+            <li class="top_cl{% if '/room/' in request.path %} nav-active{% endif %}">
               <a href="{% url 'room:room' %}">住之江ゼミナール</a>
               <ul class="dropdown">
                 <li><a href="{% url 'room:room' %}#information">ご案内</a></li>
                 <li><a href="{% url 'room:room' %}#movie">解説動画</a></li>
               </ul>
             </li>
-            <li class="top_cl">
+            <li class="top_cl{% if '/artist/' in request.path %} nav-active{% endif %}">
               <a href="{% url 'artist:artist' %}">出演者イラスト</a>
             </li>
-            <li class="top_cl">
+            <li class="top_cl{% if '/history/' in request.path %} nav-active{% endif %}">
               <a href="{% url 'history:history' %}">沿革</a>
             </li>
-            <li class="top_cl">
+            <li class="top_cl{% if '/input_page/' in request.path %} nav-active{% endif %}">
               <a href="{% url 'input_page:access_counter' %}">開発者ページ</a>
             </li>
           </ul>

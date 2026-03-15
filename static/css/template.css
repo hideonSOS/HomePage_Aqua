@@ -209,41 +209,72 @@ nav {
 /* ========== 9. スマホ対応 ========== */
 @media (max-width: 768px) {
   :root {
-    /* プロフィール画像用（PCベース） */
     --profile-img-min-width: 150px;
     --profile-img-max-width: 150px;
     --profile-img-min-height: 200px;
     --profile-img-max-height: 200px;
   }
+
   .menu-toggle {
     display: block;
   }
 
   .nav-links {
-    position: absolute;
-    top: var(--header-height); /* または 60px */
+    position: fixed;
+    top: var(--header-height);
     left: 0;
     right: 0;
     background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     flex-direction: column;
     display: none;
-    gap:1rem;
-    
+    gap: 0;
+    padding: 8px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 150;
   }
 
   .nav-links.active {
     display: flex;
-    padding:15px 0px;
   }
 
   .nav-links li {
-    padding: 0.3rem 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid transparent;
+    list-style: none;
+    margin-left: 0;
   }
 
-
-  .top_cl{
-    margin-left:1rem;
-    font-size: 1.2rem;
+  .nav-links li:last-of-type {
+    border-bottom: none;
   }
 
+  .nav-links li a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #cfd8f0;
+  }
+
+  .nav-links li a:hover {
+    color: white;
+  }
+
+  .nav-links li:hover {
+    border-left-color: #7986cb;
+  }
+
+  .nav-links li.nav-active {
+    border-left-color: #ff6f00;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .nav-links li.nav-active a {
+    color: white;
+  }
+
+  .top_cl {
+    font-size: 1rem;
+  }
 }

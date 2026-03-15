@@ -107,6 +107,7 @@ const app = createApp({
         },
         {
           path: STATIC_IMAGE_URLS.nozoe,
+          youtube_url: "https://www.youtube.com/embed/Tly9Eqtz_JY?si=5yX5HTVGZe_Dzc2H&autoplay=1",
           class1:"元ボートレーサー（大阪支部）",
           class2:"登録番号 3555",
           name: "野 添 貴 裕",

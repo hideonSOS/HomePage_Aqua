@@ -137,8 +137,16 @@
       <div class="profile-modal-content">
         <button class="profile-modal-close" @click="closeModal">✕</button>
         <div class="profile-modal-body" v-if="selectedProfile">
-          <div class="profile-modal-img">
-            <img :src="selectedProfile.path" :alt="selectedProfile.name" />
+          <div class="profile-modal-img" :class="{ 'profile-modal-video': selectedProfile.youtube_url }">
+            <iframe
+              v-if="selectedProfile.youtube_url"
+              :src="selectedProfile.youtube_url"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+            <img v-else :src="selectedProfile.path" :alt="selectedProfile.name" />
           </div>
           <div class="profile-modal-text">
             <p class="profile-modal-role">[[ selectedProfile.class1 ]]</p>
@@ -162,6 +170,7 @@
           v-for="(p,i) in mc_profiles"
           :key="p.path"
           v-reveal="{ delay: i*80 }"
+          @click="openModal(p)"
         >
           <div class="jpeg_area"><img :src="p.path" :alt="p.name" /></div>
           <div class="profile-meta">

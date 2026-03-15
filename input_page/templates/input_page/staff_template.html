@@ -198,6 +198,7 @@
       <a href="{% url 'input_page:list' %}" {% if request.path == '/input_page/list/' %}class="active"{% endif %}>スケジュール一覧</a>
       <a href="{% url 'input_page:blog_input' %}" {% if request.path|slice:":20" == '/input_page/blog/' %}class="active"{% endif %}>ブログ投稿</a>
       <a href="{% url 'input_page:slide_manage' %}" {% if request.path|slice:":17" == '/input_page/slide' %}class="active"{% endif %}>スライド管理</a>
+      <a href="{% url 'indexview' %}">トップページ</a>
       <a href="#" class="nav-logout" onclick="event.preventDefault(); document.getElementById('staff-logout-form').submit();">ログアウト</a>
       <form id="staff-logout-form" method="post" action="{% url 'input_page:logout' %}" style="display:none;">{% csrf_token %}</form>
     </nav>

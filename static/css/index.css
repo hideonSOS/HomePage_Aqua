@@ -719,6 +719,20 @@ footer {
   object-fit: cover;
 }
 
+/* 動画あり時は横長に切り替え */
+.profile-modal-video {
+  width: 280px;
+  height: 158px; /* 16:9 */
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.profile-modal-video iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .profile-modal-text {
   display: flex;
   flex-direction: column;
@@ -755,7 +769,12 @@ footer {
     text-align: center;
   }
   .profile-modal-img {
-    width: 90px;
-    height: 120px;
+    width: 135px;
+    height: 180px;
+  }
+  .profile-modal-video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
