@@ -15,12 +15,25 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
   line-height: 1.6;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: linear-gradient(135deg, #f0f4ff 0%, #e4f0fb 50%, #eaf6fd 100%);
+  min-height: 100vh;
+}
+
+/* 水しぶきシルエット（固定オーバーレイ） */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('../images/water_splash.svg') center center / 110% auto no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
 }
 
 main {
   margin-top: var(--header-height);
   position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 100vw;
   margin-left: auto;
@@ -159,7 +172,7 @@ footer {
   margin-left: auto;
   margin-right: auto;
   border-radius: 1px;
-  background: var(--color-bg);
+  background: transparent;
   padding: 0px 0px;
 }
 #schedule1 { max-width: 100%; }
@@ -294,25 +307,24 @@ footer {
 .day-cell:has(.event-title) .day-date { color: #0000ff; }
 
 .day-cell > div:nth-child(2) {
-  border: none;
-  padding: 0;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .event-title {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: #1a1a1a;
   background: rgba(0, 0, 255, 0.05);
-  padding: 4px 8px;
+  padding: 5px 8px;
   border-radius: 4px;
   border-left: 3px solid #0000ff;
   margin-bottom: 6px;
-  line-height: 1.3;
+  line-height: 1.4;
+  word-break: break-all;
 }
 
 .event-time {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: bold;
   color: #0000ff;
   margin-bottom: 4px;
@@ -322,15 +334,10 @@ footer {
 .event-time::before { content: "⏰"; margin-right: 3px; }
 
 .event-artist {
-  font-size: 0.75rem;
-  color: #666;
-  line-height: 1.4;
-  padding-left: 5px;
-}
-.day-cell > div:nth-child(2) {
-  padding: 5px;
-  margin-top: 5px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+  padding-left: 6px;
 }
 
 .schedule-list { display: none; }
@@ -612,7 +619,7 @@ footer {
 /* ========== 7. タブレット対応 (min: 768px, max: 1024px) ========== */
 @media (min-width: 768px) and (max-width: 1024px) {
   .hero-wrapper {
-    width: 100vw;
+    width: 100%;
     max-width: 800px;
   }
 
@@ -628,19 +635,20 @@ footer {
   }
   .menu-toggle { display: none; }
   .schedule-calendar {
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
   }
-  .day-cell > div:nth-child(2) {
-    border: 1px solid red;
-    padding: 5px;
-    margin-top: 5px;
-    font-size: 0.5rem;
+  .day-cell {
+    min-height: 130px;
+    padding: 8px 6px;
   }
-  .schedule-item {
-    max-width: 300px;
-    border: solid 3px red !important;
-    display: block;
+  .event-title {
+    font-size: 0.78rem;
+  }
+  .event-time,
+  .event-artist {
+    font-size: 0.72rem;
   }
 }
 
