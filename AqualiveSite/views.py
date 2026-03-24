@@ -2,7 +2,7 @@ from django.views.generic import View, TemplateView
 from django.shortcuts import render
 from input_page.models import Schedule
 import pandas as pd
-from input_page.models import SlideImage # ★追加：スライド画像のモデル
+from input_page.models import SlideImage, YouTubeLive
 
 def indexView(request):
     # ==========================================
@@ -32,9 +32,13 @@ def indexView(request):
     # ==========================================
     # 3. テンプレートへ渡すデータの作成
     # ==========================================
+    yt_live = YouTubeLive.objects.filter(is_active=True).order_by('-updated_at').first()
+    youtube_video_id = yt_live.video_id if yt_live else None
+
     ctx = {
-        'data': list(schedules),        # 既存：カレンダー用データ
-        'hero_images_data': slide_list, # ★追加：スライド用データ
+        'data': list(schedules),
+        'hero_images_data': slide_list,
+        'youtube_video_id': youtube_video_id,
     }
     
     return render(request, 'index.html', ctx)

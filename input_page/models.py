@@ -38,6 +38,21 @@ class AccessLog(models.Model):
         verbose_name = "アクセスログ"
 
 
+class YouTubeLive(models.Model):
+    video_id   = models.CharField("YouTube Video ID", max_length=20,
+                                  help_text="youtu.be/XXXXX の XXXXX 部分")
+    label      = models.CharField("ラベル（管理用メモ）", max_length=100, blank=True)
+    is_active  = models.BooleanField("表示する", default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "YouTube ライブ"
+        verbose_name_plural = "YouTube ライブ一覧"
+
+    def __str__(self):
+        return f"{self.label or self.video_id} ({'表示中' if self.is_active else '非表示'})"
+
+
 class Blog(models.Model):
      # 画像フィールド：upload_toで保存先フォルダを指定
     image = models.ImageField(upload_to='blog_photos/', verbose_name="投稿画像")

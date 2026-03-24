@@ -1,9 +1,15 @@
 from django.contrib import admin
-from .models import Schedule, SlideImage
+from .models import Schedule, SlideImage, YouTubeLive
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
     list_display = ('day','title','time','artist1','artist2','artist3','artist4')
+
+
+@admin.register(YouTubeLive)
+class YouTubeLiveAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'label', 'video_id', 'is_active', 'updated_at')
+    list_editable = ('video_id', 'is_active')
 
 
 @admin.register(SlideImage)

@@ -61,7 +61,7 @@ def access_counter(request):
     })
 
 
-from .models import Blog, SlideImage
+from .models import Blog, SlideImage, YouTubeLive
 from .forms import BlogForm, SlideImageForm
 
 # --- ブログ投稿 (Create) ---
@@ -131,6 +131,43 @@ def slide_manage(request):
 def slide_delete(request, pk):
     slide = get_object_or_404(SlideImage, pk=pk)
     if request.method == 'POST':
-        slide.image.delete(save=False)  # ファイルも削除
+        slide.image.delete(save=False)
         slide.delete()
     return redirect('input_page:slide_manage')
+
+
+# --- YouTube ライブ管理 ---
+@login_required(login_url='/input_page/login/')
+def youtube_live_manage(request):
+    current = YouTubeLive.objects.order_by('-updated_at').first()
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'save':
+            video_id = request.POST.get('video_id', '').strip()
+            label    = request.POST.get('label', '').strip()
+            if video_id:
+                if current:
+                    current.video_id  = video_id
+                    current.label     = label
+                    current.is_active = True
+                    current.save()
+                else:
+                    YouTubeLive.objects.create(video_id=video_id, label=label, is_active=True)
+
+        elif action == 'deactivate':
+            YouTubeLive.objects.update(is_active=False)
+
+        elif action == 'activate':
+            if current:
+                current.is_active = True
+                current.save()
+
+        elif action == 'delete':
+            if current:
+                current.delete()
+
+        return redirect('input_page:youtube_live_manage')
+
+    return render(request, 'input_page/youtube_live.html', {'current': current})

@@ -1,0 +1,227 @@
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
+
+{% block content %}
+<div class="yt-wrap">
+
+  <h2 class="yt-heading">ライブ画面登録</h2>
+
+  <!-- ── 現在の登録状況 ── -->
+  <div class="yt-status-card {% if current and current.is_active %}is-active{% elif current %}is-inactive{% endif %}">
+    {% if current %}
+
+      <!-- バッジ + 情報 -->
+      <div class="yt-status-top">
+        <span class="badge {% if current.is_active %}badge-on{% else %}badge-off{% endif %}">
+          {% if current.is_active %}● 配信中{% else %}○ 非表示{% endif %}
+        </span>
+        <span class="yt-label-text">{{ current.label|default:"ラベルなし" }}</span>
+        <code class="yt-video-id">{{ current.video_id }}</code>
+      </div>
+
+      <!-- サムネイル -->
+      <a href="https://www.youtube.com/watch?v={{ current.video_id }}"
+         target="_blank" class="yt-thumb-link">
+        <img src="https://i.ytimg.com/vi/{{ current.video_id }}/maxresdefault.jpg"
+             onerror="this.src='https://i.ytimg.com/vi/{{ current.video_id }}/mqdefault.jpg'"
+             alt="サムネイル" class="yt-thumb-img">
+        <span class="yt-thumb-caption">▶ YouTubeで確認する</span>
+      </a>
+
+      <!-- ボタン行 -->
+      <div class="yt-btn-row">
+        <!-- 修正：下部フォームへスクロール -->
+        <button type="button" class="btn-edit"
+                onclick="document.getElementById('yt-form').scrollIntoView({behavior:'smooth'});
+                         setTimeout(()=>document.getElementById('video_id').focus(), 400);">
+          修正
+        </button>
+
+        <!-- 非表示 / 表示 切り替え -->
+        {% if current.is_active %}
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="deactivate">
+          <button type="submit" class="btn-toggle">非表示にする</button>
+        </form>
+        {% else %}
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="activate">
+          <button type="submit" class="btn-toggle is-show">表示する</button>
+        </form>
+        {% endif %}
+
+        <!-- 削除 -->
+        <form method="post" onsubmit="return confirm('この登録を削除しますか？');">
+          {% csrf_token %}
+          <input type="hidden" name="action" value="delete">
+          <button type="submit" class="btn-delete">削除</button>
+        </form>
+      </div>
+
+    {% else %}
+      <p class="yt-none-msg">現在登録されているライブ動画はありません。<br>下のフォームから登録してください。</p>
+    {% endif %}
+  </div>
+
+  <!-- ── 入力フォーム（新規登録 / 修正共通） ── -->
+  <div class="yt-form-card" id="yt-form">
+    <h3>{% if current %}動画を修正する{% else %}動画を登録する{% endif %}</h3>
+    <p class="yt-hint">
+      YouTube URL「youtu.be/<strong>XXXXX</strong>」または「?v=<strong>XXXXX</strong>」の
+      太字部分（Video ID）を入力してください。
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="save">
+      <div class="yt-field">
+        <label for="video_id">Video ID <span class="required">*</span></label>
+        <input type="text" id="video_id" name="video_id"
+               value="{{ current.video_id|default:'' }}"
+               placeholder="例: vcjSfODSBik" required>
+      </div>
+      <div class="yt-field">
+        <label for="label">メモ（任意）</label>
+        <input type="text" id="label" name="label"
+               value="{{ current.label|default:'ライブ画面登録' }}"
+               placeholder="ライブ画面登録">
+      </div>
+      <button type="submit" class="btn-save">保存して表示する</button>
+    </form>
+  </div>
+
+</div>
+
+<style>
+.yt-wrap      { max-width: 680px; }
+.yt-heading   { font-size: 1.4rem; font-weight: bold; color: #1a237e; margin-bottom: 24px; }
+
+/* ── 状態カード ── */
+.yt-status-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 28px;
+  background: #fafafa;
+}
+.yt-status-card.is-active   { border-color: #43a047; background: #f1f8f1; }
+.yt-status-card.is-inactive { border-color: #bdbdbd; background: #f5f5f5; }
+
+.yt-status-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.badge          { font-weight: bold; font-size: 0.9rem; padding: 3px 10px; border-radius: 20px; }
+.badge-on       { background: #e8f5e9; color: #2e7d32; }
+.badge-off      { background: #f5f5f5; color: #757575; }
+.yt-label-text  { color: #555; font-size: 0.9rem; }
+.yt-video-id    { background: #e8eaf6; color: #1a237e; padding: 3px 10px; border-radius: 4px; font-size: 0.9rem; }
+.yt-none-msg    { color: #9e9e9e; line-height: 1.8; }
+
+/* サムネイル */
+.yt-thumb-link {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 16px;
+  aspect-ratio: 16 / 9;   /* 16:9 固定 */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+}
+.yt-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* 黒帯なし・トリミングで比率維持 */
+  display: block;
+}
+.yt-thumb-caption { display: block; font-size: 0.82rem; color: #1565c0; font-weight: bold; margin-top: 5px; }
+.yt-thumb-link:hover .yt-thumb-caption { text-decoration: underline; }
+
+/* ボタン行 */
+.yt-btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.yt-btn-row form { margin: 0; }
+
+.btn-edit {
+  background: #1a237e;
+  color: #fff;
+  border: none;
+  padding: 7px 20px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-edit:hover { background: #283593; }
+
+.btn-toggle {
+  background: #fff;
+  color: #555;
+  border: 1px solid #bbb;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-toggle:hover     { background: #f5f5f5; }
+.btn-toggle.is-show   { color: #2e7d32; border-color: #43a047; }
+.btn-toggle.is-show:hover { background: #e8f5e9; }
+
+.btn-delete {
+  background: #fff;
+  color: #c62828;
+  border: 1px solid #c62828;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn-delete:hover { background: #ffebee; }
+
+/* ── フォームカード ── */
+.yt-form-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  scroll-margin-top: 80px;  /* ナビバー分オフセット */
+}
+.yt-form-card h3 { font-size: 1rem; font-weight: bold; color: #1a237e; margin-bottom: 8px; }
+.yt-hint  { font-size: 0.82rem; color: #666; margin-bottom: 18px; line-height: 1.7; }
+.required { color: #e53935; }
+
+.yt-field { margin-bottom: 16px; }
+.yt-field label {
+  display: block; font-size: 0.88rem; font-weight: bold; color: #444; margin-bottom: 6px;
+}
+.yt-field input {
+  width: 100%; padding: 10px 14px;
+  border: 1px solid #ccc; border-radius: 6px;
+  font-size: 0.95rem; transition: border-color .2s;
+}
+.yt-field input:focus {
+  outline: none; border-color: #3949ab;
+  box-shadow: 0 0 0 2px rgba(57,73,171,.15);
+}
+
+.btn-save {
+  background: #1a237e; color: #fff;
+  border: none; padding: 10px 28px;
+  border-radius: 6px; font-size: 0.95rem;
+  font-weight: bold; cursor: pointer; transition: background .2s;
+}
+.btn-save:hover { background: #283593; }
+</style>
+{% endblock %}

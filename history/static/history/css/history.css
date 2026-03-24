@@ -11,7 +11,7 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: url('../images/water_splash.svg') center center / 110% auto no-repeat;
+    background: url('../images/water_splash2.svg') center center / 110% auto no-repeat;
     opacity: 0.08;
     pointer-events: none;
     z-index: 0;

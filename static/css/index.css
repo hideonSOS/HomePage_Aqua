@@ -1,3 +1,26 @@
+/* ========== YouTube ライブ ========== */
+#youtube-live {
+  /* main の padding: 0 10px を打ち消して画面端まで広げる */
+  width: calc(100% + 20px);
+  margin-left: -10px;
+  margin-bottom: 30px;
+  padding: 0;
+}
+.youtube-live-wrap {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.youtube-live-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
 /* ========== 1. ベース設定 ========== */
 * {
   margin: 0;
@@ -24,7 +47,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: url('../images/water_splash.svg') center center / 110% auto no-repeat;
+  background: url('../images/water_splash2.svg') center center / 110% auto no-repeat;
   opacity: 0.08;
   pointer-events: none;
   z-index: 0;
@@ -602,7 +625,6 @@ footer {
   }
 
   .profile-item {
-    border: solid blue 1px;
     display: flex;
     width: 100%;
     border-radius: 10px;

@@ -43,6 +43,25 @@
       </div>
     </div>
 
+    {% if youtube_video_id %}
+    <section id="youtube-live">
+      <h2 class="section-title">
+        <span class="jp-title">LIVE配信</span>
+        <span class="en-title">Live Stream</span>
+      </h2>
+      <div class="youtube-live-wrap">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/{{ youtube_video_id }}?autoplay=1&mute=1"
+          title="YouTube live player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+    {% endif %}
+
     <section id="schedule1">
       <h2 class="section-title">
         <span class="jp-title">出演スケジュール</span>
