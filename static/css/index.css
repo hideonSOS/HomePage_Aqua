@@ -3,6 +3,7 @@
   /* main の padding: 0 10px を打ち消して画面端まで広げる */
   width: calc(100% + 20px);
   margin-left: -10px;
+  margin-top: 3px;
   margin-bottom: 30px;
   padding: 0;
 }
@@ -40,6 +41,14 @@ body {
   color: var(--color-text);
   background: linear-gradient(135deg, #f0f4ff 0%, #e4f0fb 50%, #eaf6fd 100%);
   min-height: 100vh;
+  scrollbar-width: none; /* Firefox */
+  overflow-x: hidden;
+}
+body::-webkit-scrollbar {
+  display: none; /* Chrome / Safari / Edge */
+}
+html {
+  overflow-x: hidden;
 }
 
 /* 水しぶきシルエット（固定オーバーレイ） */
@@ -455,6 +464,11 @@ footer {
 
 /* ========== 6. スマホ対応 (max-width: 767px) ========== */
 @media (max-width: 767px) {
+  #youtube-live {
+    width: 100vw;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
   :root {
     --profile-img-min-width: 150px;
     --profile-img-max-width: 150px;
@@ -636,6 +650,16 @@ footer {
     font-size: 14px;
   }
   #schedule1, #schedule2, #schedule3 { max-width: 400px; }
+}
+
+/* ========== PC・タブレット共通：YouTube ライブ幅制限 ========== */
+@media (min-width: 768px) {
+  #youtube-live {
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* ========== 7. タブレット対応 (min: 768px, max: 1024px) ========== */
