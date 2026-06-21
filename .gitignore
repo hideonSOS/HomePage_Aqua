@@ -9,3 +9,6 @@ venv/
 # Ignore database
 db.sqlite3
 myproject/db.sqlite3
+
+# Ignore runtime data (managed via admin screen)
+ticker_notice.txt

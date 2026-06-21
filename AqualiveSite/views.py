@@ -3,6 +3,7 @@ from django.shortcuts import render
 from input_page.models import Schedule
 import pandas as pd
 from input_page.models import SlideImage, YouTubeLive
+from input_page.ticker_store import get_ticker
 
 def indexView(request):
     # ==========================================
@@ -39,6 +40,7 @@ def indexView(request):
         'data': list(schedules),
         'hero_images_data': slide_list,
         'youtube_video_id': youtube_video_id,
+        'ticker_text': get_ticker(),
     }
     
     return render(request, 'index.html', ctx)

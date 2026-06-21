@@ -1,89 +1,38 @@
 {% extends 'template.html' %}
 {% load static %}
 {% block extra_css %}
-<link rel='stylesheet' href="{% static 'artist/css/artist.css' %}">
+<link rel='stylesheet' href="{% static 'artist/css/artist.css' %}?v={% now 'U' %}">
 {% endblock %}
 {% block content %}
 
-<div id='main'>
-	<div class="id-card" role="group" aria-label="ID card sample">
-  		<div class="id-card__watermark">SAMPLE</div>
+<main id="main">
+  <header class="artist-head">
+    <h1 class="artist-title">出演者イラスト</h1>
+    <p class="artist-lead">アクアライブステーションでおなじみの出演者たちをイラストでご紹介します。</p>
+  </header>
 
-  		<div class="id-card__photo">
-    <!-- 画像を差し替え -->
-    		<img src="{% static 'artist/gazou/tateyama.gif' %}" alt="顔写真" />
-  		</div>
-  		<div class="id-card__info">
-			<div class="note">
-  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
-			</div>
- 	 	</div>
-	</div>
+  <section class="artist-grid" aria-label="出演者イラスト一覧">
 
-	<div class='id-card'>
-		<div class="id-card__watermark">SAMPLE</div>
+    <figure class="artist-card">
+      <img src="{% static 'artist/gazou/tateyama.gif' %}" alt="出演者イラスト" loading="lazy" />
+    </figure>
 
-  		<div class="id-card__photo">
-    <!-- 画像を差し替え -->
-    		<img src="{% static 'artist/gazou/tuda.gif' %}" alt="顔写真" />
-  		</div>
-  		<div class="id-card__info">
-			<div class="note">
-  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
-			</div>
- 	 	</div>
-	</div>
-	<div class='id-card'>
-		<div class="id-card__watermark">SAMPLE</div>
+    <figure class="artist-card">
+      <img src="{% static 'artist/gazou/tuda.gif' %}" alt="出演者イラスト" loading="lazy" />
+    </figure>
 
-  		<div class="id-card__photo">
-    <!-- 画像を差し替え -->
-    		<img src="{% static 'artist/gazou/okiguchi.gif' %}" alt="顔写真" />
-  		</div>
-  		<div class="id-card__info">
-			<div class="note">
-  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
-			</div>
- 	 	</div>
-	</div>
-	<div class='id-card'>
-		<div class="id-card__watermark">SAMPLE</div>
+    <figure class="artist-card">
+      <img src="{% static 'artist/gazou/okiguchi.gif' %}" alt="出演者イラスト" loading="lazy" />
+    </figure>
 
-  		<div class="id-card__photo">
-    <!-- 画像を差し替え -->
-    		<img src="{% static 'artist/gazou/iida.gif' %}" alt="顔写真" />
-  		</div>
-  		<div class="id-card__info">
-			<div class="note">
-  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
-			</div>
- 	 	</div>
-	</div>
-	<div class='id-card'>
-		<div class="id-card__watermark">SAMPLE</div>
+    <figure class="artist-card">
+      <img src="{% static 'artist/gazou/iida.gif' %}" alt="出演者イラスト" loading="lazy" />
+    </figure>
 
-  		<div class="id-card__photo">
-    <!-- 画像を差し替え -->
-    		<img src="{% static 'artist/gazou/bick_komatsu.webp' %}" alt="顔写真" />
-  		</div>
-  		<div class="id-card__info">
-			<div class="note">
-  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
-			</div>
- 	 	</div>
-	</div>
-	<div class='id-card'>
-		<div class="id-card__watermark">SAMPLE</div>
+    <figure class="artist-card">
+      <img src="{% static 'artist/gazou/nozoe.gif' %}" alt="出演者イラスト" loading="lazy" />
+    </figure>
 
-  		<div class="id-card__photo">
-    <!-- 画像を差し替え -->
-    		<img src="{% static 'artist/gazou/nozoe.gif' %}" alt="顔写真" />
-  		</div>
-  		<div class="id-card__info">
-			<div class="note">
-  				ここに説明文や注意書きを入れます。レイアウト確認用のダミーテキストです。
-			</div>
- 	 	</div>
-	</div>
-</div>
+  </section>
+</main>
 {% endblock %}

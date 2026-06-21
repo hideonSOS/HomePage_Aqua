@@ -63,6 +63,7 @@ def access_counter(request):
 
 from .models import Blog, SlideImage, YouTubeLive
 from .forms import BlogForm, SlideImageForm
+from .ticker_store import get_ticker, set_ticker, MAX_LEN as TICKER_MAX_LEN
 
 # --- ブログ投稿 (Create) ---
 @login_required(login_url='/input_page/login/')
@@ -168,6 +169,16 @@ def youtube_live_manage(request):
             if current:
                 current.delete()
 
+        elif action == 'save_ticker':
+            set_ticker(request.POST.get('ticker_text', ''))
+
+        elif action == 'clear_ticker':
+            set_ticker('')
+
         return redirect('input_page:youtube_live_manage')
 
-    return render(request, 'input_page/youtube_live.html', {'current': current})
+    return render(request, 'input_page/youtube_live.html', {
+        'current':     current,
+        'ticker_text': get_ticker(),
+        'ticker_max':  TICKER_MAX_LEN,
+    })

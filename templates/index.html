@@ -3,11 +3,80 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}?v={% now 'U' %}">
+
+    {# ▼▼▼ デモ用 流れるテロップ（テスト表示・不要になったらこの style と該当HTMLを削除） ▼▼▼ #}
+    <style>
+      .demo-ticker {
+        /* main が flex(column, align-items:center) のため全幅で伸ばす */
+        align-self: stretch;
+        width: calc(100% + 20px);   /* main の padding:0 10px を打ち消して画面端まで */
+        margin: 0 -10px 3px;        /* ライブ配信画面との上下間隔を 3px に */
+        display: flex;
+        align-items: stretch;
+        height: 46px;
+        overflow: hidden;
+        background: linear-gradient(90deg, #0b3a66, #1565a8 55%, #2b8fd6);
+        color: #fff;
+        box-shadow: inset 0 -2px 0 rgba(36, 206, 251, .6);
+      }
+      .demo-ticker__label {
+        flex: none;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: .12em;
+        background: #ff6f00;
+        color: #fff;
+      }
+      .demo-ticker__viewport {
+        flex: 1 1 auto;
+        overflow: hidden;
+        white-space: nowrap;   /* 1行で流す */
+      }
+      .demo-ticker__text {
+        display: inline-block;
+        padding-left: 100%;    /* 右端の外側からスタート */
+        line-height: 46px;
+        font-size: 16px;
+        font-weight: 600;
+        animation: demo-marquee 18s linear infinite;
+      }
+      /* マウスを乗せると一時停止（任意の演出） */
+      .demo-ticker:hover .demo-ticker__text { animation-play-state: paused; }
+
+      @keyframes demo-marquee {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-100%); }  /* 自分の幅ぶん左へ */
+      }
+
+      /* スマホ版のみ高さを 10px 下げる（PCは 46px のまま固定） */
+      @media (max-width: 767px) {
+        .demo-ticker { height: 36px; }
+        .demo-ticker__text { line-height: 36px; }
+        /* オレンジの「お知らせ」ラベルを 15px 狭くして、テロップ表示領域を広げる
+           （PCの padding:0 16px=左右計32px → 左右7.5pxずつ=計17px に） */
+        .demo-ticker__label { padding: 0 8.5px; }
+      }
+    </style>
+    {# ▲▲▲ デモ用 流れるテロップ ▲▲▲ #}
   {% endblock %}
 
       {% block content %}
 <div id="app">
   <main>
+    {# ▼▼▼ 流れるテロップ（管理画面「テロップ設定」で登録／未登録なら非表示） ▼▼▼ #}
+    {% if ticker_text %}
+    <div class="demo-ticker" aria-label="お知らせ">
+      <span class="demo-ticker__label">お知らせ</span>
+      <div class="demo-ticker__viewport">
+        <span class="demo-ticker__text">{{ ticker_text }}</span>
+      </div>
+    </div>
+    {% endif %}
+    {# ▲▲▲ 流れるテロップ ▲▲▲ #}
+
     {% if youtube_video_id %}
     <section id="youtube-live">
       <div class="youtube-live-wrap">

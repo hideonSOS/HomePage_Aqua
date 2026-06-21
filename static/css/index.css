@@ -1,10 +1,9 @@
 /* ========== YouTube ライブ ========== */
 #youtube-live {
-  /* main の padding: 0 10px を打ち消して画面端まで広げる */
-  width: calc(100% + 20px);
-  margin-left: -10px;
-  margin-top: 3px;
-  margin-bottom: 30px;
+  /* PC: 大きすぎないよう max-width で制約し中央寄せ（スマホは下の @media で全幅化） */
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 30px;
   padding: 0;
 }
 .youtube-live-wrap {
@@ -100,7 +99,10 @@ footer {
 
 /* ========== 2. ヒーローエリア ========== */
 .hero-wrapper {
-  width: 48%;
+  /* ライブ配信画面と横幅挙動を揃える（PC: max-width 800px 中央寄せ／スマホは @media で全幅） */
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
@@ -464,11 +466,13 @@ footer {
 
 /* ========== 6. スマホ対応 (max-width: 767px) ========== */
 @media (max-width: 767px) {
+  /* スマホ: ライブ配信画面を画面端まで全幅化（main の padding:0 10px を打ち消す） */
   #youtube-live {
-    width: 100vw;
-    margin-left: -10px;
-    margin-right: -10px;
+    max-width: none;
+    width: calc(100% + 20px);
+    margin: 0 -10px 30px;
   }
+
   :root {
     --profile-img-min-width: 150px;
     --profile-img-max-width: 150px;
@@ -590,8 +594,10 @@ footer {
   }
 
   .hero-wrapper {
-    width: 100vw;
-    max-width: 400px;
+    /* ライブ配信画面と同じく画面端まで全幅化 */
+    max-width: none;
+    width: calc(100% + 20px);
+    margin: 0 -10px;
   }
 
   .hero-area {
