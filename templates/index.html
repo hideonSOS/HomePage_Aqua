@@ -155,12 +155,13 @@
               v-for="event in day.events"
               :key="event.id || (event.y + '-' + event.m + '-' + event.d + '-' + event.title)"
             >
-              <div class="event-title">[[ event.title ]]</div>
+              <div v-if="event.title" class="event-title">[[ event.title ]]</div>
               <div class="event-time">[[ event.time ]]</div>
-              <div class="event-artist">[[ event.artist1 ]]</div>
-              <div class="event-artist">[[ event.artist2 ]]</div>
-              <div class="event-artist">[[ event.artist3 ]]</div>
-              <div class="event-artist">[[ event.artist4 ]]</div>
+              <div v-if="event.seminar" class="event-seminar">☆住之江ゼミナール（12R終了後～１時間程度）</div>
+              <div v-if="event.artist1" class="event-artist"><span class="artist-role">前半スタジオ解説</span><span class="artist-name">[[ event.artist1 ]]</span></div>
+              <div v-if="event.artist2" class="event-artist"><span class="artist-role">後半スタジオ解説</span><span class="artist-name">[[ event.artist2 ]]</span></div>
+              <div v-if="event.artist3" class="event-artist"><span class="artist-role">MC</span><span class="artist-name">[[ event.artist3 ]]</span></div>
+              <div v-if="event.artist4" class="event-artist"><span class="artist-role">ゲスト</span><span class="artist-name">[[ event.artist4 ]]</span></div>
             </div>
           </template>
         </div>
@@ -178,11 +179,12 @@
           
           <div class="schedule-item-title">[[ event.title ]]</div>
           <div class="schedule-item-time">[[ event.time ]]</div>
+          <div v-if="event.seminar" class="schedule-item-seminar">☆住之江ゼミナール（12R終了後～１時間程度）</div>
 
-          <div v-if="event.artist1" class="schedule-item-artist">[[ event.artist1 ]]</div>
-          <div v-if="event.artist2" class="schedule-item-artist">[[ event.artist2 ]]</div>
-          <div v-if="event.artist3" class="schedule-item-artist">[[ event.artist3 ]]</div>
-          <div v-if="event.artist4" class="schedule-item-artist">[[ event.artist4 ]]</div>
+          <div v-if="event.artist1" class="schedule-item-artist"><span class="artist-role">前半スタジオ解説</span><span class="artist-name">[[ event.artist1 ]]</span></div>
+          <div v-if="event.artist2" class="schedule-item-artist"><span class="artist-role">後半スタジオ解説</span><span class="artist-name">[[ event.artist2 ]]</span></div>
+          <div v-if="event.artist3" class="schedule-item-artist"><span class="artist-role">MC</span><span class="artist-name">[[ event.artist3 ]]</span></div>
+          <div v-if="event.artist4" class="schedule-item-artist"><span class="artist-role">ゲスト</span><span class="artist-name">[[ event.artist4 ]]</span></div>
         </div>
       </div>
     </section>
@@ -299,6 +301,16 @@
 
     
     <script src="{% static 'js/index.js' %}?v={% now 'U' %}"></script>
+    <script>
+      // テロップの速度を文字量に関わらず一定に保つ（80px/秒）
+      window.addEventListener('DOMContentLoaded', function () {
+        const el = document.querySelector('.demo-ticker__text');
+        if (!el) return;
+        const SPEED = 25; // px/秒
+        const duration = el.scrollWidth / SPEED;
+        el.style.animationDuration = duration + 's';
+      });
+    </script>
 
     {% endblock %}
 

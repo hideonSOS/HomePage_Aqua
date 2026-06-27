@@ -369,9 +369,28 @@ footer {
 
 .event-artist {
   font-size: 0.78rem;
-  color: #555;
   line-height: 1.5;
   padding-left: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.artist-role {
+  font-size: 0.68rem;
+  color: #999;
+  letter-spacing: 0.03em;
+}
+.artist-name {
+  font-size: 0.82rem;
+  color: #333;
+  font-weight: bold;
+}
+.event-seminar {
+  font-size: 0.72rem;
+  color: #c8620a;
+  font-weight: bold;
+  padding-left: 6px;
+  line-height: 1.4;
+  margin-top: 2px;
 }
 
 .schedule-list { display: none; }
@@ -575,17 +594,26 @@ footer {
     font-size: 0.9rem;
   }
 
-  .schedule-item-artist {
-    color: #444;
-    font-size: 0.9rem;
+  .schedule-item-seminar {
+    font-size: 0.85rem;
+    color: #c8620a;
+    font-weight: bold;
     padding: 2px 0;
-    display: flex;
-    align-items: center;
   }
-  .schedule-item-artist::before {
-    content: "👤";
-    margin-right: 8px;
-    opacity: 0.6;
+  .schedule-item-artist {
+    padding: 3px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .schedule-item-artist .artist-role {
+    font-size: 0.75rem;
+    color: #999;
+    letter-spacing: 0.03em;
+  }
+  .schedule-item-artist .artist-name {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: bold;
   }
 
   .schedule-item:active {

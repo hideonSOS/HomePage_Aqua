@@ -34,6 +34,7 @@ if (rawDataElement) {
         d: d,
         title: item.title,
         time: item.time,
+        seminar: item.seminar,
         artist1: item.artist1,
         artist2: item.artist2,
         artist3: item.artist3,
@@ -161,11 +162,8 @@ const app = createApp({
        ★修正ポイント: スマホリスト用イベント（過去日非表示対応）
        ========================================================= */
     monthEvents() {
-      // 現在の日付を取得
       const now = new Date();
-      const realYear = now.getFullYear();
-      const realMonth = now.getMonth() + 1;
-      const realDay = now.getDate();
+      now.setHours(0, 0, 0, 0);
 
       const out = [];
       for (const e of this.events) {
@@ -174,19 +172,13 @@ const app = createApp({
         const yy = md.y ?? this.year;
 
         // 表示対象の月かチェック
-        if (yy === this.year && md.m === this.month) {
-            
-            // ★追加ロジック: 
-            // 「表示しているのが現在の月」かつ「日付が今日より前」ならリストに含めない
-            if (this.year === realYear && this.month === realMonth) {
-                if (md.d < realDay) {
-                    continue; // 過去の日付はスキップ
-                }
-            }
-            // (過去の月を見ている場合は履歴として全件表示されます)
+        if (yy !== this.year || md.m !== this.month) continue;
 
-            out.push({ ...e, y: yy, m: md.m, d: md.d });
-        }
+        // 日付が今日より前はスキップ（月をまたいでも常に適用）
+        const eventDate = new Date(yy, md.m - 1, md.d);
+        if (eventDate < now) continue;
+
+        out.push({ ...e, y: yy, m: md.m, d: md.d });
       }
       // 日付順 > 時間順にソート
       return out.sort(

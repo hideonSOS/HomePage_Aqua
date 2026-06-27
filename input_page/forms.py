@@ -6,6 +6,15 @@ import json
 import os
 import re
 
+
+def _time_choices():
+    choices = [('', '--- 時刻を選択 ---')]
+    for h in range(6, 24):
+        for m in range(0, 60, 10):
+            t = f"{h:02d}:{m:02d}"
+            choices.append((t, t))
+    return choices
+
 def _load_title_choices():
     json_path = os.path.join(os.path.dirname(__file__), 'static', 'input_page', 'js', 'title_check.json')
     with open(json_path, encoding='utf-8') as f:
@@ -46,16 +55,72 @@ def _load_kaisetsu_choices():
 
 
 class ScheduleForm(ModelForm):
+    time_start = forms.ChoiceField(
+        choices=_time_choices(),
+        label='開始時刻',
+        required=False,
+        widget=forms.Select(attrs={'id': 'input-time-start', 'class': 'form-control time-select'}),
+    )
+    time_end = forms.ChoiceField(
+        choices=_time_choices(),
+        label='終了時刻',
+        required=False,
+        widget=forms.Select(attrs={'id': 'input-time-end', 'class': 'form-control time-select'}),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].required = False
+        # 編集時: 既存の time 文字列を start/end に分解してセット
+        if self.instance and self.instance.pk and self.instance.time:
+            parts = self.instance.time.split('〜')
+            if len(parts) == 2:
+                self.fields['time_start'].initial = parts[0].strip()
+                self.fields['time_end'].initial = parts[1].strip()
+
+    def clean(self):
+        cleaned = super().clean()
+        title = cleaned.get('title', '')
+        time_start = cleaned.get('time_start', '')
+        time_end = cleaned.get('time_end', '')
+        seminar = cleaned.get('seminar', False)
+
+        # タイトルなし（ゼミナールのみの日）の場合のルール
+        if not title:
+            if not time_start or not time_end:
+                raise forms.ValidationError(
+                    '住之江ゼミナールのみの日は「配信時刻」を入力してください。'
+                )
+            if not seminar:
+                raise forms.ValidationError(
+                    '住之江ゼミナールのみの日は「住之江ゼミナール」のチェックを入れてください。'
+                )
+        return cleaned
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        start = self.cleaned_data.get('time_start', '')
+        end = self.cleaned_data.get('time_end', '')
+        instance.time = f"{start}〜{end}"
+        if commit:
+            instance.save()
+        return instance
+
     class Meta:
         model = Schedule
-        fields = ['day','title','time','artist1','artist2','artist3','artist4']
-        
+        fields = ['day', 'title', 'seminar', 'artist1', 'artist2', 'artist3', 'artist4']
+        labels = {
+            'seminar': '住之江ゼミナール（12R終了後～１時間程度）',
+            'artist1': '前半スタジオ解説（1〜6R）',
+            'artist2': '後半スタジオ解説（7〜12R）',
+            'artist3': 'MC',
+        }
         widgets = {
         'day': forms.DateInput(
             attrs={
                 'type': 'date',
-                'id': 'input-day',              # ← ここでidを指定
-                'class': 'form-control date',   # ← classもOK
+                'id': 'input-day',
+                'class': 'form-control date',
                 'placeholder': '日付を選択',
             }
         ),
@@ -66,11 +131,10 @@ class ScheduleForm(ModelForm):
                 'class': 'form-control',
             }
         ),
-        'time': forms.TextInput(
+        'seminar': forms.CheckboxInput(
             attrs={
-                'id': 'input-time',
-                'class': 'form-control',
-                'placeholder': '配信開始時刻～終了時刻を入力',
+                'id': 'input-seminar',
+                'class': 'seminar-check',
             }
         ),
         'artist1': forms.Select(

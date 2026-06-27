@@ -68,10 +68,10 @@
           <p><strong>日付：</strong>{{ schedule.day|date:"Y年m月d日" }}</p>
           <p><strong>タイトル：</strong>{{ schedule.title }}</p>
           <p><strong>時間：</strong>{{ schedule.time }}</p>
-          {% if schedule.artist1 %}<p><strong>出演者①：</strong>{{ schedule.artist1 }}</p>{% endif %}
-          {% if schedule.artist2 %}<p><strong>出演者②：</strong>{{ schedule.artist2 }}</p>{% endif %}
-          {% if schedule.artist3 %}<p><strong>出演者③：</strong>{{ schedule.artist3 }}</p>{% endif %}
-          {% if schedule.artist4 %}<p><strong>出演者④：</strong>{{ schedule.artist4 }}</p>{% endif %}
+          {% if schedule.artist1 %}<p><strong>前半スタジオ解説（1〜6R）：</strong>{{ schedule.artist1 }}</p>{% endif %}
+          {% if schedule.artist2 %}<p><strong>後半スタジオ解説（7〜12R）：</strong>{{ schedule.artist2 }}</p>{% endif %}
+          {% if schedule.artist3 %}<p><strong>MC：</strong>{{ schedule.artist3 }}</p>{% endif %}
+          {% if schedule.artist4 %}<p><strong>ゲスト：</strong>{{ schedule.artist4 }}</p>{% endif %}
         </div>
         <div class="btn-area">
           <a href="{% url 'input_page:update' pk=schedule.pk %}" class="btn-edit">編集</a>

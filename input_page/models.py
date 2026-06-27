@@ -3,8 +3,9 @@ from django.utils import timezone
 
 class Schedule(models.Model):
     day = models.DateField()
-    title = models.CharField(max_length=30)
-    time = models.CharField(max_length=30)
+    title = models.CharField(max_length=30, blank=True, default='')
+    time = models.CharField(max_length=30, blank=True, default='')
+    seminar = models.BooleanField(default=False)
     artist1 = models.CharField(max_length=50, null=True, blank=True)
     artist2 = models.CharField(max_length=50, null=True, blank=True)
     artist3 = models.CharField(max_length=50, null=True, blank=True)

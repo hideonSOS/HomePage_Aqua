@@ -9,7 +9,44 @@
 <div class="input-card">
   <form id="formon" method="post" action="{% url 'input_page:input' %}">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    <p>
+      <label for="{{ form.day.id_for_label }}">{{ form.day.label }}</label>
+      {{ form.day }}
+    </p>
+    <p>
+      <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+      {{ form.title }}
+    </p>
+    <p>
+      <label>配信時刻</label>
+      <span class="time-row">
+        {{ form.time_start }}
+        <span class="time-sep">〜</span>
+        {{ form.time_end }}
+      </span>
+    </p>
+    <p class="check-row">
+      <label for="{{ form.seminar.id_for_label }}" class="check-label">{{ form.seminar.label }}</label>
+      {{ form.seminar }}
+    </p>
+    <p>
+      <label for="{{ form.artist1.id_for_label }}">{{ form.artist1.label }}</label>
+      {{ form.artist1 }}
+    </p>
+    <p>
+      <label for="{{ form.artist2.id_for_label }}">{{ form.artist2.label }}</label>
+      {{ form.artist2 }}
+    </p>
+    <p>
+      <label for="{{ form.artist3.id_for_label }}">{{ form.artist3.label }}</label>
+      {{ form.artist3 }}
+    </p>
+    <p>
+      <label for="{{ form.artist4.id_for_label }}">{{ form.artist4.label }}</label>
+      {{ form.artist4 }}
+    </p>
+
     <button type="submit" class="btn-submit">送 信</button>
   </form>
 </div>
