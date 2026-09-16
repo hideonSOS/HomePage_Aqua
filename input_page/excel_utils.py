@@ -101,11 +101,26 @@ def build_template_workbook():
         ws.row_dimensions[row].height = 18
 
     # ── データバリデーション ──
-    data_range = f"A{START_ROW}:A{START_ROW + DATA_ROWS - 1}"
-
-    # 日付: 書式設定で誘導（ExcelのDateValidationはロケール依存なのでフォーマットのみ）
+    # 日付: セル書式をYYYY/MM/DDに設定 → Excelがカレンダーピッカーを表示
+    # DataValidation type='date' で有効な日付のみ受け付け、入力補助メッセージも表示
     for row in range(START_ROW, START_ROW + DATA_ROWS):
         ws.cell(row=row, column=COL_DATE).number_format = 'YYYY/MM/DD'
+
+    dv_date = DataValidation(
+        type='date',
+        operator='between',
+        formula1='DATE(2020,1,1)',
+        formula2='DATE(2099,12,31)',
+        showDropDown=False,
+        showInputMessage=True,
+        promptTitle='日付を選択',
+        prompt='セルをクリックするとカレンダーが表示されます。\n形式: YYYY/MM/DD',
+        showErrorMessage=True,
+        errorTitle='入力エラー',
+        error='有効な日付を入力してください（例: 2026/07/01）',
+    )
+    ws.add_data_validation(dv_date)
+    dv_date.sqref = f"A{START_ROW}:A{START_ROW + DATA_ROWS - 1}"
 
     # 時刻: ドロップダウン（リストが255文字を超えるため隠しシートに列挙）
     ws_times = wb.create_sheet('_times')
