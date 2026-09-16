@@ -182,3 +182,47 @@ def youtube_live_manage(request):
         'ticker_text': get_ticker(),
         'ticker_max':  TICKER_MAX_LEN,
     })
+
+
+# ── Excel 一括入力 ────────────────────────────────────────────────────
+from django.http import HttpResponse
+from .excel_utils import build_template_workbook, parse_and_import
+from .excel_utils import ImportError as ExcelImportError
+
+@login_required(login_url='/input_page/login/')
+def excel_template_download(request):
+    buf = build_template_workbook()
+    response = HttpResponse(
+        buf,
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename="schedule_template.xlsx"'
+    return response
+
+
+@login_required(login_url='/input_page/login/')
+def excel_import(request):
+    if request.method == 'POST':
+        f = request.FILES.get('excel_file')
+        overwrite = request.POST.get('overwrite') == '1'
+
+        if not f:
+            return render(request, 'input_page/excel_import.html', {
+                'error': 'ファイルを選択してください。'
+            })
+        if not f.name.endswith(('.xlsx', '.xlsm')):
+            return render(request, 'input_page/excel_import.html', {
+                'error': '.xlsx または .xlsm ファイルをアップロードしてください。'
+            })
+
+        try:
+            saved, errors = parse_and_import(f, overwrite=overwrite)
+        except ExcelImportError as e:
+            return render(request, 'input_page/excel_import.html', {'error': str(e)})
+
+        if errors:
+            return render(request, 'input_page/excel_import.html', {'row_errors': errors})
+
+        return render(request, 'input_page/excel_import.html', {'saved': saved})
+
+    return render(request, 'input_page/excel_import.html', {})

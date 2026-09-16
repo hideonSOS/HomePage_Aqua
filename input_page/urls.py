@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from .views import ScheduleShow, ScheduleCreateView,ScheduleListView,ScheduleDeleteView,ScheduleUpdateView
 from django.contrib.auth import views as auth_views
-from .views import blog_input, blog_list, blog_delete, blog_update, access_counter, slide_manage, slide_delete, youtube_live_manage
+from .views import blog_input, blog_list, blog_delete, blog_update, access_counter, slide_manage, slide_delete, youtube_live_manage, excel_template_download, excel_import
 
 app_name = 'input_page'
 
@@ -22,5 +22,7 @@ urlpatterns = [
     path('slide/', slide_manage, name='slide_manage'),
     path('slide/delete/<int:pk>/', slide_delete, name='slide_delete'),
     path('youtube/', youtube_live_manage, name='youtube_live_manage'),
+    path('excel/template/', excel_template_download, name='excel_template'),
+    path('excel/import/', excel_import, name='excel_import'),
 ]
 

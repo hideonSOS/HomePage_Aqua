@@ -1,0 +1,222 @@
+{% extends 'input_page/staff_template.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  .excel-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 32px 28px;
+    margin-bottom: 24px;
+  }
+  .excel-card h2 {
+    font-size: 1.2rem;
+    color: #1a237e;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e8eaf6;
+  }
+  .step-badge {
+    display: inline-block;
+    background: #1a237e;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    line-height: 22px;
+    text-align: center;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .btn-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #1976D2;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+  .btn-dl:hover { background: #1251a3; color: white; }
+  .upload-area {
+    border: 2px dashed #9fa8da;
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    background: #f8f9ff;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .upload-area.dragover {
+    border-color: #3949ab;
+    background: #e8eaf6;
+  }
+  .upload-area input[type=file] { display: none; }
+  .upload-area .upload-icon { font-size: 2.4rem; margin-bottom: 8px; }
+  .upload-area .upload-text { color: #555; font-size: 0.95rem; }
+  .upload-area .file-name {
+    margin-top: 10px;
+    font-size: 0.88rem;
+    color: #1a237e;
+    font-weight: bold;
+  }
+  .option-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .option-row input[type=checkbox] {
+    width: 16px; height: 16px;
+    accent-color: #e53935;
+  }
+  .option-row label { font-size: 0.9rem; color: #444; cursor: pointer; }
+  .overwrite-note { font-size: 0.8rem; color: #e53935; margin-left: 26px; }
+  .btn-upload {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 16px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-upload:hover { background: #1b5e20; }
+  .result-ok {
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    border-radius: 6px;
+    padding: 16px 20px;
+    color: #1b5e20;
+    font-weight: bold;
+  }
+  .result-err {
+    background: #ffebee;
+    border-left: 4px solid #e53935;
+    border-radius: 6px;
+    padding: 16px 20px;
+  }
+  .result-err .err-title { color: #c62828; font-weight: bold; margin-bottom: 8px; }
+  .err-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 8px; }
+  .err-table th, .err-table td { padding: 6px 10px; border: 1px solid #ffcdd2; }
+  .err-table th { background: #ffcdd2; color: #b71c1c; }
+  .notes { font-size: 0.82rem; color: #666; margin-top: 10px; line-height: 1.7; }
+  .notes li { margin-bottom: 2px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size:1.5rem; color:#1a237e; margin-bottom:24px;">Excel 一括入力</h1>
+
+{% if saved %}
+<div class="result-ok">
+  ✅ {{ saved }} 件のスケジュールを登録しました。
+  <a href="{% url 'input_page:list' %}" style="margin-left:16px; color:#1b5e20;">一覧で確認 →</a>
+</div>
+{% endif %}
+
+{% if error %}
+<div class="result-err">
+  <div class="err-title">⚠ エラー</div>
+  {{ error }}
+</div>
+{% endif %}
+
+{% if row_errors %}
+<div class="result-err">
+  <div class="err-title">⚠ 以下の行にエラーがあります。修正してから再アップロードしてください。</div>
+  <table class="err-table">
+    <thead><tr><th>行</th><th>エラー内容</th></tr></thead>
+    <tbody>
+      {% for e in row_errors %}
+      <tr>
+        <td>{{ e.row }}</td>
+        <td>{% for m in e.msgs %}{{ m }}{% if not forloop.last %} / {% endif %}{% endfor %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<!-- STEP 1 -->
+<div class="excel-card">
+  <h2><span class="step-badge">1</span>テンプレートをダウンロード</h2>
+  <p style="font-size:0.9rem; color:#555; margin-bottom:16px;">
+    入力用Excelテンプレートをダウンロードします。<br>
+    タイトル・解説者・MCはドロップダウンから選択できます。
+  </p>
+  <a href="{% url 'input_page:excel_template' %}" class="btn-dl">
+    ⬇ テンプレートをダウンロード（.xlsx）
+  </a>
+  <ul class="notes" style="margin-top:16px;">
+    <li>黄色セル（日付）は必須、それ以外は任意です</li>
+    <li>タイトルなし（ゼミナールのみの日）は <b>開始・終了時刻</b> と <b>住之江ゼミナール列に「有」</b> が必須</li>
+    <li>1ファイルに最大50件まで入力できます</li>
+  </ul>
+</div>
+
+<!-- STEP 2 -->
+<div class="excel-card">
+  <h2><span class="step-badge">2</span>入力済みファイルをアップロード</h2>
+
+  <form method="post" enctype="multipart/form-data" id="uploadForm">
+    {% csrf_token %}
+
+    <div class="upload-area" id="dropZone">
+      <input type="file" name="excel_file" id="fileInput" accept=".xlsx,.xlsm">
+      <div class="upload-icon">📂</div>
+      <div class="upload-text">クリックまたはここにファイルをドラッグ</div>
+      <div class="file-name" id="fileName">ファイル未選択</div>
+    </div>
+
+    <div class="option-row" style="margin-top:20px;">
+      <input type="checkbox" name="overwrite" value="1" id="chkOverwrite">
+      <label for="chkOverwrite">同じ日付のデータを上書きする</label>
+    </div>
+    <p class="overwrite-note">※ チェックなしの場合、同じ日付のデータが既にあっても追加登録されます</p>
+
+    <button type="submit" class="btn-upload">⬆ アップロードして登録</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const dropZone  = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileName  = document.getElementById('fileName');
+
+  dropZone.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', () => {
+    fileName.textContent = fileInput.files[0]?.name ?? 'ファイル未選択';
+  });
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const dt = e.dataTransfer;
+    if (dt.files.length) {
+      fileInput.files = dt.files;
+      fileName.textContent = dt.files[0].name;
+    }
+  });
+</script>
+{% endblock %}
